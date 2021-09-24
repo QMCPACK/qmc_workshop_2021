@@ -500,18 +500,18 @@ See the individual packages for details of their licenses
 
 For visualization "VESTA" is available, and for editing vim and emacs are already installed.
 
-Programs are installed in $HOME/apps configured to be available on the $PATH . e.g. "pw.x", "VESTA".
+Programs are installed in \$HOME/apps configured to be available on the \$PATH . e.g. "pw.x", "VESTA".
 
 Install additional packages from the Ubuntu registry e.g. sudo apt-get install package_name
 
 To update the workshop files:
 
-cd $HOME/qmc_workshop_2021
+cd \$HOME/qmc_workshop_2021
 git pull
 
 To update the QMCPACK and NEXUS sources:
 
-cd $HOME/qmcpack/qmcpack
+cd \$HOME/qmcpack/qmcpack
 git pull
 EOF
 echo "Added Desktop WORKSHOP_README.txt"
