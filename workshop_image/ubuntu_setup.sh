@@ -463,14 +463,16 @@ if [ ! -e $HOME/.config/autostart/gnome-terminal-desktop ]; then
 	mkdir $HOME/.config/autostart
     fi
     
-cat >$HOME/.config/autostart/gnome-terminal-desktop<<EOF
+cat >$HOME/.config/autostart/gnome-terminal.desktop<<EOF
 [Desktop Entry]
 Type=Application
 Exec=gnome-terminal
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
+Name[en_US]=Terminal
 Name=Terminal
+Comment[en_US]=
 Comment=
 EOF
 echo "Added startup Terminal"
@@ -480,12 +482,37 @@ if [ ! -e $HOME/Desktop/WORKSHOP_README.txt ]; then
 	mkdir $HOME/Desktop
     fi
     cat >$HOME/Desktop/WORKSHOP_README.txt<<EOF
-XXX TO DO
-README FOR THE WORKSHOP IMAGE
-INSTALLED APPLICATION
-LICENSE NOTE
-GITHUB SOURCES
-WORKSHOP WEBSITE
+QMC Workshop 2021 Image based on Ubuntu 20.04 LTS
+
+https://qmc2021.ornl.gov
+
+https://github.com/QMCPACK/qmc_workshop_2021
+
+This image contains installed versions of
+
+QMCPACK
+NEXUS
+Quantum ESPRESSO (QE) 6.8
+PySCF 1.7.5
+DIRAC 21.1
+
+See the individual packages for details of their licenses
+
+For visualization "VESTA" is available, and for editing vim and emacs are already installed.
+
+Programs are installed in $HOME/apps configured to be available on the $PATH . e.g. "pw.x", "VESTA".
+
+Install additional packages from the Ubuntu registry e.g. sudo apt-get install package_name
+
+To update the workshop files:
+
+cd $HOME/qmc_workshop_2021
+git pull
+
+To update the QMCPACK and NEXUS sources:
+
+cd $HOME/qmcpack/qmcpack
+git pull
 EOF
 echo "Added Desktop WORKSHOP_README.txt"
 fi
