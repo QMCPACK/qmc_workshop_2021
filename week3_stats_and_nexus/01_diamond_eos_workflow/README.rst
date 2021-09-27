@@ -77,7 +77,7 @@ pseudo-atoms, cell axes, tiling matrix, and cell k-point grid.  The description
 of the physical system is made once and is shared between simulations in a 
 workflow.  In addition to providing the atomic and cell information explicitly, 
 this information can also be loaded directly from an appropriate ``xyz``, 
-``xsf``, ``POSCAR``, or ``cif`` file (use ``structure =`` *filepath* ``,``).
+``xsf``, ``POSCAR``, or ``cif`` file (use ``structure = /path/to/your/file,``).
 
 .. code-block:: python
 
