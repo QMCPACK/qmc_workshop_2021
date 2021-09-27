@@ -20,7 +20,7 @@
 # DIRAC 21.1
 # VESTA 3.5.7
 #
-# vim, emacs and gnuplot are installed for convenience
+# vim, emacs, xcrysden, and gnuplot are installed for convenience
 #
 # Getting started on a vanilla base Ubuntu:
 #
@@ -66,7 +66,7 @@ pip install --user spglib
 pip install --user seekpath
 
 # Nice to have tools
-sudo apt-get -y install vim emacs-nox gnuplot
+sudo apt-get -y install vim emacs-nox gnuplot xcrysden
 
 # Cleanup
 sudo apt-get -y autoremove
