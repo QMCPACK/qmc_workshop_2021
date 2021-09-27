@@ -98,7 +98,7 @@ estimated energy mean (the error-bar):
 Here the energy mean is approximately -0.7487 Ha, it's uncertainty (error-bar) is 
 about 0.004 Ha, and the variance is about 0.13(4) Ha\ :sup:`2`.  
 
-The last reported number is the energy to variance ratio (|E|/V) in Ha.  A value larger 
+The last reported number is the energy to variance ratio (\|E\|/V) in Ha.  A value larger 
 than about 0.03 Ha suggests a poor quality wavefunction in terms of variance.  Later, we 
 will introduce a Jastrow factor to improve the quality of the LiH trial wavefunction. 
 
