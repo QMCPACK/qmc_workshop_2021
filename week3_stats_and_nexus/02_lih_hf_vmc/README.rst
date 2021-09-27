@@ -95,8 +95,9 @@ estimated energy mean (the error-bar):
                                 LocalEnergy            Variance               ratio 
   runs/LiH/vmc_hf/vmc series 0 -0.748668 +/- 0.004037  0.134660 +/- 0.039404  0.1799
 
-Here the energy mean is approximately -0.7487 Ha, it's uncertainty (error-bar) is 
-about 0.004 Ha, and the variance is about 0.13(4) Ha\ :sup:`2`.  
+Here the energy mean (:math:`\lbrace E\rbrace`) is approximately -0.7487 Ha, it's uncertainty 
+(:math:`\sigma_e`, error-bar) is about 0.004 Ha, and the energy variance (:math:`\sigma^2`) is 
+about 0.13(4) Ha\ :sup:`2`.  
 
 The last reported number is the energy to variance ratio (\|E\|/V) in Ha.  A value larger 
 than about 0.03 Ha suggests a poor quality wavefunction in terms of variance.  Later, we 
