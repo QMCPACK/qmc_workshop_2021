@@ -95,13 +95,27 @@ estimated energy mean (the error-bar):
                                 LocalEnergy            Variance               ratio 
   runs/LiH/vmc_hf/vmc series 0 -0.748668 +/- 0.004037  0.134660 +/- 0.039404  0.1799
 
-Here the energy mean (:math:`\lbrace E\rbrace`) is approximately -0.7487 Ha, it's uncertainty 
-(:math:`\sigma_e`, error-bar) is about 0.004 Ha, and the energy variance (:math:`\sigma^2`) is 
-about 0.13(4) Ha\ :sup:`2`.  
+Here the energy mean is approximately -0.7487 Ha, it's uncertainty is about 0.004 Ha, and 
+the energy variance is about 0.13(4) Ha\ :sup:`2`. 
 
-The last reported number is the energy to variance ratio (\|E\|/V) in Ha.  A value larger 
-than about 0.03 Ha suggests a poor quality wavefunction in terms of variance.  Later, we 
-will introduce a Jastrow factor to improve the quality of the LiH trial wavefunction. 
+Is the estimated energy mean consistent with the Hartree-Fock value?  Let's find the 
+rough statistical significance by dividing the energy difference by the error bar:
+
+.. code-block:: bash
+  
+   |-0.748668+0.749663|/0.004 = 0.25
+
+The deviation is about 0.25 sigma.  Values that are actually equal should be expected to 
+disagree by more than 1-sigma about 1/3 of the time (68% confidence) and by more than 
+2-sigma about 1/20 of the time (95% confidence).  A deviation of greater than 3-sigma 
+should always be treated as being (i.e. assumed to be) real.  The deviation we see here 
+(0.25 sigma) is consistent with the VMC energy being equal to the deterministic 
+Hartree-Fock one.
+
+As an aside, the last number reported by ``qmca`` above is the energy to variance ratio 
+(\|E\|/V) in Ha.  A value larger than about 0.03 Ha suggests a poor quality wavefunction 
+in terms of variance.  Later, we will introduce a Jastrow factor to improve the quality 
+of the LiH trial wavefunction. 
 
 
 Estimating VMC autocorrelation time
