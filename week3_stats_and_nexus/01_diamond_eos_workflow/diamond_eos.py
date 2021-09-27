@@ -11,10 +11,10 @@ from nexus import generate_pwscf
 
 # User settings
 settings(
-    pseudo_dir = './pseudopotentials', # Pseudopotential directory
-    results    = '',                   # Don't store results separately
-    sleep      = 3,                    # Workflow polling frequency (s)
-    machine    = 'ws'+str(cores),      # Executing on simple workstation
+    pseudo_dir = '../pseudopotentials', # Pseudopotential directory
+    results    = '',                    # Don't store results separately
+    sleep      = 3,                     # Workflow polling frequency (s)
+    machine    = 'ws'+str(cores),       # Executing on simple workstation
     )
 
 # Equilibrium lattice constant of diamond (Angstrom)

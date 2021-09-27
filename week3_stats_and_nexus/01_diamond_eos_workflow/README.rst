@@ -63,7 +63,7 @@ number of seconds between polling checks on simulation run status.
 .. code-block:: python
 
     settings(
-        pseudo_dir = './pseudopotentials', # Directory with pseudo files
+        pseudo_dir = '../pseudopotentials', # Directory with pseudo files
         results    = '',     # Do not copy sim results into separate directory 
         sleep      = 3,      # Poll simulation status every 3 seconds
         machine    = 'ws12', # Machine is a 12 core workstation
