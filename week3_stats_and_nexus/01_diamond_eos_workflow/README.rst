@@ -2,8 +2,10 @@ Nexus Example: Diamond Equation of State with Quantum Espresso
 ==============================================================
 
 In this example, we give an introduction to Nexus by using it to run a simple 
-system (diamond) with Quantum Espresso.  The Nexus script we will use is 
-``diamond_eos.py`` in the current directory.
+system (diamond) with Quantum Espresso.  The goal is to calculate the equation 
+of state (energy vs. lattice constant) and determine the equilibrium lattice 
+constant.  The Nexus script we will use is ``diamond_eos.py`` in the current directory.
+Reference data for this example can be found in the ``reference`` directory.
 
 If you have not used Nexus before, we recommend you briefly read the 
 *Background* section below.  Otherwise, feel free to proceed directly 
@@ -18,12 +20,10 @@ Each Nexus script has five main sections:
 1. Module imports from Nexus (and/or other Python modules).
 2. Setting variables to provide information and control Nexus' behavior.
 3. Specifying the physical system (diamond in this case).
-4. Specifying information for all simulation workflows (a single SCF calculation with QE here).
+4. Specifying information for all simulation workflows (PBE calculations with QE here).
 5. Execution of the simulation workflows.
 
-These five sections are illustrated below using the ``diamond_eos.py`` as an 
-example:
-
+These five sections are illustrated below using a simplified version of the ``diamond_eos.py`` as an example:
 
 .. code-block:: python
 
@@ -63,10 +63,10 @@ number of seconds between polling checks on simulation run status.
 .. code-block:: python
 
     settings(
-        pseudo_dir = '../../pseudopotentials', # directory with pseudo files
-        results    = '',     # do not copy sim results into separate directory 
-        sleep      = 3,      # poll simulation status every 3 seconds
-        machine    = 'ws16', # machine is a 16 core workstation
+        pseudo_dir = './pseudopotentials', # Directory with pseudo files
+        results    = '',     # Do not copy sim results into separate directory 
+        sleep      = 3,      # Poll simulation status every 3 seconds
+        machine    = 'ws12', # Machine is a 12 core workstation
         )
 
 **generate_physical_system function**
@@ -77,25 +77,27 @@ pseudo-atoms, cell axes, tiling matrix, and cell k-point grid.  The description
 of the physical system is made once and is shared between simulations in a 
 workflow.  In addition to providing the atomic and cell information explicitly, 
 this information can also be loaded directly from an appropriate ``xyz``, 
-``xsf``, ``POSCAR``, or ``cif`` file (use ``structure=``*filepath*``,``).
+``xsf``, ``POSCAR``, or ``cif`` file (use ``structure =`` *filepath* ``,``).
 
 .. code-block:: python
 
-    # physical system object is assigned to a local variable named "system"
+    # Physical system object is assigned to a local variable named "system"
     system = generate_physical_system(
-        # distances are in Angstrom units
+        # Distances are in Angstrom units
         units    = 'A',
-        # cell axes (can also provide as 3x3 list or array)
+        # Cell axes 
+        axes  = [[a/2, a/2,   0],   
+                 [  0, a/2, a/2],
+                 [a/2,   0, a/2]],
+        # Element names
+        elem  = ['C','C'],      
+        # Element positions (crystal units)
+        posu  = [[0.00, 0.00, 0.00],
+                 [0.25, 0.25, 0.25]],
         axes     = '''1.785   1.785   0.000
                       0.000   1.785   1.785
                       1.785   0.000   1.785''',
-        # atomic species and positions
-        #   can also be provided separately (elem=list/array, pos=list/array)
-        elem_pos = '''
-                   C  0.0000  0.0000  0.0000
-                   C  0.8925  0.8925  0.8925
-                   ''',
-        # pseudopotential for C has Zeff=4
+        # Pseudopotential for C has Zeff=4
         C        = 4,
         )
 
@@ -108,19 +110,19 @@ simulation-specific keywords to generate the input file.
 .. code-block:: python
 
     scf = generate_pwscf(
-        identifier   = 'scf',         # prefix in/out files with "scf"
-        path         = 'diamond/scf', # run directory location
-        job          = ...            # job details, see "job function" below
-        input_type   = 'generic',     # use standard inputs below
-        # all PW inputs are allowed
-        calculation  = 'scf',         # run an scf calculation
-        input_dft    = 'lda',         # use lda functional
-        ecutwfc      = 200,           # 200 Ry orbital plane-wave cutoff
-        conv_thr     = 1e-8,          # convergence threshold of 1e-8 Ry
-        system       = system,        # atom/cell information
-        pseudos      = ['C.BFD.upf'], # pseudopotential files
-        kgrid        = (4,4,4),       # 4x4x4 Monkhorst-Pack grid
-        kshift       = (0,0,0),       # centered at Gamma
+        identifier   = 'scf',           # Prefix in/out files with "scf"
+        path         = 'diamond/scf',   # Run directory location
+        job          = ...              # Job details, see "job function" below
+        input_type   = 'generic',       # Use standard inputs below
+        # All PW inputs are allowed     
+        calculation  = 'scf',           # Run an scf calculation
+        input_dft    = 'pbe',           # Use pbe functional
+        ecutwfc      = 200,             # 200 Ry orbital plane-wave cutoff
+        conv_thr     = 1e-8,            # Convergence threshold of 1e-8 Ry
+        system       = system,          # Atom/cell information
+        pseudos      = ['C.ccECP.upf'], # Pseudopotential files
+        kgrid        = (4,4,4),         # 4x4x4 Monkhorst-Pack grid
+        kshift       = (0,0,0),         # centered at Gamma
         )
 
 **job function**
@@ -133,8 +135,8 @@ submission files are automatically created and executed.
 
 .. code-block:: python
 
-    job(cores=16,  # run on all 16 cores (16 mpi tasks)
-        app='pw.x' # path to PW executable (defaults to pw.x)
+    job(cores=12,  # Run on all 12 cores (12 mpi tasks)
+        app='pw.x' # Path to PW executable (defaults to pw.x)
         ),
 
 **run_project function**
@@ -151,12 +153,16 @@ all simulation runs will also be complete.
 
 .. code-block:: python
 
-    # run the simulation workflows specified earlier
+    # Run the simulation workflows specified earlier
     run_project()
 
 
 Running the Example
 -------------------
+The script we will use differs from the simple example above in that multiple 
+calculations will be performed since our goal is to obtain the equation of 
+state (energy vs. lattice constant) curve of diamond.  In ``diamond_eos.py``, 
+you will notice a loop over multiple scaling factors for the cell.
 
 First run the Nexus script with the ``status_only`` flag set.  This will show 
 the queue of jobs that Nexus is managing, including their current status.
@@ -169,12 +175,18 @@ the queue of jobs that Nexus is managing, including their current status.
       
       cascade status 
         setup, sent_files, submitted, finished, got_output, analyzed, failed 
-        000000  0  ------    scf     ./runs/diamond/scf  
+        000000  0  ------    scf     ./runs/a_3.0345  
+        000000  0  ------    scf     ./runs/a_3.2130  
+        000000  0  ------    scf     ./runs/a_3.3915  
+        000000  0  ------    scf     ./runs/a_3.5700  
+        000000  0  ------    scf     ./runs/a_3.7485  
+        000000  0  ------    scf     ./runs/a_3.9270  
+        000000  0  ------    scf     ./runs/a_4.1055  
         setup, sent_files, submitted, finished, got_output, analyzed, failed 
 
-The QE SCF run will be performed in ``./runs/diamond/scf`` and the input and 
-output files will be prefixed with ``scf`` (scf.in and scf.out).  The status
-flags, represented as ``0`` or ``1`` are described below:
+The QE PBE SCF runs will be performed in the ``./runs/a_*`` directories and 
+the input and output files will be prefixed with ``scf`` (scf.in and scf.out).  
+The statusflags, represented as ``0`` or ``1`` are described below:
 
 **0**\ 00000  0  ------  **setup**: Input files (have/have not) been written.
 
@@ -203,26 +215,27 @@ Now run the Nexus script, allowing it to submit and manage the SCF calculation:
     starting runs:
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
     elapsed time 0.0 s  memory 102.13 MB 
-      Entering ./runs/diamond/scf 0 
+      ...
+      Entering ./runs/diamond/a_3.5700 0 
         **writing input files**  0 scf       **\# write input file**  
-      Entering ./runs/diamond/scf 0 
+      Entering ./runs/diamond/a_3.5700 0 
         **sending required files**  0 scf    **\# copy in pseudo files**
         **submitting job**  0 scf            **\# submit the job**
-      Entering ./runs/diamond/scf 0 
+      Entering ./runs/diamond/a_3.5700 0 
         Executing:  
           **export OMP_NUM_THREADS=1**       **\# local execution**
-          **mpirun -np 16 pw.x -input scf.in** 
+          **mpirun -np 12 pw.x -input scf.in** 
   
     **elapsed time 3.0 s**  memory 102.23 MB     **\# single monitoring poll, short run** 
-      Entering ./runs/diamond/scf 0 
+      Entering ./runs/diamond/a_3.5700 0 
         **copying results**  0 scf           **\# copy output files** 
-      Entering ./runs/diamond/scf 0 
+      Entering ./runs/diamond/a_3.5700 0 
         **analyzing**  0 scf                 **\# analyze output data**
   
     **Project finished**                     **\# all simulations finished**
 
 
-Check the status of the run.  Each simulation step should have a status of 
+Check the status of the runs.  Each simulation step should have a status of 
 ``1`` and ``failed`` should have a status of ``0``.  The process id should 
 also be populated.
 
@@ -234,74 +247,53 @@ also be populated.
     
     cascade status 
       setup, sent_files, submitted, finished, got_output, analyzed, failed 
-      111111  0  14724     scf     ./runs/diamond/scf  
+      111111  0  31916     scf     ./runs/a_3.0345  
+      111111  0  31994     scf     ./runs/a_3.2130  
+      111111  0  32058     scf     ./runs/a_3.3915  
+      111111  0  32120     scf     ./runs/a_3.5700  
+      111111  0  32179     scf     ./runs/a_3.7485  
+      111111  0  32240     scf     ./runs/a_3.9270  
+      111111  0  32300     scf     ./runs/a_4.1055  
       setup, sent_files, submitted, finished, got_output, analyzed, failed 
 
 
-The QE run should have completed successfully in ``./runs/diamond/scf``:
+Each QE run should have completed successfully, e.g. with files like those in 
+``./runs/a_3.5700``:
 
 .. parsed-literal::
 
-    >ls -lrt runs/diamond/scf/
-    total 352
-    -rw-r--r-- 1 j1k users 326149 Apr 17 14:08 C.BFD.upf       **\# BFD PP copied locally**
-    -rw-r--r-- 1 j1k users     89 May  7 12:05 scf.struct.xyz  **\# atomic structure file**
-    -rw-r--r-- 1 j1k users    264 May  7 12:05 scf.struct.xsf  **\# atomic structure file**
-    -rw-r--r-- 1 j1k users    780 May  7 12:05 scf.in          **\# QE input file**
-    -rw-r--r-- 1 j1k users      0 May  7 12:05 scf.err         **\# stderr output from QE**
-    -rw-r--r-- 1 j1k users  10611 May  7 12:05 scf.out         **\# stdout output from QE**
-    drwxr-xr-x 3 j1k users   4096 May  7 12:05 pwscf_output    **\# QE outdir**
-    drwxr-xr-x 2 j1k users   4096 May  7 12:05 sim_scf         **\# Nexus sim state file**
+    >ls -lrt runs/a_3.5700/
+    total 224
+    -rw-r--r-- 1 j1k users 192747 Jul 29 14:53 C.ccECP.upf     **\# ccECP PP copied locally**  
+    -rw-r--r-- 1 j1k users     89 Sep 27 13:35 scf.struct.xyz  **\# atomic structure file**    
+    -rw-r--r-- 1 j1k users    264 Sep 27 13:35 scf.struct.xsf  **\# atomic structure file**    
+    -rw-r--r-- 1 j1k users    756 Sep 27 13:35 scf.in          **\# QE input file**            
+    -rw-r--r-- 1 j1k users      0 Sep 27 13:35 scf.err         **\# stderr output from QE**    
+    -rw-r--r-- 1 j1k users  11005 Sep 27 13:35 scf.out         **\# stdout output from QE**    
+    drwxr-xr-x 3 j1k users   4096 Sep 27 13:35 pwscf_output    **\# QE outdir**                
+    drwxr-xr-x 2 j1k users   4096 Sep 27 13:35 sim_scf         **\# Nexus sim state file**     
 
-Check the generated input file:
-
-.. code-block:: bash
-
-    >cat runs/diamond/scf/scf.in 
-    
-    &CONTROL
-       calculation     = 'scf'
-       outdir          = 'pwscf_output'
-       prefix          = 'pwscf'
-       pseudo_dir      = './'
-    /
-    
-    &SYSTEM
-       celldm(1)       = 1.0
-       ecutwfc         = 200
-       ibrav           = 0
-       input_dft       = 'lda'
-       nat             = 2
-       nspin           = 1
-       ntyp            = 1
-       tot_charge      = 0
-    /
-    
-    &ELECTRONS
-       conv_thr        = 1e-08
-    /
-    
-    
-    ATOMIC_SPECIES 
-       C  12.011 C.BFD.upf
-    
-    ATOMIC_POSITIONS alat
-       C        0.00000000       0.00000000       0.00000000 
-       C        1.68658058       1.68658058       1.68658057 
-    
-    K_POINTS automatic
-       4 4 4  0 0 0 
-    
-    CELL_PARAMETERS cubic
-             3.37316115       3.37316115      -0.00000000 
-             0.00000000       3.37316115       3.37316115 
-             3.37316115       0.00000000       3.37316115 
-
-The total energy for the LDA SCF run should be similar to the following:
+Now we can obtain the PBE energy vs. lattice constant for diamond:
 
 .. code-block:: bash
 
-    >grep '!  ' runs/diamond/scf/scf.out 
-    
-    !    total energy              =     -22.75252416 Ry
+    >grep '! ' runs/a_*/*.out
+    runs/a_3.0345/scf.out:!    total energy              =     -22.39012981 Ry
+    runs/a_3.2130/scf.out:!    total energy              =     -22.60492242 Ry
+    runs/a_3.3915/scf.out:!    total energy              =     -22.71014282 Ry
+    runs/a_3.5700/scf.out:!    total energy              =     -22.73944516 Ry
+    runs/a_3.7485/scf.out:!    total energy              =     -22.71717281 Ry
+    runs/a_3.9270/scf.out:!    total energy              =     -22.66103531 Ry
+    runs/a_4.1055/scf.out:!    total energy              =     -22.58424388 Ry
 
+Collect the lattice constants (first column) and total energies (second column) into a file.
+Then run the `fit_eos.py` script on the data to perform a simple fit of the data to extract 
+the equilibrium lattice constant.  
+
+.. code-block:: bash
+
+   >fit_eos.py Edata.txt
+
+   Equilibrium lattice constant: 3.5687 A
+
+For reference, the equilibrium lattice constant of diamond measured in experiment is 3.567 Angstrom.
