@@ -362,11 +362,17 @@ fi
 
 cd $HOME
 echo --- Shell setup `date`
+cp -p .bashrc .bashrc_safe
 HAVESETUP=`grep -c START-QMCPACK-RELATED $HOME/.bashrc`
 if  [ $HAVESETUP -eq 0 ]; then
-    echo --- Modifying .bashrc to add PATHs
+    echo --- No existing .bashrc entries
 cat >>$HOME/.bashrc <<EOF
 # START-QMCPACK-RELATED
+# END-QMCPACK-RELATED
+EOF
+fi
+echo --- Updating .bashrc entries
+cat >__insert_this<<EOF
 # QMCPACK and NEXUS
 export PATH=\$HOME/apps/qmcpack/bin:\$PATH
 export PATH=\$HOME/apps/qmcpack/qmcpack/nexus/bin:\$PATH
@@ -384,11 +390,15 @@ export LD_LIBRARY_PATH=\$HOME/apps/pyscf/pyscf/opt/lib:\$LD_LIBRARY_PATH
 export PATH=\$HOME/apps/dirac/bin:\$PATH
 # VESTA
 export PATH=\$HOME/apps/vesta/VESTA-gtk3:\$PATH
-# END-QMCPACK-RELATED
 EOF
-else
-    echo --- .bashrc already contains setup information. Not modifying.
-fi
+lead='^# START-QMCPACK-RELATED'
+tail='^# END-QMCPACK-RELATED'
+output=$(sed -e "/$lead/,/$tail/{ /$lead/{p; r __insert_this
+        }; /$tail/p; d }" .bashrc)
+echo "$output" >.bashrc
+rm -f __insert_this
+
+
 # Add setup info to current shell for convenience
 # QMCPACK and NEXUS
 export PATH=$HOME/apps/qmcpack/bin:$PATH
