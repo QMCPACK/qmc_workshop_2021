@@ -16,7 +16,7 @@
 #
 # QMCPACK and NEXUS workflow software
 # Quantum ESPRESSO (QE) 6.8
-# PySCF 1.7.5
+# PySCF 1.7.6
 # DIRAC 21.1
 # VESTA 3.5.7
 #
@@ -139,11 +139,11 @@ cd $HOME/apps/pyscf
 
 #git clone https://github.com/pyscf/pyscf.git
 #cd pyscf
-#git checkout v1.7.5 # Released 2020-10-04
-wget https://github.com/pyscf/pyscf/archive/v1.7.5.tar.gz
-tar xvf v1.7.5.tar.gz
-rm -f v1.7.5.tar.gz
-mv pyscf-1.7.5 pyscf
+#git checkout v1.7.6 # Released 2020-10-04
+wget https://github.com/pyscf/pyscf/archive/v1.7.6.tar.gz
+tar xvf v1.7.6.tar.gz
+rm -f v1.7.6.tar.gz
+mv pyscf-1.7.6 pyscf
 cd pyscf
     
 topdir=`pwd`
@@ -203,6 +203,7 @@ mkdir build
 cd build
 cmake -DBUILD_LIBCINT=0 -DBUILD_LIBXC=0 -DBUILD_XCFUN=0 -DCMAKE_INSTALL_PREFIX:PATH=$here ..
 make -j 4
+make install
 echo --- PySCF build done
 # Setup PATHS so that QMCPACK cmake will detect PySCF
 export PYTHONPATH=$topdir:$PYTHONPATH
@@ -374,7 +375,7 @@ export PYTHONPATH=\$HOME/apps/qmcpack/qmcpack/utils/afqmctools:\$PYTHONPATH
 # QE
 export PATH=\$HOME/apps/qe-6.8/bin:\$PATH
 # PySCF
-export PYTHONPATH=\$HOME/apps/pyscf:\$PYTHONPATH
+export PYTHONPATH=\$HOME/apps/pyscf/pyscf:\$PYTHONPATH
 export PYTHONPATH=\$HOME/apps/qmcpack/qmcpack/src/QMCTools:\$PYTHONPATH
 export LD_LIBRARY_PATH=\$HOME/apps/pyscf/pyscf/opt/lib:\$LD_LIBRARY_PATH
 ## QP
@@ -396,7 +397,7 @@ export PYTHONPATH=$HOME/apps/qmcpack/qmcpack/nexus/lib:$PYTHONPATH
 # QE
 export PATH=$HOME/apps/qe-6.8/bin:$PATH
 # PySCF
-export PYTHONPATH=$HOME/apps/pyscf:$PYTHONPATH
+export PYTHONPATH=$HOME/apps/pyscf/pyscf:$PYTHONPATH
 export PYTHONPATH=$HOME/apps/qmcpack/qmcpack/src/QMCTools:$PYTHONPATH
 export LD_LIBRARY_PATH=$HOME/apps/pyscf/pyscf/opt/lib:$LD_LIBRARY_PATH
 ## QP
@@ -448,7 +449,7 @@ This image contains installed versions of
 QMCPACK
 NEXUS
 Quantum ESPRESSO (QE) 6.8
-PySCF 1.7.5
+PySCF 1.7.6
 DIRAC 21.1
 
 See the individual packages for details of their licenses
