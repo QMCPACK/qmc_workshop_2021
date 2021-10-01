@@ -59,17 +59,24 @@ sudo apt-get -y update
 sudo apt-get -y install build-essential gcc make perl dkms # Needed for VirtualBox Guest additions
 sudo apt-get -y install cmake g++ gfortran libopenmpi-dev libboost-dev libhdf5-dev libxml2-dev fftw3-dev libopenblas-dev
 
-# Requirements for full NEXUS demo:
-sudo apt-get -y install python-is-python3 python3-pip python3-numpy python3-scipy python3-matplotlib python3-pydot python3-pandas python3-h5py
+sudo apt-get -y install python-is-python3 python3-pip
+#python3-numpy python3-scipy python3-matplotlib python3-pydot python3-pandas python3-h5py
+# Nice to have tools
+sudo apt-get -y install vim emacs-nox gnuplot xcrysden
+# Cleanup
+sudo apt-get -y autoremove
+# Ubuntu repos have too old h5py<v3.0
+# Use pip packages for consistency
+pip install --user numpy
+pip install --user scipy
+pip install --user matplotlib
+pip install --user pydot
+pip install --user pandas
+pip install --user h5py 
 pip install --user mpi4py
 pip install --user spglib
 pip install --user seekpath
 
-# Nice to have tools
-sudo apt-get -y install vim emacs-nox gnuplot xcrysden
-
-# Cleanup
-sudo apt-get -y autoremove
 fi
 
 #
