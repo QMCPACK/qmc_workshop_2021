@@ -51,7 +51,7 @@ of QMCPACK can be provided.
 cd $HOME
 sudo apt-get -y install git
 git clone https://github.com/QMCPACK/qmc_workshop_2021.git
-nohup ./qmc_workshop_2021/workshop_image/setup_ubuntu.sh >& out&
+nohup ./qmc_workshop_2021/workshop_image/ubuntu_setup.sh >& out&
 tail -f out
 ```
 * Reboot when finished (Due to updates+required kernel extensions for Guest additions)
