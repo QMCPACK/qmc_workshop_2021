@@ -16,7 +16,7 @@
 #
 # QMCPACK and NEXUS workflow software
 # Quantum ESPRESSO (QE) 6.8
-# PySCF 1.7.6
+# PySCF 2.0.0a
 # DIRAC 21.1
 # VESTA 3.5.7
 #
@@ -76,7 +76,8 @@ pip install --user h5py
 pip install --user mpi4py
 pip install --user spglib
 pip install --user seekpath
-
+pip install --user cif2cell
+pip install --user pycifrw
 fi
 
 #
@@ -146,11 +147,11 @@ cd $HOME/apps/pyscf
 
 #git clone https://github.com/pyscf/pyscf.git
 #cd pyscf
-#git checkout v1.7.6 # Released 2020-10-04
-wget https://github.com/pyscf/pyscf/archive/v1.7.6.tar.gz
-tar xvf v1.7.6.tar.gz
-rm -f v1.7.6.tar.gz
-mv pyscf-1.7.6 pyscf
+#git checkout v2.0.0a # Released 2020-10-04
+wget https://github.com/pyscf/pyscf/archive/v2.0.0a.tar.gz
+tar xvf v2.0.0a.tar.gz
+rm -f v2.0.0a.tar.gz
+mv pyscf-2.0.0a pyscf
 cd pyscf
     
 topdir=`pwd`
@@ -287,7 +288,8 @@ if [ ! -e bin/qmcpack ]; then
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/apps/qmcpack -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_C_COMPILER=mpicc -DQE_BIN=$HOME/apps/qe-6.8/build/bin ../qmcpack/
     time make -j 4
     make install
-    ctest -L unit
+#    ctest -L unit
+ctest -L deterministic
     cd ..
     rm -r -f build
 fi
@@ -301,7 +303,8 @@ if [ ! -e bin/qmcpack_complex ]; then
     cd build_complex
     cmake -DQMC_COMPLEX=1 -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_C_COMPILER=mpicc -DQE_BIN=$HOME/apps/qe-6.8/build/bin ../qmcpack/
     time make -j 4
-    ctest -L unit
+    #ctest -L unit
+    ctest -L deterministic 
     cp -p bin/qmcpack_complex $HOME/apps/qmcpack/bin
 #    cd ../build/bin
 #    ln -sf ../../build_complex/bin/qmcpack_complex qmcpack_complex
@@ -466,7 +469,7 @@ This image contains installed versions of
 QMCPACK
 NEXUS
 Quantum ESPRESSO (QE) 6.8
-PySCF 1.7.6
+PySCF 2.0.0a
 DIRAC 21.1
 
 See the individual packages for details of their licenses
