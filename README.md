@@ -26,7 +26,7 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
  * Speaker: Joshua Townsend
  * Link to slides. Link to YouTube
 ## Week 6 / 9 November : Pseudopotentials in QMC. Observables
- * Speaker: Lubos Mitas and Gani Annaberdiyev
+ * Speakers: Lubos Mitas, Gani Annaberdiyev, and Chandler Bennett
  * Link to slides. Link to YouTube
 ## Week 7 / 16 November : Guest lecture and Research Presentations
  * Speakers: [Claudia Filippi](https://www.utwente.nl/en/tnw/ccp/people/academic-staff/filippi/) and TBD 
