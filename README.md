@@ -12,7 +12,7 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
 
 ## Week 1 / 5 October : Workshop Introduction and Kickoff
  * Speaker: Paul Kent
- * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week1_kickoff/week1_kickoff.pdf). Link to YouTube
+ * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week1_kickoff/week1_kickoff.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=CP2NV834VfQ)
 ## Week 2 / 12 October : Fundamentals of Quantum Monte Carlo
  * Speaker: Paul Kent
  * Link to slides. Link to YouTube

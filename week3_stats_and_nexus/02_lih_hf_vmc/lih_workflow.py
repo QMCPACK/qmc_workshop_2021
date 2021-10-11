@@ -77,7 +77,7 @@ qmc = generate_qmcpack(
     )
 
 
-# Lab: estimating VMC autocorrelation time
+# Lab: estimate VMC autocorrelation time
 qmc = generate_qmcpack(
     identifier   = 'vmc',
     path         = 'LiH/vmc_ac',
@@ -96,7 +96,7 @@ qmc = generate_qmcpack(
     )
 
 
-# Lab: obtaining more precise estimates via the Central Limit Theorem
+# Lab: obtain more precise estimates via the Central Limit Theorem
 qmc = generate_qmcpack(
     identifier   = 'vmc_1x',
     path         = 'LiH/vmc_clt',
