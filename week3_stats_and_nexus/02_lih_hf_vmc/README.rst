@@ -93,9 +93,9 @@ estimated energy mean (the error-bar):
 
   >qmca -q ev -e 30 runs/LiH/vmc_hf/*scalar*
                                 LocalEnergy            Variance               ratio 
-  runs/LiH/vmc_hf/vmc series 0 -0.748668 +/- 0.004037  0.134660 +/- 0.039404  0.1799
+  runs/LiH/vmc_hf/vmc series 0 -0.747790 +/- 0.012450  0.130273 +/- 0.036354  0.1742
 
-Here the energy mean is approximately -0.7487 Ha, it's uncertainty is about 0.004 Ha, and 
+Here the energy mean is approximately -0.748 Ha, it's uncertainty is about 0.01 Ha, and 
 the energy variance is about 0.13(4) Ha\ :sup:`2`. 
 
 Is the estimated energy mean consistent with the Hartree-Fock value?  Let's find the 
@@ -103,14 +103,15 @@ rough statistical significance by dividing the energy difference by the error ba
 
 .. code-block:: bash
   
-   |-0.748668+0.749663|/0.004 = 0.25
+   |-0.747790+0.749663|/0.012 = 0.16
 
-The deviation is about 0.25 sigma.  Values that are actually equal should be expected to 
+The deviation is about 0.16 sigma.  Values that are actually equal should be expected to 
 disagree by more than 1-sigma about 1/3 of the time (68% confidence) and by more than 
 2-sigma about 1/20 of the time (95% confidence).  A deviation of greater than 3-sigma 
 should always be treated as being (i.e. assumed to be) real.  The deviation we see here 
-(0.25 sigma) is consistent with the VMC energy being equal to the deterministic 
-Hartree-Fock one.
+(0.16 sigma) is consistent with the VMC energy being equal to the deterministic 
+Hartree-Fock one.  The answer you see will vary each time you run with a different 
+random seed.
 
 As an aside, the last number reported by ``qmca`` above is the energy to variance ratio 
 (\|E\|/V) in Ha.  A value larger than about 0.03 Ha suggests a poor quality wavefunction 
@@ -128,7 +129,7 @@ The autocorrelation time can be understood to mean the number of sequential Mont
 samples that are not statistically independent.
 
 Consider now the results in `runs/LiH/vmc_ac`, where we have run 9 identical VMC 
-calculations (apart from differing random number streams) in sequence:
+calculations, apart from differing random number streams, in sequence:
 
 .. code-block:: bash
 
@@ -144,6 +145,8 @@ calculations (apart from differing random number streams) in sequence:
    runs/LiH/vmc_ac/vmc series 7  LocalEnergy =  -0.782703 +/- 0.005890    2.9 
    runs/LiH/vmc_ac/vmc series 8  LocalEnergy =  -0.792107 +/- 0.007039    2.4 
 
+These runs are using a previously optimized Jastrow factor to obtain a better (lower) 
+energy and reduce the variance.
 Notice that the estimated errorbar differs by up to a factor of 3 between the runs. 
 Each run has the same number of Monte Carlo samples, so how can this be?  The answer 
 lies in the estimated autocorrelation time, which is shown in the column on the right. 
