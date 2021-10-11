@@ -121,8 +121,77 @@ of the LiH trial wavefunction.
 Estimating VMC autocorrelation time
 -----------------------------------
 
+In our estimates of the energy errorbar above, we paid little attention to an important 
+aspect: serial auto-correlation of the statistical data.  Auto-correlation arises from 
+the close relationship between subsequent steps in the electronic random walk. 
+The autocorrelation time can be understood to mean the number of sequential Monte Carlo 
+samples that are not statistically independent.
+
+Consider now the results in `runs/LiH/vmc_ac`, where we have run 9 identical VMC 
+calculations (apart from differing random number streams) in sequence:
+
+.. code-block:: bash
+
+   >qmca -q e --sac runs/LiH/vmc_ac/*scalar*
+    
+   runs/LiH/vmc_ac/vmc series 0  LocalEnergy =  -0.783387 +/- 0.004707    3.1 
+   runs/LiH/vmc_ac/vmc series 1  LocalEnergy =  -0.782730 +/- 0.004238    2.9 
+   runs/LiH/vmc_ac/vmc series 2  LocalEnergy =  -0.769539 +/- 0.008416    8.6 
+   runs/LiH/vmc_ac/vmc series 3  LocalEnergy =  -0.767829 +/- 0.009536    8.4 
+   runs/LiH/vmc_ac/vmc series 4  LocalEnergy =  -0.785143 +/- 0.006526    6.1 
+   runs/LiH/vmc_ac/vmc series 5  LocalEnergy =  -0.790432 +/- 0.003261    1.5 
+   runs/LiH/vmc_ac/vmc series 6  LocalEnergy =  -0.787546 +/- 0.005411    4.3 
+   runs/LiH/vmc_ac/vmc series 7  LocalEnergy =  -0.782703 +/- 0.005890    2.9 
+   runs/LiH/vmc_ac/vmc series 8  LocalEnergy =  -0.792107 +/- 0.007039    2.4 
+
+Notice that the estimated errorbar differs by up to a factor of 3 between the runs. 
+Each run has the same number of Monte Carlo samples, so how can this be?  The answer 
+lies in the estimated autocorrelation time, which is shown in the column on the right. 
+The estimated autocorrelation times vary substantially, due to the relatively short 
+nature of the runs. Short runs often underestimate the autocorrelation time and 
+thus lead to overly optimistic estimates of the statistical errorbar (underestimated 
+errorbar).
+
+The answer is to run longer, i.e. with more sequential statistical samples (`blocks` 
+in QMCPACK parlance).  In this example, a more precise estimate of the autocorrelation 
+can be obtained from the dataset above by joining together all of the data into a single 
+set, as follows:
+
+.. code-block:: bash
+
+   >qmca -e 30 -q e --sac -j '0 8' runs/LiH/vmc_ac/*scalar*
+
+   runs/LiH/vmc_ac/vmc series 0  LocalEnergy =  -0.782692 +/- 0.002478    5.1
+
+Try varying this example by increasing the number of blocks provided 
+in each VMC input section to confirm whether an autocorrelation time of about 5 
+is truly accurate.  Also try increasing the VMC timestep to explore what impact 
+it has on the autocorrelation time.  Remember to also change the path, e.g. 
+`path='LiH/vmc_ac2'` etc., when rerunning.
+
 
 Obtaining more precise estimates: the Central Limit Theorem
 -----------------------------------------------------------
 
+As you've noticed, the numerical precision of QMC algorithms is limited by 
+the size of the statistical errorbar about the mean.  More precise estimates 
+can be obtained by generating more statistically independent samples.
 
+The Central Limit Theorem allows us to predict how many samples will be required 
+to reach a desired statistical precision.  In general, the size of the errorbar obtained 
+will be inversely proportional to the square root of the number of samples. 
+
+In this example, we demonstrate that relationship explicitly by performing 
+two VMC runs: the first representing a baseline and the second with 9x more 
+samples (and 9x more computational cost).  The relevant data are in `runs/LiH/vmc_clt`:
+
+.. code-block:: bash
+
+   >qmca -e 30 -q e runs/LiH/vmc_clt/*scalar*
+   runs/LiH/vmc_clt/vmc_1x  series 0  LocalEnergy =  -0.784283 +/- 0.001517 
+   runs/LiH/vmc_clt/vmc_9x  series 0  LocalEnergy =  -0.784239 +/- 0.000476
+
+Notice that the 9x longer run produced an errorbar about 3x smaller (roughly 0.5 mHa 
+vs. 1.5 mHa for the baseline run).  How much longer than the baseline would you have 
+to run if you wanted an errorbar of 0.2 mHa?  Make a new run based on your estimate 
+to confirm.
