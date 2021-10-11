@@ -1,6 +1,9 @@
 H2O molecule: VMC with QMCPACK and statistical analysis
 =======================================================
 
+qmca -q e -t --sac runs/H2O/dmc_J2/dmc.s00?.scalar.dat
+qdens -f xsf -e 10 -r 2 -i runs/H2O/dmc_J2/dmc.in.xml --noplot
+
 In this example, you will calculate the the Hartree-Fock (HF) estimate of 
 the ground state energy of a simple diatomic molecule: LiH.  The HF energy 
 and Slater-determinant wavefunction will first be obtained with the PySCF 
