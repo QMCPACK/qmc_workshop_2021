@@ -51,7 +51,7 @@ c4q = generate_convert4qmc(
     path         = 'LiH/hf',
     job          = job(cores=1),
     no_jastrow   = True,
-    hdf5         = True,              # use hdf5 format
+    #hdf5         = True,              # use hdf5 format
     dependencies = (scf,'orbitals'),
     )
 
@@ -76,6 +76,5 @@ qmc = generate_qmcpack(
     timestep     = 0.1,
     dependencies = orbdeps,
     )
-
 
 run_project()
