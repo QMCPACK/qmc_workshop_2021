@@ -106,13 +106,59 @@ quality, and values lower than 0.01 Ha are rarely obtainable for standard Slater
 wavefunctions. By this metric, all parameterizations obtained for optimizations performed 
 in iterations 4-11 are of comparable quality.
 
+So, has the optimization converged and which Jastrow parameterization is the best? 
+We can gain some insight into these questions by considering the statistical significance 
+of the energy difference between the highest and lowest energies found in iterations 4-11.
+The energy difference is:
+
+.. code-block:: bash
+
+  |-0.78275+0.78470| = 0.00195 Ha
+
+The error bar of the energy difference is the square root of the sum of the two individual 
+errorbars: 
+
+.. code-block:: bash
+
+  sqrt( 0.00078^2 + 0.00073^2 ) = 0.00107 Ha
+
+And so the energy difference differs from zero by 0.00195/0.00107 = 1.82 sigma.  We see 
+this in 1/8 iterations, while on averate a 2 sigma difference is expected 1/20 of the time, 
+so there is low confidence that the highest energy wavefunction is any better than the 
+lowest energy one in iterations 4-11.  This is consistent with the optimization having 
+"plateued", or in other words, convergence has been reached and any of the Jastrow factors 
+obtained in this range may be safely used.  
+
+You can observe the convergence behavior directly by plotting the energy and variance vs. 
+iterations (click on the magnifying glass icon and select a rectangular region in the 
+plots to zoom in):
+
+.. code-block:: bash
+
+   >qmca -p -e 20 -q ev runs/LiH/opt/*scalar*
 
 
 Obtaining the VMC ground state energy
 -------------------------------------
 
+In the workflow, VMC was performed following the optimization with the Jastrow factor 
+selected by Nexus.  In practice, Nexus selects the lowest energy trial wavefunction within 
+the range of iterations with reasonable variance/energy ratios.  The results can be found 
+in ``runs/LiH/vmc``:
 
-Retry the optimization with 4x fewer and 4x more samples (be sure to remember to change the ``path`` in ``generate_qmcpack`` for both the optimization and VMC runs).  Do you obtain significantly better or worse results, as judged by the subsequent VMC run?
+.. code-block:: bash
+
+   >qmca -e 20 -q ev runs/LiH/opt/*scalar*
+ 
+                               LocalEnergy            Variance               ratio 
+   runs/LiH/vmc/vmc series 0  -0.784046 +/- 0.000236  0.009289 +/- 0.000222  0.0118 
+
+How much energy was gained by the Jastrow function relative to Hartree-Fock?  Retry the 
+optimization with 4x fewer and 4x more samples (be sure to remember to change the ``path`` 
+in ``generate_qmcpack`` for both the optimization and VMC runs).  Do you obtain 
+significantly better or worse results, as judged by the subsequent VMC run?
+
+
 
 
 
