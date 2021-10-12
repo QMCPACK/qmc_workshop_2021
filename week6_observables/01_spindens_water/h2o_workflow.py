@@ -88,7 +88,7 @@ qmc = generate_qmcpack(
     system       = system,
     pseudos      = 'ccecp',
     jastrows     = [],
-    estimators = [density(delta=(0.3,0.3,0.3),x_min=5,x_max=5,)], # Grid spacing in bohr
+    estimators = [density(delta=(0.1,0.1,0.1),x_min=-3,x_max=3,y_min=-3,y_max=3,z_min=-3,z_max=3)], # Grid spacing in bohr
     #qmc          = 'vmc',             # vmc run
     seed         = 42,
     #warmupsteps  = 0,
