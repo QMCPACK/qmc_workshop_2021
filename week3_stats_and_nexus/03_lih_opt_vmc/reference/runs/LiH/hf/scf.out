@@ -1,0 +1,4 @@
+converged SCF energy = -0.749663314779373
+Using Python 3.x
+Wavefunction successfully saved to QMCPACK HDF5 Format
+Use: "convert4qmc -pyscf  scf.h5" to generate QMCPACK input files
