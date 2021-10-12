@@ -30,6 +30,7 @@ in statistical analysis and quantum Monte Carlo (QMC):
 **QMC topics:**
 
 * Variational Monte Carlo
+* Jastrow factors
 * Wavefunction optimization
 * Ground state energy
 
