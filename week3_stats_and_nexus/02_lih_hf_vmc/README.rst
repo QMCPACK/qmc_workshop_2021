@@ -1,7 +1,7 @@
 LiH molecule: VMC with QMCPACK and statistical analysis
 =======================================================
 
-In this example, you will calculate the the Hartree-Fock (HF) estimate of 
+In this example, you will calculate the Hartree-Fock (HF) estimate of 
 the ground state energy of a simple diatomic molecule: LiH.  The HF energy 
 and Slater-determinant wavefunction will first be obtained with the PySCF 
 code.  Next, QMCPACK will be run using only this single determinant 
@@ -113,8 +113,8 @@ should always be treated as being (i.e. assumed to be) real.  The deviation we s
 Hartree-Fock one.  The answer you see will vary each time you run with a different 
 random seed.
 
-As an aside, the last number reported by ``qmca`` above is the energy to variance ratio 
-(\|E\|/V) in Ha.  A value larger than about 0.03 Ha suggests a poor quality wavefunction 
+As an aside, the last number reported by ``qmca`` above is the variance to energy ratio 
+(V/\|E\|) in Ha.  A value larger than about 0.03 Ha suggests a poor quality wavefunction 
 in terms of variance.  Later, we will introduce a Jastrow factor to improve the quality 
 of the LiH trial wavefunction. 
 
