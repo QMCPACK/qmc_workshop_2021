@@ -124,9 +124,9 @@ errorbars:
 
 And so the energy difference differs from zero by 0.00195/0.00107 = 1.82 sigma.  We see 
 this in 1/8 iterations, while on averate a 2 sigma difference is expected 1/20 of the time, 
-so there is low confidence that the highest energy wavefunction is any better than the 
-lowest energy one in iterations 4-11.  This is consistent with the optimization having 
-"plateued", or in other words, convergence has been reached and any of the Jastrow factors 
+so there is low confidence that the lowest energy wavefunction is any better than the 
+highest energy one in iterations 4-11.  This is consistent with the optimization having 
+"plateaued", or in other words, convergence has been reached and any of the Jastrow factors 
 obtained in this range may be safely used.  
 
 You can observe the convergence behavior directly by plotting the energy and variance vs. 
@@ -148,7 +148,7 @@ in ``runs/LiH/vmc``:
 
 .. code-block:: bash
 
-   >qmca -e 20 -q ev runs/LiH/opt/*scalar*
+   >qmca -e 20 -q ev runs/LiH/vmc/*scalar*
  
                                LocalEnergy            Variance               ratio 
    runs/LiH/vmc/vmc series 0  -0.784046 +/- 0.000236  0.009289 +/- 0.000222  0.0118 
