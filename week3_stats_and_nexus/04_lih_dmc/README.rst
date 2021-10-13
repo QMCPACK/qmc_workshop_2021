@@ -6,7 +6,7 @@ DMC is closely related to VMC.  With just the drift-diffusion
 propagator active (no branching), DMC is identical to VMC.  With 
 branching, the popluation of walkers is now tied together with 
 individual walkers being destroyed or replicated and the entire population 
-count fluctating around an average value.  
+count fluctuating around an average value.  
 
 DMC starts with a population of walkers sampled from VMC.  Beginning at 
 imaginary time zero, the walker population begins to branch and the 
@@ -59,7 +59,7 @@ A first DMC calculation
 
 In the workflow above, an initial DMC calculation was performed in `runs/LiH/dmc`.  The goal is to get a reliable DMC total energy with a 0.01/Ha timestep.  Note that while this timestep is not converged for total energies, it is often sufficient for energy differences of interest (e.g. molecular binding energies, ionization potentials, formation energies of defects in solids, etc), and in those cases timestep extrapolation should instead be performed directly on the energy difference.  
 
-First, a VMC run (series 0, ``dmc.s000.scalar.dat``) was performed to initialize the zero time DMC walker population, which has 1024 walkers. Next, DMC was performed using a larger 0.02/Ha timestep and run for a short time (30 blocks w/ 10 steps each, series 1, ``dmc.s001.scalar.dat``).  The purpose of this short DMC run with a larger timestep is to rapidly equilibrate the DMC walker population (larger timestep leads to faster equilibration).  Finally, DMC is performed with the production 0.01/Ha timestep for a long time to produce the statistical samples of interest (series 2, ``dmc.s002.scalar.dat``).
+First, a VMC run (series 0, ``dmc.s000.scalar.dat``) was performed to initialize the zero time DMC walker population, which has 1024 walkers. Next, DMC was performed using a larger 0.02/Ha timestep and ran for a short time (30 blocks w/ 10 steps each, series 1, ``dmc.s001.scalar.dat``).  The purpose of this short DMC run with a larger timestep is to rapidly equilibrate the DMC walker population (larger timestep leads to faster equilibration).  Finally, DMC is performed with the production 0.01/Ha timestep for a long time to produce the statistical samples of interest (series 2, ``dmc.s002.scalar.dat``).
   
 Take a moment to inspect the fluctuations in the local energy throughout these 
 stages via a trace plot:
@@ -86,7 +86,7 @@ Let's now obtain the DMC energy and compare its value and the autocorrelation ti
 
    runs/LiH/dmc/dmc series 2  LocalEnergy = -0.788084 +/- 0.000212  6.4
 
-How does the DMC autocorrelation time compare with VMC (hint: you will have to multiple the block autocorrelation time by the number of steps in VMC and DMC, respectively, to compare them directly)?  Why?
+How does the DMC autocorrelation time compare with VMC?  Why? (Hint: you will have to multiply the block autocorrelation time by the number of steps in VMC and DMC, respectively, to compare them directly)
 
 We obtain an energy of -0.7881(2) in DMC vs. -0.7840(2) in VMC, a reduction of about 4 mHa.  However, this value includes timestep error since we have not extrapolated to zero timestep.  Let's do this next.
 
