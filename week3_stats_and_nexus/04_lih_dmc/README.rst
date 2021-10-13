@@ -137,8 +137,15 @@ formally unbounded otherwise).  The induced bias scales like ``1/P``, where
 ``P`` is the walker population, and often populations larger than 1000-2000 
 walkers are sufficient to control this bias.
 
+Here we will examine the results of a DMC run performed with a smaller 
+walker population (256 walkers).  The results are in ``runs/LiH/dmc_pop_256``. 
+Compute the total energy and compare it to the first DMC energy from above.
+What can you conclude about the magnitude of the bias in the 1024 walker case?
 
-
+(Note: an important aspect of the LiH system is its low variance.  While 
+this makes the system amenable to running on a laptop, it also reduces 
+the branching frequency and hence the population control bias relative to 
+systems you will see later on in the workshop.)
 
 
 
