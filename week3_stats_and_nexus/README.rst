@@ -58,7 +58,7 @@ There are four main examples in the lab, as described below:
 **Example 4: Diffusion Monte Carlo**
 
 * Perform DMC (QMCPACK) calculations of the ground state total energy of LiH with Nexus.  Learn about the impact of the DMC timestep on statistical equilibration, autocorrelation, and bias of the total energy.  Use resampled fits to extrapolate the ground state energy to the zero timestep limit.  Learn about DMC branching and population control bias. 
-* Diretory: ``04_lih_dmc``
+* Directory: ``04_lih_dmc``
 
 For more information about Nexus and QMCPACK, please consult their respective documentation:
 
