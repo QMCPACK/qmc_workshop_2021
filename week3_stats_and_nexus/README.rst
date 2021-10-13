@@ -38,16 +38,25 @@ following topics in statistical analysis and QMC:
 
 There are four main examples in the lab, as described below:
 
-**Example 1:**
+**Example 1: Introduction to running workflows with Nexus **
 
-* Introduction to running workflows with Nexus.  Run DFT with Nexus to obtain the energy vs. volume curve for diamond.  
-* Directory: ``01_diamond_eos_workflow``.
+* Run DFT (Quantum Espresso) with Nexus to obtain the energy vs. volume curve for diamond.  
+* Directory: ``01_diamond_eos_workflow``
 
-**Example 2:**
+**Example 2: Statistical analysis of QMC data in general**
 
-* Statistical analysis of QMC data in general.  Run Hartree-Fock and VMC with Nexus to obtain the total energy of the LiH molecule.  Learn how to obtain reliable estimates of the mean and errorbar accounting for equilibration and temporal autocorrelation.  Learn how to estimate sampling needs using the central limit theorem. 
-* Directory: ``02_lih_hf_vmc``.
+* Run Hartree-Fock (PySCF) and VMC (QMCPACK) with Nexus to obtain the total energy of the LiH molecule.  Learn how to obtain reliable estimates of the mean and errorbar accounting for equilibration and temporal autocorrelation.  Learn how to estimate sampling needs using the central limit theorem. 
+* Directory: ``02_lih_hf_vmc``
 
+**Example 3: Wavefunction optimization**
+
+* Optimize a Jastrow factor (QMCPACK) and run VMC with Nexus for the LiH molecule.  Use statistically correct energy differences to judge the convergence of the optimization procedure.  Obtain the VMC energy of the optimized Slater-Jastrow trial wavefunction for LiH.
+* Directory: ``03_lih_opt_vmc``
+
+**Example 4: Diffusion Monte Carlo**
+
+* Perform DMC (QMCPACK) calculations of the ground state total energy of LiH with Nexus.  Learn about the impact of the DMC timestep on statistical equilibration, autocorrelation, and bias of the total energy.  Use resampled fits to extrapolate the ground state energy to the zero timestep limit.  Learn about DMC branching and population control bias. 
+* Diretory: ``04_lih_dmc``
 
 For more information about Nexus and QMCPACK, please consult their respective documentation:
 
