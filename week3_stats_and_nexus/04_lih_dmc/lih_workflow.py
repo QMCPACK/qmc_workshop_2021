@@ -127,34 +127,29 @@ qmc = generate_qmcpack(
     )
 
 # Lab: DMC population control bias
-#      Use a series of small populations (64, 128, 256 walkers)
-#      Increase steps to get constant sample count
-#        (64*40 = 128*20 = 256*10 = 2560 samples per block)
-for pop,steps in [(64,40),(128,20),(256,10)]:
-    qmc = generate_qmcpack(
-        identifier    = 'dmc',
-        path          = 'LiH/dmc_pop_'+str(pop).zfill(3),
-        job           = job(cores=12),
-        system        = system,
-        pseudos       = 'ccecp',
-        jastrows      = [],
-        seed          = 42,       # Fix the seed (lab only)
-        qmc           = 'dmc',    # DMC run
-        vmc_blocks    = 200,      # Same as first DMC run
-        vmc_steps     = 20,
-        vmc_timestep  = 0.3,
-        vmc_samples   = pop,      # Except with varying population
-        eq_dmc        = True,     
-        eq_blocks     = 30,
-        eq_steps      = 10,
-        eq_timestep   = 0.02,
-        blocks        = 1000,
-        steps         = steps,    # Adjusted to keep errorbar constant
-        timestep      = 0.01,
-        nonlocalmoves = True,
-        dependencies  = orbdeps+[(opt,'jastrow')],
-        )
-#end for
+qmc = generate_qmcpack(
+    identifier    = 'dmc',
+    path          = 'LiH/dmc_pop_256',
+    job           = job(cores=cores),
+    system        = system,
+    pseudos       = 'ccecp',
+    jastrows      = [],
+    seed          = 42,       # Fix the seed (lab only)
+    qmc           = 'dmc',    # DMC run
+    vmc_blocks    = 200,      # Same as first DMC run
+    vmc_steps     = 20,
+    vmc_timestep  = 0.3,
+    vmc_samples   = 256,      # Except with smaller population
+    eq_dmc        = True,     
+    eq_blocks     = 30,
+    eq_steps      = 10,
+    eq_timestep   = 0.02,
+    blocks        = 1000,
+    steps         = 40,       # Steps adjusted to keep errorbar constant
+    timestep      = 0.01,
+    nonlocalmoves = True,
+    dependencies  = orbdeps+[(opt,'jastrow')],
+    )
 
 
 run_project()
