@@ -15,7 +15,7 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
  * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week1_kickoff/week1_kickoff.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=CP2NV834VfQ)
 ## Week 2 / 12 October : Fundamentals of Quantum Monte Carlo
  * Speaker: Paul Kent
- * Link to slides. Link to YouTube
+ * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week2_qmc_introduction/week2_qmc_introduction.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=aOm3ilUNNU8)
 ## Week 3 / 19 October : Computational workflows with NEXUS. Statistical Analysis.
  * Speaker: Jaron Krogel
  * Link to slides. Link to YouTube
