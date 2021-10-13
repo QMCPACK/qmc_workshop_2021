@@ -5,7 +5,9 @@ In this lab, you will familiarize yourself with running VMC, wavefunction
 optimization, and DMC calculations with QMCPACK and analyzing the 
 statistical results at each step.  Quantum Monte Carlo (QMC) calculations 
 join several constituent calculations (most related to obtaining the trial 
-wavefunction) into a computational workflows.  This lab uses the Nexus workflow 
+wavefunction) into a computational workflows.  
+
+This lab uses the Nexus workflow 
 automation system to compactly represent simulation inputs and perform the 
 DFT and QMC calculations in sequence.  While the examples here are designed 
 to run on a laptop, Nexus can be used on computational resources ranging from 
