@@ -40,7 +40,7 @@ following topics in statistical analysis and QMC:
 
 There are four main examples in the lab, as described below:
 
-**Example 1: Introduction to running workflows with Nexus **
+**Example 1: Introduction to running workflows with Nexus**
 
 * Run DFT (Quantum Espresso) with Nexus to obtain the energy vs. volume curve for diamond.  
 * Directory: ``01_diamond_eos_workflow``
