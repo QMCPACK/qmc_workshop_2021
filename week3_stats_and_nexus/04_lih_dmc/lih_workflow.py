@@ -58,7 +58,7 @@ c4q = generate_convert4qmc(
 orbdeps = [(c4q,'particles'), # pyscf changes particle positions
            (c4q,'orbitals' )]
 
-# Lab: judging wavefunction optimization
+# Optimize the Jastrow factor
 opt = generate_qmcpack(
     identifier   = 'opt',
     path         = 'LiH/opt',
@@ -77,20 +77,84 @@ opt = generate_qmcpack(
     dependencies = orbdeps,
     )
 
-# Lab: obtaining the VMC ground state energy
+
+# Lab: first DMC calculation
 qmc = generate_qmcpack(
-    identifier   = 'vmc',
-    path         = 'LiH/vmc',
-    job          = job(cores=cores),
-    system       = system,
-    pseudos      = 'ccecp',
-    jastrows     = [],
-    seed         = 42,           # Fix the seed (lab only)
-    qmc          = 'vmc',        # VMC run
-    blocks       = 800,
-    steps        = 100,
-    timestep     = 0.3,
-    dependencies = orbdeps+[(opt,'jastrow')],
+    identifier    = 'dmc',
+    path          = 'LiH/dmc',
+    job           = job(cores=cores),
+    system        = system,
+    pseudos       = 'ccecp',
+    jastrows      = [],
+    seed          = 42,       # Fix the seed (lab only)
+    qmc           = 'dmc',    # DMC run
+    vmc_samples   = 1024,     # DMC walker population sampled from VMC
+    vmc_blocks    = 200,      
+    vmc_steps     = 20,
+    vmc_timestep  = 0.3,
+    eq_dmc        = True,     # Add DMC equilibration
+    eq_blocks     = 30,       # Use a small number of blocks
+    eq_steps      = 10,      
+    eq_timestep   = 0.02,     # Use a larger timestep
+    blocks        = 1000,     # Large number of blocks for production
+    steps         = 10,       # 10 steps/block averages out some autocorr time
+    timestep      = 0.01,     # Smaller production timestep 
+    nonlocalmoves = True,     # Use T-moves scheme w/ non-local pseudopotentials
+    dependencies  = orbdeps+[(opt,'jastrow')],
     )
+
+# Lab: DMC timestep extrapolation
+qmc = generate_qmcpack(
+    identifier      = 'dmc',
+    path            = 'LiH/dmc_textrap',
+    job             = job(cores=cores),
+    system          = system,
+    pseudos         = 'ccecp',
+    jastrows        = [],
+    seed            = 42,       # Fix the seed (lab only)
+    qmc             = 'dmc',    # DMC run
+    vmc_samples     = 1024,     # Initial DMC population from VMC
+    vmc_blocks      = 200,
+    vmc_steps       = 20,
+    vmc_timestep    = 0.3,
+    timestep        = 0.04,     # Start with 0.04/Ha timestep
+    timestep_factor = 0.5,      # Reduce by 1/2
+    ntimesteps      = 3,        # 3 times, i.e. [0.04, 0.02, 0.01] timesteps
+    blocks          = 1000,     # Use 1000 blocks
+    steps           = 4,        # Start w/ few steps, increase for smaller timesteps 
+    nonlocalmoves   = True,     # Use T-moves scheme w/ non-local pseudopotentials
+    dependencies    = orbdeps+[(opt,'jastrow')],
+    )
+
+# Lab: DMC population control bias
+#      Use a series of small populations (64, 128, 256 walkers)
+#      Increase steps to get constant sample count
+#        (64*40 = 128*20 = 256*10 = 2560 samples per block)
+for pop,steps in [(64,40),(128,20),(256,10)]:
+    qmc = generate_qmcpack(
+        identifier    = 'dmc',
+        path          = 'LiH/dmc_pop_'+str(pop).zfill(3),
+        job           = job(cores=12),
+        system        = system,
+        pseudos       = 'ccecp',
+        jastrows      = [],
+        seed          = 42,       # Fix the seed (lab only)
+        qmc           = 'dmc',    # DMC run
+        vmc_blocks    = 200,      # Same as first DMC run
+        vmc_steps     = 20,
+        vmc_timestep  = 0.3,
+        vmc_samples   = pop,      # Except with varying population
+        eq_dmc        = True,     
+        eq_blocks     = 30,
+        eq_steps      = 10,
+        eq_timestep   = 0.02,
+        blocks        = 1000,
+        steps         = steps,    # Adjusted to keep errorbar constant
+        timestep      = 0.01,
+        nonlocalmoves = True,
+        dependencies  = orbdeps+[(opt,'jastrow')],
+        )
+#end for
+
 
 run_project()
