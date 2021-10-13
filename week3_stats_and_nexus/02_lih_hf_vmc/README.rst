@@ -22,7 +22,6 @@ topics in statistical analysis and quantum Monte Carlo (QMC):
 * Variational Monte Carlo
 * Orbital file format conversion
 * Slater-determinant wavefunction
-* Acceptance ratio
 * Diffusion timestep
 * Ground state energy
 

@@ -38,7 +38,16 @@ following topics in statistical analysis and QMC:
 
 There are four main examples in the lab, as described below:
 
+* Example 1: Introduction to running workflows with Nexus.  Run DFT with Nexus to obtain the energy vs. volume curve for diamond.  Directory: ``01_diamond_eos_workflow``.
+* Example 2: Statistical analysis of QMC data in general.  Run Hartree-Fock and VMC with Nexus to obtain the total energy of the LiH molecule.  Learn how to obtain reliable estimates of the mean and errorbar accounting for equilibration and temporal autocorrelation.  Learn how to estimate sampling needs using the central limit theorem. Directory: ``02_lih_hf_vmc``.
+
+
 For more information about Nexus and QMCPACK, please consult their respective documentation:
 
 * QMCPACK: https://qmcpack.readthedocs.io/en/develop/
 * Nexus: https://nexus-workflows.readthedocs.io/en/latest/
+
+For more information on QMC methods in general (theory and application), 
+the 2001 Rev. Mod. Phys. by Foulkes et al. is essential reading:
+
+* https://doi.org/10.1103/RevModPhys.73.33
