@@ -292,7 +292,7 @@ the equilibrium lattice constant.
 
 .. code-block:: bash
 
-   >fit_eos.py Edata.txt
+   >./fit_eos.py Edata.txt
 
    Equilibrium lattice constant: 3.5687 A
 
