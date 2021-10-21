@@ -1,0 +1,22 @@
+Index of ion charge 0
+Index of valence charge 1
+Using c4q to name output files
+Converting Wavefunction from the PySCF Code
+Periodic Boundary Conditions: no
+usingECP: yes
+Multideterminants: no
+NUMBER OF AOs: 63
+Size of Basis Set: 63
+NUMBER OF MOs: 63
+Unit in Bohr=1
+Number of alpha electrons: 6
+Number of beta electrons: 5
+Number of electrons: 11
+SPIN MULTIPLICITY: 2
+NUMBER OF ATOMS: 1
+ QMCGaussianParserBase::dump 
+Number of alpha electrons 6
+Number of beta electrons 5
+ Generating Standard Input file containing VMC, standard optmization, and DMC blocks.
+ Modify according to the accuracy you would like to achieve. 
+Hamiltonian using ECP for Electron Ion=1
