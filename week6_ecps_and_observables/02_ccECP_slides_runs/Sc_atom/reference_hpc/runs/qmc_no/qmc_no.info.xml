@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<resources>
+  <hardware>
+    <mpi_size>544</mpi_size>
+    <mpi>true</mpi>
+    <openmp_threads>1</openmp_threads>
+    <openmp>true</openmp>
+    <gpu>false</gpu>
+  </hardware>
+  <particles>
+    <particle>
+      <name>e</name>
+      <size>11</size>
+    </particle>
+    <particle>
+      <name>ion0</name>
+      <size>1</size>
+    </particle>
+  </particles>
+</resources>

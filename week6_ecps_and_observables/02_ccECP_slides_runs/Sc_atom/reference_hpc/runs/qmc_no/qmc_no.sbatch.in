@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -A m2113
+#SBATCH -p regular
+#SBATCH -C knl
+#SBATCH -J qmc_no
+#SBATCH -t 00:30:00
+#SBATCH -N 8
+#SBATCH --tasks-per-node=68
+#SBATCH --cpus-per-task=4
+#SBATCH -o qmc_no.out
+#SBATCH -e qmc_no.err
+#SBATCH --export=ALL
+
+echo $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
+
+
+export HDF5_USE_FILE_LOCKING=FALSE
+module unload cray-libsci
+module load cray-hdf5
+source activate nexus3   # Activating the conda environment
+module list
+
+export OMP_NUM_THREADS=1
+srun qmcpack qmc_no.in.xml

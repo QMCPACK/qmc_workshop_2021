@@ -1,0 +1,1 @@
+convert4qmc -orbitals ../scf/scf.h5 -prefix c4q -nojastrow
