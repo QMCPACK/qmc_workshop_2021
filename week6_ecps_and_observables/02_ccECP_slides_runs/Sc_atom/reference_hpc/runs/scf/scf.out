@@ -1,0 +1,324 @@
+/global/cscratch1/sd/aannabe/docs/qmc_workshop_2021/Sc_ccECP/runs/scf
+#INFO: **** input file is /global/cscratch1/sd/aannabe/docs/qmc_workshop_2021/Sc_ccECP/runs/scf/scf.py ****
+#!/usr/bin/env python3
+
+import sys, os
+from pyscf import scf, gto
+import numpy as np
+from urllib.request import urlretrieve
+
+### Set the current working directory
+cwd = os.getcwd()
+pplib = "http://pseudopotentiallibrary.org/recipes"
+pptype = "ccECP"
+
+### Retrieve basis and ECP files from pseudopotentiallibrary.org
+atom1 = "Sc"
+bastype1 = "cc-pVTZ"
+basfile1 = "{0}.{1}.nwchem".format(atom1,bastype1)
+ecpfile1 = "{0}.{1}.nwchem".format(atom1,pptype)
+xmlfile1 = "{0}.{1}.xml".format(atom1,pptype)
+urlretrieve("{0}/{1}/{2}/{3}".format(pplib,atom1,pptype,basfile1), filename=basfile1)
+urlretrieve("{0}/{1}/{2}/{3}".format(pplib,atom1,pptype,ecpfile1), filename=ecpfile1)
+urlretrieve("{0}/{1}/{2}/{3}".format(pplib,atom1,pptype,xmlfile1), filename=xmlfile1)
+
+###~~~~ Build the molecule ~~~~
+
+# Nexus expands this with Mole info
+
+### generated system text ###
+from pyscf import gto as gto_loc
+mol = gto_loc.Mole()
+mol.verbose  = 4
+mol.atom     = '''
+               Sc   0.00000000   0.00000000   0.00000000
+               '''
+mol.unit     = 'A'
+mol.charge   = 0
+mol.spin     = 1
+mol.symmetry = 'D2h'
+mol.build()
+### end generated system text ###
+
+
+
+with open(os.path.join(cwd,basfile1)) as f:
+    bas1 = f.read()
+with open(os.path.join(cwd,ecpfile1)) as f:
+    ecp1 = f.read()
+mol.basis = {atom1: gto.basis.parse(bas1)} 
+mol.ecp = {atom1: gto.basis.parse_ecp(ecp1)}
+mol.build()
+
+#~~~Run HF on molecule~~~~
+mf = scf.ROHF(mol)
+mf.irrep_nelec = {
+'Ag' : (3,2),   # s    
+'B3u': (1,1),   # x    1
+'B1u': (1,1),   # z    0
+'B2u': (1,1),   # y   -1
+'B2g': (0,0),   # xz   1
+'B3g': (0,0),   # yz  -1
+'B1g': (0,0),   # xy  -2
+'Au' : (0,0)    # xyz  
+}
+mf.max_cycle=100
+mf.chkfile='scf.chkfile'
+en=mf.kernel()
+mf.analyze()
+
+
+### generated conversion text ###
+from PyscfToQmcpack import savetoqmcpack
+savetoqmcpack(mol,mf,'scf')
+### end generated conversion text ###
+
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='nid08229', release='4.12.14-150.17_5.0.97-cray_ari_c', version='#1 SMP Tue Jul 27 15:51:05 UTC 2021 (f61c788)', machine='x86_64', processor='x86_64')  Threads 1
+Python 3.7.9 (default, Aug 31 2020, 12:42:55) 
+[GCC 7.3.0]
+numpy 1.19.1  scipy 1.5.2
+Date: Mon Oct 18 15:35:38 2021
+PySCF version 1.7.6
+PySCF path  /global/homes/a/aannabe/.conda/envs/nexus3/lib/python3.7/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 1
+[INPUT] num. electrons = 21
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 1
+[INPUT] symmetry D2h subgroup None
+[INPUT] Mole.unit = A
+[INPUT]  1 Sc     0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr
+
+nuclear repulsion = 0
+point group symmetry = SO3, use subgroup D2h
+num. orbitals of irrep Ag = 6
+num. orbitals of irrep B1g = 1
+num. orbitals of irrep B2g = 1
+num. orbitals of irrep B3g = 1
+num. orbitals of irrep B1u = 3
+num. orbitals of irrep B2u = 3
+num. orbitals of irrep B3u = 3
+number of shells = 8
+number of NR pGTOs = 54
+number of NR cGTOs = 18
+basis = sto-3g
+ecp = {}
+CPU time:         3.27
+
+
+******** <class 'pyscf.scf.hf_symm.SymAdaptedROHF'> ********
+method = SymAdaptedROHF-ROHF-RHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 100
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = scf.chkfile
+max_memory 4000 MB (current use 75 MB)
+num. doubly occ = 5  num. singly occ = 1
+irrep_nelec {'Ag': (3, 2), 'B3u': (1, 1), 'B1u': (1, 1), 'B2u': (1, 1), 'B2g': (0, 0), 'B3g': (0, 0), 'B1g': (0, 0), 'Au': (0, 0)}
+Freeze 11 electrons in irreps ['Ag', 'B3u', 'B1u', 'B2u', 'B2g', 'B3g', 'B1g', 'Au']
+    0 free electrons in irreps 
+Set gradient conv threshold to 3.16228e-05
+init E= -45.9136649685999
+HOMO (Ag) = -0.0577234179304868  LUMO (B1g) = -0.0577234179304877
+cycle= 1 E= -46.0897428002529  delta_E= -0.176  |g|= 0.343  |ddm|= 1.13
+HOMO (Ag) = 0.00383235570672024  LUMO (B1u) = 0.0283271270485051
+cycle= 2 E= -46.1169000960184  delta_E= -0.0272  |g|= 0.0641  |ddm|= 0.312
+HOMO (Ag) = -0.0561754770221243  LUMO (B1u) = 0.0234791217906118
+cycle= 3 E= -46.120138289225  delta_E= -0.00324  |g|= 0.0332  |ddm|= 0.315
+HOMO (Ag) = -0.0552112465581683  LUMO (B1u) = 0.0219319815171031
+cycle= 4 E= -46.1204792125813  delta_E= -0.000341  |g|= 0.0242  |ddm|= 0.24
+HOMO (Ag) = -0.0518797505874787  LUMO (B1u) = 0.021482028634528
+cycle= 5 E= -46.1218461890857  delta_E= -0.00137  |g|= 0.0026  |ddm|= 0.122
+HOMO (Ag) = -0.0500614947985266  LUMO (B1u) = 0.0213707204189511
+cycle= 6 E= -46.121853399855  delta_E= -7.21e-06  |g|= 0.00078  |ddm|= 0.0101
+HOMO (Ag) = -0.0509306655721049  LUMO (B1u) = 0.021223115974318
+cycle= 7 E= -46.1218547105245  delta_E= -1.31e-06  |g|= 0.000388  |ddm|= 0.00456
+HOMO (Ag) = -0.0509666810903071  LUMO (B1u) = 0.0212277308613135
+cycle= 8 E= -46.1218554045076  delta_E= -6.94e-07  |g|= 0.000294  |ddm|= 0.00288
+HOMO (Ag) = -0.0508878494434361  LUMO (B1u) = 0.0212429716863163
+cycle= 9 E= -46.1218558870597  delta_E= -4.83e-07  |g|= 0.000254  |ddm|= 0.00194
+HOMO (Ag) = -0.0508914102395406  LUMO (B1u) = 0.0212450791578211
+cycle= 10 E= -46.1218562809001  delta_E= -3.94e-07  |g|= 0.000256  |ddm|= 0.00162
+HOMO (Ag) = -0.0508905132441888  LUMO (B1u) = 0.0212449108069339
+cycle= 11 E= -46.1218563630935  delta_E= -8.22e-08  |g|= 0.000257  |ddm|= 0.000324
+HOMO (Ag) = -0.0508985362958129  LUMO (B1u) = 0.0212405686934671
+cycle= 12 E= -46.1218532172033  delta_E= 3.15e-06  |g|= 0.000236  |ddm|= 0.0131
+HOMO (Ag) = -0.0509642967865748  LUMO (B1u) = 0.0212331408913286
+cycle= 13 E= -46.121849213603  delta_E= 4e-06  |g|= 0.000208  |ddm|= 0.0201
+HOMO (Ag) = -0.0509843624054574  LUMO (B1u) = 0.021229774433983
+cycle= 14 E= -46.121846803085  delta_E= 2.41e-06  |g|= 0.000174  |ddm|= 0.0155
+HOMO (Ag) = -0.0508508820096554  LUMO (B1u) = 0.0212348654038571
+cycle= 15 E= -46.121844325316  delta_E= 2.48e-06  |g|= 0.0001  |ddm|= 0.0232
+HOMO (Ag) = -0.0512860808024703  LUMO (B1u) = 0.0212213370518054
+cycle= 16 E= -46.1218430105355  delta_E= 1.31e-06  |g|= 0.000361  |ddm|= 0.0316
+HOMO (Ag) = -0.051165418814432  LUMO (B1u) = 0.021223988441713
+cycle= 17 E= -46.1218430689892  delta_E= -5.85e-08  |g|= 0.000251  |ddm|= 0.00115
+HOMO (Ag) = -0.0511178095270498  LUMO (B1u) = 0.0212239829283067
+cycle= 18 E= -46.1218430876165  delta_E= -1.86e-08  |g|= 0.000204  |ddm|= 0.00084
+HOMO (Ag) = -0.0509412957047003  LUMO (B1u) = 0.0212268278098667
+cycle= 19 E= -46.1218431223565  delta_E= -3.47e-08  |g|= 4.31e-05  |ddm|= 0.00101
+HOMO (Ag) = -0.0508978866963989  LUMO (B1u) = 0.021226681589223
+cycle= 20 E= -46.1218431246405  delta_E= -2.28e-09  |g|= 3.64e-06  |ddm|= 0.00103
+HOMO (Ag) = -0.0508900896655348  LUMO (B1u) = 0.0212268078866954
+cycle= 21 E= -46.1218431242121  delta_E= 4.28e-10  |g|= 5.44e-06  |ddm|= 0.00042
+HOMO (Ag) = -0.0508976447814269  LUMO (B1u) = 0.0212266453759735
+Extra cycle  E= -46.1218431242235  delta_E= -1.14e-11  |g|= 4.05e-06  |ddm|= 1.69e-05
+converged SCF energy = -46.1218431242235
+**** SCF Summaries ****
+Total Energy =                         -46.121843124223474
+Nuclear Repulsion Energy =               0.000000000000000
+One-electron Energy =                  -76.798902125225936
+Two-electron Energy =                   30.677059001002462
+Wave-function symmetry = Ag
+occupancy for each irrep:     Ag  B1g  B2g  B3g   Au  B1u  B2u  B3u
+double occ                     2    0    0    0    0    1    1    1
+single occ                     1    0    0    0    0    0    0    0
+**** MO energy ****
+                          Roothaan           | alpha              | beta
+MO #1   (Ag  #1 ) energy= -2.59527820108142  | -2.62444340458707  | -2.56611299757682  occ= 2
+MO #2   (B1u #1 ) energy= -1.58555599442954  | -1.5925394874459   | -1.57857250141318  occ= 2
+MO #3   (B3u #1 ) energy= -1.57875667542816  | -1.63032348524351  | -1.5271898656128   occ= 2
+MO #4   (B2u #1 ) energy= -1.57875438901967  | -1.63033557807     | -1.52717319996934  occ= 2
+MO #5   (Ag  #2 ) energy= -0.210835058082764 | -0.215125004312978 | -0.206545111853038 occ= 2
+MO #6   (Ag  #3 ) energy= -0.0508976447814269 | -0.346452079424369 | 0.244658966793811  occ= 1
+MO #7   (B1u #2 ) energy= 0.0212266453759735 | 0.02094525158588   | 0.0215080391660666 occ= 0
+MO #8   (B3u #2 ) energy= 0.024412614689053  | 0.0228037087932995 | 0.0260215205848067 occ= 0
+MO #9   (B2u #2 ) energy= 0.0244135828037429 | 0.0228041642565865 | 0.0260230013508989 occ= 0
+MO #10  (Ag  #4 ) energy= 0.0638801098953974 | 0.0633192197670475 | 0.0644410000219459 occ= 0
+MO #11  (B2g #1 ) energy= 0.0642676989705254 | 0.0638575172384601 | 0.0646778807025906 occ= 0
+MO #12  (B3g #1 ) energy= 0.0642680866788633 | 0.0638579815919505 | 0.0646781917657755 occ= 0
+MO #13  (B1g #1 ) energy= 0.0652727075681583 | 0.0651170141835145 | 0.0654284009528025 occ= 0
+MO #14  (Ag  #5 ) energy= 0.0704555742821292 | 0.0694975613758763 | 0.0714129285682149 occ= 0
+MO #15  (Ag  #6 ) energy= 0.122020935078363  | 0.120585909477521  | 0.123455960676814  occ= 0
+MO #16  (B1u #3 ) energy= 0.135137746101564  | 0.134620123458254  | 0.135655368744875  occ= 0
+MO #17  (Ag  #7 ) energy= 0.138594697968223  | 0.130602508535875  | 0.146586887396087  occ= 0
+MO #18  (B3u #3 ) energy= 0.139458071353127  | 0.136344188985293  | 0.142571953720962  occ= 0
+MO #19  (B2u #3 ) energy= 0.139459453353155  | 0.136344583633056  | 0.142574323073254  occ= 0
+MO #20  (B2g #2 ) energy= 0.142690540271371  | 0.136393274732809  | 0.148987805809934  occ= 0
+MO #21  (B3g #2 ) energy= 0.142694689415082  | 0.13639811138809   | 0.148991267442073  occ= 0
+MO #22  (B1g #2 ) energy= 0.155930828119518  | 0.152733765275148  | 0.159127890963887  occ= 0
+MO #23  (Ag  #8 ) energy= 0.298051430574724  | 0.282375183878607  | 0.313726498765014  occ= 0
+MO #24  (Ag  #9 ) energy= 0.344231694611961  | 0.338114744011946  | 0.350348645210831  occ= 0
+MO #25  (B2g #3 ) energy= 0.348268281380035  | 0.342824324673224  | 0.353712238086845  occ= 0
+MO #26  (B3g #3 ) energy= 0.348272067999903  | 0.342828483906555  | 0.353715652093249  occ= 0
+MO #27  (B1g #3 ) energy= 0.361102738442993  | 0.357678383544559  | 0.364527093341426  occ= 0
+MO #28  (B1u #4 ) energy= 0.559639384782266  | 0.558439017509802  | 0.560839752054731  occ= 0
+MO #29  (B3u #4 ) energy= 0.569423744588951  | 0.562713103450008  | 0.576134385727896  occ= 0
+MO #30  (B2u #4 ) energy= 0.5694269091354    | 0.562714721378176  | 0.576139096892622  occ= 0
+MO #31  (B1u #5 ) energy= 0.620700081759429  | 0.618916524443437  | 0.622483639075422  occ= 0
+MO #32  (B3u #5 ) energy= 0.620973724381964  | 0.617462418078672  | 0.624485030685256  occ= 0
+MO #33  (B2u #5 ) energy= 0.620975090510568  | 0.61746246456133   | 0.624487716459805  occ= 0
+MO #34  (B1u #6 ) energy= 0.621659528302317  | 0.614924230668511  | 0.628394825936124  occ= 0
+MO #35  (Au  #1 ) energy= 0.623226903219314  | 0.622633430189205  | 0.623820376249422  occ= 0
+MO #36  (B2u #6 ) energy= 0.624680052241885  | 0.617723900992931  | 0.631636203490839  occ= 0
+MO #37  (B3u #6 ) energy= 0.624680330632941  | 0.617724072924803  | 0.631636588341078  occ= 0
+MO #38  (Ag  #10) energy= 0.797078966228845  | 0.790472232494757  | 0.803685699963209  occ= 0
+MO #39  (Ag  #11) energy= 1.24135800457765   | 1.18997413472841   | 1.29274153184954   occ= 0
+MO #40  (Ag  #12) energy= 1.26491546761266   | 1.25820976514519   | 1.27162117008      occ= 0
+MO #41  (B2g #4 ) energy= 1.26984530366542   | 1.26410085291694   | 1.2755897544139    occ= 0
+MO #42  (B3g #4 ) energy= 1.26985002756074   | 1.26410605714738   | 1.2755939979741    occ= 0
+MO #43  (B1g #4 ) energy= 1.28562820493107   | 1.28198548822488   | 1.28927092163725   occ= 0
+MO #44  (Ag  #13) energy= 1.90556014042881   | 1.90306976366926   | 1.90805051718837   occ= 0
+MO #45  (B2g #5 ) energy= 1.90621067524139   | 1.90395343980369   | 1.9084679106791    occ= 0
+MO #46  (B3g #5 ) energy= 1.90621238821299   | 1.90395630651722   | 1.90846846990876   occ= 0
+MO #47  (B1g #5 ) energy= 1.90746398558221   | 1.90637926826704   | 1.90854870289738   occ= 0
+MO #48  (Ag  #14) energy= 1.91038053424712   | 1.90360204719604   | 1.91715902408071   occ= 0
+MO #49  (B2g #6 ) energy= 1.91366576409541   | 1.90680982141946   | 1.92052170677136   occ= 0
+MO #50  (B3g #6 ) energy= 1.91366675895622   | 1.9068087376973    | 1.92052478021514   occ= 0
+MO #51  (B1g #6 ) energy= 1.92048767099424   | 1.91004336491113   | 1.93093197707734   occ= 0
+MO #52  (Ag  #15) energy= 1.92059167650484   | 1.90986279764472   | 1.93132055536472   occ= 0
+MO #53  (B1u #7 ) energy= 1.99224196730381   | 1.98965414167588   | 1.99482979293175   occ= 0
+MO #54  (B3u #7 ) energy= 2.0136355697746    | 2.00146153054877   | 2.02580960900043   occ= 0
+MO #55  (B2u #7 ) energy= 2.01364204672185   | 2.00146508277714   | 2.02581901066655   occ= 0
+MO #56  (B1u #8 ) energy= 2.37259531034852   | 2.36543245317384   | 2.3797581675232    occ= 0
+MO #57  (B3u #8 ) energy= 2.3731454668202    | 2.35639621948024   | 2.38989471416016   occ= 0
+MO #58  (B2u #8 ) energy= 2.37314861013394   | 2.35639039861976   | 2.38990682164812   occ= 0
+MO #59  (B1u #9 ) energy= 2.37425770767386   | 2.34694406130299   | 2.40157135404473   occ= 0
+MO #60  (Au  #2 ) energy= 2.38253375659754   | 2.3798983381425    | 2.38516917505258   occ= 0
+MO #61  (B3u #9 ) energy= 2.38408239635703   | 2.3584475730955    | 2.40971721961855   occ= 0
+MO #62  (B2u #9 ) energy= 2.38408249146256   | 2.35845374698468   | 2.40971123594044   occ= 0
+MO #63  (Ag  #16) energy= 5.42588680466658   | 5.42083650384931   | 5.43093710548379   occ= 0
+ ** Mulliken pop on meta-lowdin orthogonal AOs  **
+ ** Mulliken pop  **
+pop of  0 Sc 3s        1.99988
+pop of  0 Sc 4s        1.99833
+pop of  0 Sc 5s        0.00000
+pop of  0 Sc 6s        0.00000
+pop of  0 Sc 7s        0.00000
+pop of  0 Sc 3px       1.99781
+pop of  0 Sc 3py       1.99781
+pop of  0 Sc 3pz       1.99833
+pop of  0 Sc 4px       0.00083
+pop of  0 Sc 4py       0.00083
+pop of  0 Sc 4pz       0.00063
+pop of  0 Sc 5px       0.00114
+pop of  0 Sc 5py       0.00114
+pop of  0 Sc 5pz       0.00091
+pop of  0 Sc 6px       0.00006
+pop of  0 Sc 6py       0.00006
+pop of  0 Sc 6pz       0.00007
+pop of  0 Sc 7px       0.00003
+pop of  0 Sc 7py       0.00003
+pop of  0 Sc 7pz       0.00002
+pop of  0 Sc 3dxy      0.00000
+pop of  0 Sc 3dyz      0.00000
+pop of  0 Sc 3dz^2     0.00145
+pop of  0 Sc 3dxz      0.00000
+pop of  0 Sc 3dx2-y2    0.92126
+pop of  0 Sc 4dxy      0.00000
+pop of  0 Sc 4dyz      0.00000
+pop of  0 Sc 4dz^2     0.00029
+pop of  0 Sc 4dxz      0.00000
+pop of  0 Sc 4dx2-y2    0.06730
+pop of  0 Sc 5dxy      0.00000
+pop of  0 Sc 5dyz      0.00000
+pop of  0 Sc 5dz^2     0.00004
+pop of  0 Sc 5dxz      0.00000
+pop of  0 Sc 5dx2-y2    0.00018
+pop of  0 Sc 6dxy      0.00000
+pop of  0 Sc 6dyz      0.00000
+pop of  0 Sc 6dz^2     0.00001
+pop of  0 Sc 6dxz      0.00000
+pop of  0 Sc 6dx2-y2    0.01127
+pop of  0 Sc 4f-3      0.00002
+pop of  0 Sc 4f-2      0.00000
+pop of  0 Sc 4f-1      0.00000
+pop of  0 Sc 4f 0      0.00000
+pop of  0 Sc 4f 1      0.00000
+pop of  0 Sc 4f 2      0.00000
+pop of  0 Sc 4f 3      0.00002
+pop of  0 Sc 5f-3      0.00010
+pop of  0 Sc 5f-2      0.00000
+pop of  0 Sc 5f-1      0.00001
+pop of  0 Sc 5f 0      0.00005
+pop of  0 Sc 5f 1      0.00001
+pop of  0 Sc 5f 2      0.00000
+pop of  0 Sc 5f 3      0.00010
+pop of  0 Sc 5g-4      0.00000
+pop of  0 Sc 5g-3      0.00000
+pop of  0 Sc 5g-2      0.00000
+pop of  0 Sc 5g-1      0.00000
+pop of  0 Sc 5g 0      0.00000
+pop of  0 Sc 5g 1      0.00000
+pop of  0 Sc 5g 2      0.00000
+pop of  0 Sc 5g 3      0.00000
+pop of  0 Sc 5g 4      0.00000
+ ** Mulliken atomic charges  **
+charge of  0Sc =     -0.00000
+Dipole moment(X, Y, Z, Debye):  0.00000,  0.00000,  0.00000
+Using Python 3.x
+Wavefunction successfully saved to QMCPACK HDF5 Format
+Use: "convert4qmc -pyscf  scf.h5" to generate QMCPACK input files

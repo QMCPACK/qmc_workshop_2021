@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -A m2113
+#SBATCH -p debug
+#SBATCH -C knl
+#SBATCH -J scf
+#SBATCH -t 00:15:00
+#SBATCH -N 1
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=272
+#SBATCH -o scf.out
+#SBATCH -e scf.err
+#SBATCH --export=ALL
+
+echo $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
+
+
+export HDF5_USE_FILE_LOCKING=FALSE
+module unload cray-libsci
+module load cray-hdf5
+source activate nexus3   # Activating the conda environment
+module list
+
+export OMP_NUM_THREADS=1
+python scf.py

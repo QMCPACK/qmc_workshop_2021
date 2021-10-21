@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -A m2113
+#SBATCH -p debug
+#SBATCH -C knl
+#SBATCH -J optJ123
+#SBATCH -t 00:30:00
+#SBATCH -N 8
+#SBATCH --tasks-per-node=68
+#SBATCH --cpus-per-task=4
+#SBATCH -o optJ123.out
+#SBATCH -e optJ123.err
+#SBATCH --export=ALL
+
+echo $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
+
+
+export HDF5_USE_FILE_LOCKING=FALSE
+module unload cray-libsci
+module load cray-hdf5
+source activate nexus3   # Activating the conda environment
+module list
+
+export OMP_NUM_THREADS=1
+srun qmcpack optJ123.in.xml

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<qmcsystem>
+  <wavefunction name="psi0" target="e">
+         <determinantset type="MolecularOrbital" href="../scf/scf.h5" source="ion0" transform="yes" name="LCAOBSet">
+            <slaterdeterminant>
+               <determinant id="updet" size="6">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="63" spindataset="0">                                                     </coefficient>
+               </determinant>
+               <determinant id="downdet" size="5">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="63" spindataset="0">                                                     </coefficient>
+               </determinant>
+            </slaterdeterminant>
+         </determinantset>
+         <jastrow type="One-Body" name="J1" function="bspline" source="ion0" print="yes">
+            <correlation elementType="Sc" size="24" rcut="12.0" cusp="0.0">
+               <coefficients id="eSc" type="Array"> -1.57595506 -1.437488444 -1.276616594 -0.9707715406 -0.5964360668 -0.2734722363 -0.03449151817 0.1487682064 0.3233627442 0.4755869306 0.5608342601 0.5668443977 0.5832377648 0.6563341729 0.6687746175 0.6449904655 0.570740415 0.458674157 0.3201193619 0.1831596828 0.0693892954 0.002930318759 -0.01874923534 -0.01934073801</coefficients>
+            </correlation>
+         </jastrow>
+         <jastrow type="Two-Body" name="J2" function="bspline" print="yes">
+            <correlation speciesA="u" speciesB="u" size="24" rcut="12.0">
+               <coefficients id="uu" type="Array"> 0.3151710956 0.2085251959 0.1329196049 0.07196357957 0.02029535725 -0.01710121758 -0.04125192996 -0.05732798871 -0.06876103141 -0.07750409004 -0.0844749658 -0.08987108442 -0.09338456146 -0.09365377992 -0.08962165923 -0.08028997157 -0.06455409584 -0.04281293702 -0.01738997205 0.007720280802 0.02742562498 0.03745332133 0.03515709506 0.02516158124</coefficients>
+            </correlation>
+            <correlation speciesA="u" speciesB="d" size="24" rcut="12.0">
+               <coefficients id="ud" type="Array"> 0.6944311607 0.4834957531 0.3404216537 0.2381282495 0.1567715983 0.09692750891 0.05300475439 0.01838550526 -0.01012243582 -0.03478997319 -0.05716358354 -0.07658290403 -0.09204661147 -0.1034786607 -0.1114952159 -0.117404408 -0.120031166 -0.1190338048 -0.1131701395 -0.1041331634 -0.09225068016 -0.08045542405 -0.0640447494 -0.04949469726</coefficients>
+            </correlation>
+         </jastrow>
+         <jastrow type="eeI" name="J3" function="polynomial" print="yes" source="ion0">
+            <correlation ispecies="Sc" especies1="u" especies2="u" isize="3" esize="3" rcut="12.0">
+               <coefficients id="uuSc" type="Array" optimize="yes"> 3.526572724e-06 1.286468672e-05 1.854375445e-06 -2.154661772e-06 -4.424089792e-07 -2.322657281e-07 1.671952341e-05 5.307692514e-06 -2.25719101e-07 -1.894114988e-05 -1.733419135e-06 -3.352747111e-06 8.531034595e-07 -1.055209956e-06 -7.642855467e-07 -1.732474843e-08 2.482242467e-05 -7.271604283e-06 2.336310467e-06 -6.026292644e-07 -2.211420184e-06 1.672980489e-07 2.713414455e-08 3.111933397e-07 -5.685240294e-08 1.449939105e-09</coefficients>
+            </correlation>
+            <correlation ispecies="Sc" especies1="u" especies2="d" isize="3" esize="3" rcut="12.0">
+               <coefficients id="udSc" type="Array" optimize="yes"> 4.182783593e-06 2.30953215e-05 9.121881862e-06 -3.708372917e-06 -1.339131133e-06 -1.362345483e-06 3.704873525e-05 1.960980557e-06 4.454216273e-06 -3.599442543e-05 -1.908444215e-06 -7.509401268e-06 3.368270892e-07 2.871431912e-06 -5.470965714e-07 2.549274565e-09 4.443447274e-05 -9.429282274e-06 4.851889699e-06 -7.455806377e-07 -7.349651225e-06 1.157435298e-07 4.234311502e-08 1.846480952e-06 -1.183476253e-07 3.824890314e-09</coefficients>
+            </correlation>
+         </jastrow>
+      </wavefunction>
+</qmcsystem>

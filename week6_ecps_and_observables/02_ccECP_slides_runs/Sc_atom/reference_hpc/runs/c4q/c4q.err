@@ -1,0 +1,31 @@
+cray-hdf5/1.10.5.2(7):ERROR:150: Module 'cray-hdf5/1.10.5.2' conflicts with the currently loaded module(s) 'cray-hdf5-parallel/1.10.5.2'
+cray-hdf5/1.10.5.2(7):ERROR:102: Tcl command execution failed: conflict cray-hdf5-parallel
+
+Currently Loaded Modulefiles:
+  1) modules/3.2.11.4
+  2) altd/2.0
+  3) darshan/3.2.1
+  4) craype-network-aries
+  5) intel/19.0.3.199
+  6) craype/2.6.2
+  7) udreg/2.3.2-7.0.1.1_3.57__g8175d3d.ari
+  8) ugni/6.0.14.0-7.0.1.1_7.59__ge78e5b0.ari
+  9) pmi/5.0.14
+ 10) dmapp/7.1.1-7.0.1.1_4.68__g38cf134.ari
+ 11) gni-headers/5.0.12.0-7.0.1.1_6.44__g3b1768f.ari
+ 12) xpmem/2.2.20-7.0.1.1_4.26__g0475745.ari
+ 13) job/2.2.4-7.0.1.1_3.53__g36b56f4.ari
+ 14) dvs/2.12_2.2.167-7.0.1.1_17.9__ge473d3a2
+ 15) alps/6.6.58-7.0.1.1_6.26__g437d88db.ari
+ 16) rca/2.2.20-7.0.1.1_4.70__g8e3fb5b.ari
+ 17) atp/2.1.3
+ 18) PrgEnv-intel/6.0.5
+ 19) craype-mic-knl
+ 20) cray-mpich/7.7.10
+ 21) craype-hugepages2M
+ 22) python/3.8-anaconda-2020.11
+ 23) boost/1.70.0
+ 24) cray-hdf5-parallel/1.10.5.2
+ 25) gcc/7.3.0
+ 26) cmake/3.14.4
+Rank =    0  Free Memory = 92720 MB
