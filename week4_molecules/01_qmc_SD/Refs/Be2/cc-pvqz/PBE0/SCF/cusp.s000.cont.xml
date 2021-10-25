@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<simulation>
+   <project id="cusp" series="1">
+      <application name="qmcpack" role="molecu" class="serial" version="1.0"/>
+   <host>abenali</host><date>Thu Oct 21 23:52:39 2021
+</date></project>
+   <qmcsystem>
+      <simulationcell>
+         <parameter name="bconds">
+            n n n
+         </parameter>
+      </simulationcell>
+      <particleset name="e" random="yes" randomsrc="ion0">
+         <group name="u" size="4" mass="1.0">
+            <parameter name="charge">    -1                    </parameter>
+            <parameter name="mass">    1.0                   </parameter>
+         </group>
+         <group name="d" size="4" mass="1.0">
+            <parameter name="charge">    -1                    </parameter>
+            <parameter name="mass">    1.0                   </parameter>
+         </group>
+      </particleset>
+      <particleset name="ion0">
+         <group name="Be" size="2" mass="16428.235602444558">
+            <parameter name="charge">    4                     </parameter>
+            <parameter name="valence">    4                     </parameter>
+            <parameter name="atomicnumber">    4                     </parameter>
+            <parameter name="mass">    16428.235602444558            </parameter>
+            <attrib name="position" datatype="posArray" condition="0">
+                     0.00000000        0.00000000        0.00000000
+                     4.63663771        0.00000000        0.00000000
+            </attrib>
+         </group>
+      </particleset>
+      <wavefunction name="psi0" target="e">
+         <determinantset type="MolecularOrbital" href="scf.h5" source="ion0" transform="yes" name="LCAOBSet" cuspCorrection="yes">
+            <slaterdeterminant>
+               <determinant id="updet" size="4" cuspInfo="../updet.cuspInfo.xml">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="110" spindataset="0">                                                     </coefficient>
+               </determinant>
+               <determinant id="downdet" size="4" cuspInfo="../downdet.cuspInfo.xml">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="110" spindataset="0">                                                     </coefficient>
+               </determinant>
+            </slaterdeterminant>
+         </determinantset>
+      </wavefunction>
+      <hamiltonian name="h0" type="generic" target="e">
+         <pairpot type="coulomb" name="ElecElec" source="e" target="e"/>
+         <pairpot type="coulomb" name="IonIon" source="ion0" target="ion0"/>
+         <pairpot type="coulomb" name="ElecIon" source="ion0" target="e"/>
+      </hamiltonian>
+   </qmcsystem><mcwalkerset fileroot="cusp.s000" node="-1" nprocs="16" version="3 11" collected="yes"/>
+</simulation>

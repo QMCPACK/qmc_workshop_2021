@@ -1,0 +1,1 @@
+convert4qmc -prefix c4q -addCusp -orbitals scf.h5

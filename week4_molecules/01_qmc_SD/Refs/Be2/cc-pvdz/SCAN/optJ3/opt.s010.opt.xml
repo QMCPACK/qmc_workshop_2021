@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<qmcsystem>
+  <wavefunction name="psi0" target="e">
+         <determinantset type="MolecularOrbital" href="../SCF/scf.h5" source="ion0" transform="yes" name="LCAOBSet" cuspCorrection="yes">
+            <slaterdeterminant>
+               <determinant id="updet" size="4" cuspInfo="../SCF/updet.cuspInfo.xml">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="28" spindataset="0">                                                     </coefficient>
+               </determinant>
+               <determinant id="downdet" size="4" cuspInfo="../SCF/downdet.cuspInfo.xml">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="28" spindataset="0">                                                     </coefficient>
+               </determinant>
+            </slaterdeterminant>
+         </determinantset>
+         <jastrow type="One-Body" name="J1" function="bspline" source="ion0" print="yes">
+            <correlation elementType="Be" size="12" rcut="6.0" cusp="0.0">
+               <coefficients id="eBe" type="Array"> -1.356407037 -1.242032086 -1.063725345 -0.9349853782 -0.7840006919 -0.5422212144 -0.4657279095 -0.3667694842 -0.2788949086 -0.1921003936 -0.1176339019 -0.06085172305</coefficients>
+            </correlation>
+         </jastrow>
+         <jastrow type="Two-Body" name="J2" function="bspline" print="yes">
+            <correlation speciesA="u" speciesB="u" size="16" rcut="8.0">
+               <coefficients id="uu" type="Array"> 0.3408027152 0.256594181 0.1829358545 0.1301213862 0.09843158754 0.07673824667 0.06057712288 0.04298998104 0.02819865153 0.01340674405 0.001916101016 -0.007843802857 -0.0141556234 -0.007220041428 -0.003723910424 -0.002594041283</coefficients>
+            </correlation>
+            <correlation speciesA="u" speciesB="d" size="16" rcut="8.0">
+               <coefficients id="ud" type="Array"> 0.9820368329 0.7742705982 0.5907072599 0.4527186658 0.3489640298 0.2926932514 0.2511393191 0.2064746723 0.1657485436 0.1281215991 0.09654856841 0.06716591737 0.04382139876 0.03583473482 0.02518023713 0.01604839987</coefficients>
+            </correlation>
+         </jastrow>
+         <jastrow type="eeI" name="J3" function="polynomial" print="yes" source="ion0">
+            <correlation ispecies="Be" especies1="u" especies2="u" isize="3" esize="3" rcut="5.0">
+               <coefficients id="uuBe" type="Array" optimize="yes"> -0.003085817202 0.007955495588 0.01583839525 -0.007103176653 -0.008641198555 -0.0008093182147 0.02008116752 -0.007012936674 0.02648944679 -0.007575367233 -0.009570116077 -0.004686263341 -0.01181702522 0.008850561734 0.004281131134 0.001251905488 0.007031170486 0.007885438365 -0.001584763843 0.004751775655 -0.0003174705446 0.003043030551 -0.001658622286 -0.002378640145 -0.00129886193 0.0009001179717</coefficients>
+            </correlation>
+            <correlation ispecies="Be" especies1="u" especies2="d" isize="3" esize="3" rcut="5.0">
+               <coefficients id="udBe" type="Array" optimize="yes"> -0.001662857788 -0.002347675859 0.01586582964 -0.002161831734 -0.002491925232 -0.0001681933 -0.0002482641962 -0.004838544319 0.03327585518 0.002316906694 0.003664302461 -0.02040443349 -0.01784165522 0.0007131168096 0.01144199247 0.002062296045 -0.002728523555 0.008277143694 0.01855466481 0.00813437833 -0.008399187255 -0.001854518193 -0.001372022478 0.009305813603 -0.003301720589 0.0006269614856</coefficients>
+            </correlation>
+         </jastrow>
+      </wavefunction>
+</qmcsystem>

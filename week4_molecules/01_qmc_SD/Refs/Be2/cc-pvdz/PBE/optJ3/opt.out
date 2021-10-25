@@ -1,0 +1,3233 @@
+  Input file(s): opt.in.xml 
+
+=====================================================
+                    QMCPACK 3.11.9
+
+       (c) Copyright 2003-  QMCPACK developers
+
+                    Please cite:
+ J. Kim et al. J. Phys. Cond. Mat. 30 195901 (2018)
+      https://doi.org/10.1088/1361-648X/aab9c3
+
+  Git branch: develop
+  Last git commit: 1e04b4793bbdadcd1bcdf36287c3837f2cf87452-dirty
+  Last git commit date: Thu Oct 7 17:34:02 2021 -0500
+  Last git commit subject: Merge pull request #3518 from williamfgc/ci-afqmc-docs
+=====================================================
+  Global options 
+
+  Total number of MPI ranks = 16
+  Number of MPI groups      = 1
+  MPI group ID              = 0
+  Number of ranks in group  = 16
+  MPI ranks per node        = 16
+  OMP 1st level threads     = 1
+  OMP nested threading disabled or only 1 thread on the 2nd level
+
+  Precision used in this calculation, see definitions in the manual:
+  Base precision      = double
+  Full precision      = double
+
+  CPU only build
+  Timer build option is enabled. Current timer level is coarse
+
+  Input XML = opt.in.xml
+
+  Project = opt
+  date    = 2021-10-21 23:09:07 CDT
+  host    = abenali
+
+
+ Random Number
+ -------------
+  Offset for the random number seeds from input file (mod 1024): 42
+
+  Range of prime numbers to use as seeds over processors and threads = 193-281
+
+
+ Lattice
+ -------
+  Lattice is not specified for the Open BC. Add a huge box.
+  Simulation cell radius   = 5000000000.000000 bohr
+  Wigner-Seitz cell radius = 5000000000.000000 bohr
+
+
+ Particle Set
+ ------------
+  Name: ion0   Offload : 
+
+  Initializing the lattice by the global supercell
+  All the species have the same mass 1.000000
+  Particle set size: 2
+
+
+ Particle Set
+ ------------
+  Name: e   Offload : 
+
+  Initializing the lattice by the global supercell
+  All the species have the same mass 1.000000
+  Particle set size: 8
+
+
+ Many-body wavefunction
+ -------------------
+  Name: psi0   Tasking: no
+
+WARNING !!!!!!! Deprecated input style: creating SPO set inside determinantset. Support for this usage will soon be removed. SPO sets should be built outside.
+WARNING !!!!!!! Deprecated input style: missing basisset element. LCAO needs an explicit basisset XML element. Fallback on loading an implicit one.
+  LCAO: SoaAtomicBasisSet<MultiQuintic,1>
+Reading BasisSet from HDF5 file:../SCF/scf.h5
+<input node="atomicBasisSet" name="gaussia" expandYlm="pyscf" angular="spherical" elementType="Be" normalized="no" type="Numerical" expM="1" />
+  AO BasisSet for Be
+   Spherical Harmonics contain (-1)^m factor
+   Angular momentum m expanded as -l, ... ,l, with the exception of L=1 (1,-1,0)
+   Grid is created by the input parameters in h5
+    Using log grid ri = 0.000001 rf = 100.000000 npts = 1001
+   R(n,l,m,s) 0 0 0 0
+   R(n,l,m,s) 1 0 0 0
+   R(n,l,m,s) 2 0 0 0
+   R(n,l,m,s) 3 1 0 0
+   R(n,l,m,s) 4 1 0 0
+   R(n,l,m,s) 5 2 0 0
+Expanding Ylm as L=1 as (1,-1,0) and L>1 as -l,-l+1,...,l-1,l
+   Adding 1 spherical orbitals
+   Adding 1 spherical orbitals
+   Adding 1 spherical orbitals
+   Adding 3 spherical orbitals
+   Adding 3 spherical orbitals
+   Adding 5 spherical orbitals
+  Setting cutoff radius 328781.598257
+
+   Maximum Angular Momentum  = 2
+   Number of Radial functors = 6
+   Basis size                = 14
+
+  Created SPOSet builder named 'LCAOBSet' of type molecularorbital
+
+   Single Slater determinant
+   -------------------------
+
+     Determinant
+     -----------
+      Name: updet   Spin group: 0   SPO name: updet
+
+WARNING !!!!!!! Deprecated input style: creating SPO set inside determinantset. Support for this usage will soon be removed. SPO sets should be built outside.
+      Create a new SPO set updet
+
+     Single particle orbitals (SPO)
+     ------------------------------
+      Name:    Type: LCAO   Builder class name: LCAOrbitalBuilder
+
+WARNING SPOSet object name not given in the input!
+        Using cusp correction.
+Reading cusp info from : ../SCF/updet.cuspInfo.xml
+Found precomputed cusp data for spo set: updet
+WARNING SPOSet object doesn't have a name.
+      Setting delay_rank to default value 1
+      Using rank-1 Sherman-Morrison Fahy update (SM1)
+      Running on CPU.
+
+
+     Determinant
+     -----------
+      Name: downdet   Spin group: 1   SPO name: downdet
+
+WARNING !!!!!!! Deprecated input style: creating SPO set inside determinantset. Support for this usage will soon be removed. SPO sets should be built outside.
+      Create a new SPO set downdet
+
+     Single particle orbitals (SPO)
+     ------------------------------
+      Name:    Type: LCAO   Builder class name: LCAOrbitalBuilder
+
+WARNING SPOSet object name not given in the input!
+        Using cusp correction.
+Reading cusp info from : ../SCF/downdet.cuspInfo.xml
+Found precomputed cusp data for spo set: downdet
+WARNING SPOSet object doesn't have a name.
+      Setting delay_rank to default value 1
+      Using rank-1 Sherman-Morrison Fahy update (SM1)
+      Running on CPU.
+
+  Added a fermionic WaveFunctionComponent SlaterDet
+
+   Jastrow
+   -------
+    Name: J1   Type: One-Body   Function: bspline
+
+    Radial function for element: Be - e
+     Number of parameters: 12
+     Cusp: 0.000000
+     Cutoff radius: 6.000000
+
+       Name                        Value Type Recompute Use Index
+     ------ ---------------------------- ---- --------- --- -----
+      eBe_0                -9.422403e-01    1         1  ON     0
+      eBe_1                -8.556962e-01    1         1  ON     1
+      eBe_2                -7.637610e-01    1         1  ON     2
+      eBe_3                -6.527065e-01    1         1  ON     3
+      eBe_4                -5.487349e-01    1         1  ON     4
+      eBe_5                -4.582153e-01    1         1  ON     5
+      eBe_6                -3.748485e-01    1         1  ON     6
+      eBe_7                -2.990968e-01    1         1  ON     7
+      eBe_8                -2.284404e-01    1         1  ON     8
+      eBe_9                -1.655891e-01    1         1  ON     9
+     eBe_10                -1.012181e-01    1         1  ON    10
+     eBe_11                -5.084125e-02    1         1  ON    11
+
+
+   Jastrow
+   -------
+    Name: J2   Type: Two-Body   Function: bspline
+
+    Radial function for species: u - u
+     Number of parameters: 16
+     Cusp: -0.25
+     Cutoff radius: 8
+
+      Name                        Value Type Recompute Use Index
+     ----- ---------------------------- ---- --------- --- -----
+      uu_0                 2.581210e-01    1         1  ON     0
+      uu_1                 2.014669e-01    1         1  ON     1
+      uu_2                 1.575846e-01    1         1  ON     2
+      uu_3                 1.213938e-01    1         1  ON     3
+      uu_4                 9.549180e-02    1         1  ON     4
+      uu_5                 7.532785e-02    1         1  ON     5
+      uu_6                 5.656110e-02    1         1  ON     6
+      uu_7                 3.905073e-02    1         1  ON     7
+      uu_8                 2.272921e-02    1         1  ON     8
+      uu_9                 8.219058e-03    1         1  ON     9
+     uu_10                -3.700443e-03    1         1  ON    10
+     uu_11                -1.384605e-02    1         1  ON    11
+     uu_12                -2.051908e-02    1         1  ON    12
+     uu_13                -1.617362e-02    1         1  ON    13
+     uu_14                -1.080228e-02    1         1  ON    14
+     uu_15                -7.223824e-03    1         1  ON    15
+
+    Radial function for species: u - d
+     Number of parameters: 16
+     Cusp: -0.5
+     Cutoff radius: 8
+
+      Name                        Value Type Recompute Use Index
+     ----- ---------------------------- ---- --------- --- -----
+      ud_0                 6.631216e-01    1         1  ON     0
+      ud_1                 5.103991e-01    1         1  ON     1
+      ud_2                 4.196266e-01    1         1  ON     2
+      ud_3                 3.603147e-01    1         1  ON     3
+      ud_4                 3.033698e-01    1         1  ON     4
+      ud_5                 2.555562e-01    1         1  ON     5
+      ud_6                 2.091648e-01    1         1  ON     6
+      ud_7                 1.660815e-01    1         1  ON     7
+      ud_8                 1.288340e-01    1         1  ON     8
+      ud_9                 9.711240e-02    1         1  ON     9
+     ud_10                 7.072123e-02    1         1  ON    10
+     ud_11                 4.670819e-02    1         1  ON    11
+     ud_12                 2.828556e-02    1         1  ON    12
+     ud_13                 2.081982e-02    1         1  ON    13
+     ud_14                 1.297197e-02    1         1  ON    14
+     ud_15                 8.686849e-03    1         1  ON    15
+
+
+   Jastrow
+   -------
+    Name: J3   Type: eeI   Function: polynomial
+
+     Ion: Be   electron-electron: u - u
+      Number of parameters for e-e: 3, for e-I: 3
+      Cutoff radius: 5
+
+Expected 26 parameters, but found 0 in PolynomialFunctor3D.
+         Name                        Value Type Recompute Use Index
+      ------- ---------------------------- ---- --------- --- -----
+       uuBe_0                 0.000000e+00    1         1  ON     0
+       uuBe_1                 0.000000e+00    1         1  ON     1
+       uuBe_2                 0.000000e+00    1         1  ON     2
+       uuBe_3                 0.000000e+00    1         1  ON     3
+       uuBe_4                 0.000000e+00    1         1  ON     4
+       uuBe_5                 0.000000e+00    1         1  ON     5
+       uuBe_6                 0.000000e+00    1         1  ON     6
+       uuBe_7                 0.000000e+00    1         1  ON     7
+       uuBe_8                 0.000000e+00    1         1  ON     8
+       uuBe_9                 0.000000e+00    1         1  ON     9
+      uuBe_10                 0.000000e+00    1         1  ON    10
+      uuBe_11                 0.000000e+00    1         1  ON    11
+      uuBe_12                 0.000000e+00    1         1  ON    12
+      uuBe_13                 0.000000e+00    1         1  ON    13
+      uuBe_14                 0.000000e+00    1         1  ON    14
+      uuBe_15                 0.000000e+00    1         1  ON    15
+      uuBe_16                 0.000000e+00    1         1  ON    16
+      uuBe_17                 0.000000e+00    1         1  ON    17
+      uuBe_18                 0.000000e+00    1         1  ON    18
+      uuBe_19                 0.000000e+00    1         1  ON    19
+      uuBe_20                 0.000000e+00    1         1  ON    20
+      uuBe_21                 0.000000e+00    1         1  ON    21
+      uuBe_22                 0.000000e+00    1         1  ON    22
+      uuBe_23                 0.000000e+00    1         1  ON    23
+      uuBe_24                 0.000000e+00    1         1  ON    24
+      uuBe_25                 0.000000e+00    1         1  ON    25
+
+     Ion: Be   electron-electron: u - d
+      Number of parameters for e-e: 3, for e-I: 3
+      Cutoff radius: 5
+
+Expected 26 parameters, but found 0 in PolynomialFunctor3D.
+         Name                        Value Type Recompute Use Index
+      ------- ---------------------------- ---- --------- --- -----
+       udBe_0                 0.000000e+00    1         1  ON     0
+       udBe_1                 0.000000e+00    1         1  ON     1
+       udBe_2                 0.000000e+00    1         1  ON     2
+       udBe_3                 0.000000e+00    1         1  ON     3
+       udBe_4                 0.000000e+00    1         1  ON     4
+       udBe_5                 0.000000e+00    1         1  ON     5
+       udBe_6                 0.000000e+00    1         1  ON     6
+       udBe_7                 0.000000e+00    1         1  ON     7
+       udBe_8                 0.000000e+00    1         1  ON     8
+       udBe_9                 0.000000e+00    1         1  ON     9
+      udBe_10                 0.000000e+00    1         1  ON    10
+      udBe_11                 0.000000e+00    1         1  ON    11
+      udBe_12                 0.000000e+00    1         1  ON    12
+      udBe_13                 0.000000e+00    1         1  ON    13
+      udBe_14                 0.000000e+00    1         1  ON    14
+      udBe_15                 0.000000e+00    1         1  ON    15
+      udBe_16                 0.000000e+00    1         1  ON    16
+      udBe_17                 0.000000e+00    1         1  ON    17
+      udBe_18                 0.000000e+00    1         1  ON    18
+      udBe_19                 0.000000e+00    1         1  ON    19
+      udBe_20                 0.000000e+00    1         1  ON    20
+      udBe_21                 0.000000e+00    1         1  ON    21
+      udBe_22                 0.000000e+00    1         1  ON    22
+      udBe_23                 0.000000e+00    1         1  ON    23
+      udBe_24                 0.000000e+00    1         1  ON    24
+      udBe_25                 0.000000e+00    1         1  ON    25
+
+  QMCHamiltonian::addOperator Kinetic to H, physical Hamiltonian 
+
+ Hamiltonian and observables
+ ---------------------------
+  Name: h0
+
+  QMCHamiltonian::addOperator ElecElec to H, physical Hamiltonian 
+QMCHamiltonian::addOperatorType added type coulomb named ElecElec
+  QMCHamiltonian::addOperator IonIon to H, physical Hamiltonian 
+QMCHamiltonian::addOperatorType added type coulomb named IonIon
+  QMCHamiltonian::addOperator ElecIon to H, physical Hamiltonian 
+QMCHamiltonian::addOperatorType added type coulomb named ElecIon
+
+  QMCHamiltonian::add2WalkerProperty added
+    4 to P::PropertyList 
+    0 to P::Collectables 
+    starting Index of the observables in P::PropertyList = 9
+ParticleSetPool::randomize 1 ParticleSet.
+<init source="ion0" target="e">
+</init>
+  Initialization Execution time = 0.1133 secs
+=========================================================
+ Summary of QMC systems 
+=========================================================
+ParticleSetPool has: 
+
+  ParticleSet 'e' contains 8 particles :  u(4) d(4)
+
+    u  5.4567462879e-01  1.1988757063e+00 -9.0826000696e-01
+    u -1.4692950359e+00 -1.0839144827e-01 -6.2403797277e-01
+    u  5.8961738038e+00 -3.2605087954e-01 -9.3126776613e-01
+    u  5.4250078288e+00  6.2887151030e-01  1.2421727655e+00
+    d  1.2294858156e+00  7.3690730451e-01 -7.1086725473e-01
+    d -3.4676133570e-01 -1.3269143703e+00  8.2404783227e-01
+    d  4.6578601394e+00 -1.2450998705e+00 -1.0046272547e+00
+    d  3.1715465912e+00  6.1079977841e-01  2.0107621546e-01
+
+  Distance table for dissimilar particles (A-B):
+    source: ion0  target: e
+    Using structure-of-arrays (SoA) data layout
+    Distance computations use open boundary conditions in 3D.
+
+  Distance table for similar particles (A-A):
+    source/target: e
+    Using structure-of-arrays (SoA) data layout
+    Distance computations use open boundary conditions in 3D.
+
+
+  ParticleSet 'ion0' contains 2 particles :  Be(2)
+
+    Be  0.0000000000e+00  0.0000000000e+00  0.0000000000e+00
+    Be  4.6366377100e+00  0.0000000000e+00  0.0000000000e+00
+
+  Distance table for similar particles (A-A):
+    source/target: ion0
+    Using structure-of-arrays (SoA) data layout
+    Distance computations use open boundary conditions in 3D.
+
+
+  Hamiltonian h0
+  Kinetic         Kinetic energy
+  ElecElec        CoulombAB source=e
+
+  IonIon          CoulombAA source/target ion0
+
+  ElecIon         CoulombAA source/target ion0
+
+
+Loop execution max-interations = 4
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s000 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+  Adding 1 walkers to 0 existing sets
+  Total number of walkers: 1.6000000000e+01
+  Total weight: 1.6000000000e+01
+
+=========================================================
+  Start VMC
+  File Root opt.s000 append = no 
+=========================================================
+Resetting walkers
+  Using the current 1 walkers.
+  Total number of walkers: 1.6000000000e+01
+  Total weight: 1.6000000000e+01
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=0  my_counter=0
+  time step      = 1.0000000000e-01
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 2.5600000000e+04
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1.6000000000e+03</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">2.5600000000e+04</parameter>
+<parameter name="samplesperthread">1.6000000000e+03</parameter>
+<parameter name="spinmass">1.0000000000e+00</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">1.0000000000e-01</parameter>
+<parameter name="time_step">1.0000000000e-01</parameter>
+<parameter name="timestep">1.0000000000e-01</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16648 MiB
+Memory footprint by rank 0 on node 0       :      91 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 0
+    time step          = 0.1
+    reference energy   = -29.26
+    reference variance = 0.695075
+====================================================
+  Execution time = 9.7810e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s000
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9260e+01
+  VMC Evar = 6.9507e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.9964e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 1.4026e-01 at parameter 28
+
+******************************************************************************
+Init Cost =  -2.6265e+01    New Cost =  -2.6304e+01  Delta Cost =  -3.9749e-02
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   2.5000e-01
+*****************************************************************************
+  Execution time = 2.9612e-01
+  </log>
+  <optVariables href="opt.s000.opt.xml">
+  eBe_0                -1.052510e+00 1 1  ON 0
+  eBe_1                -9.300477e-01 1 1  ON 1
+  eBe_2                -7.930753e-01 1 1  ON 2
+  eBe_3                -7.089521e-01 1 1  ON 3
+  eBe_4                -6.114808e-01 1 1  ON 4
+  eBe_5                -4.488970e-01 1 1  ON 5
+  eBe_6                -3.764724e-01 1 1  ON 6
+  eBe_7                -2.984518e-01 1 1  ON 7
+  eBe_8                -2.301955e-01 1 1  ON 8
+  eBe_9                -1.640402e-01 1 1  ON 9
+ eBe_10                -9.949854e-02 1 1  ON 10
+ eBe_11                -4.996460e-02 1 1  ON 11
+   uu_0                 2.729877e-01 1 1  ON 12
+   uu_1                 2.166994e-01 1 1  ON 13
+   uu_2                 1.632226e-01 1 1  ON 14
+   uu_3                 1.201801e-01 1 1  ON 15
+   uu_4                 8.928437e-02 1 1  ON 16
+   uu_5                 6.951170e-02 1 1  ON 17
+   uu_6                 5.328299e-02 1 1  ON 18
+   uu_7                 3.704763e-02 1 1  ON 19
+   uu_8                 2.109271e-02 1 1  ON 20
+   uu_9                 5.776155e-03 1 1  ON 21
+  uu_10                -6.037239e-03 1 1  ON 22
+  uu_11                -1.651600e-02 1 1  ON 23
+  uu_12                -2.219053e-02 1 1  ON 24
+  uu_13                -1.646070e-02 1 1  ON 25
+  uu_14                -1.073565e-02 1 1  ON 26
+  uu_15                -8.518016e-03 1 1  ON 27
+   ud_0                 8.033790e-01 1 1  ON 28
+   ud_1                 6.331309e-01 1 1  ON 29
+   ud_2                 4.925522e-01 1 1  ON 30
+   ud_3                 3.874411e-01 1 1  ON 31
+   ud_4                 3.013661e-01 1 1  ON 32
+   ud_5                 2.480896e-01 1 1  ON 33
+   ud_6                 2.097490e-01 1 1  ON 34
+   ud_7                 1.695579e-01 1 1  ON 35
+   ud_8                 1.323921e-01 1 1  ON 36
+   ud_9                 9.992594e-02 1 1  ON 37
+  ud_10                 7.384869e-02 1 1  ON 38
+  ud_11                 5.042655e-02 1 1  ON 39
+  ud_12                 3.258995e-02 1 1  ON 40
+  ud_13                 2.604255e-02 1 1  ON 41
+  ud_14                 1.812162e-02 1 1  ON 42
+  ud_15                 1.012448e-02 1 1  ON 43
+ uuBe_0                -2.865669e-03 1 1  ON 44
+ uuBe_1                 2.489832e-03 1 1  ON 45
+ uuBe_2                 9.710260e-03 1 1  ON 46
+ uuBe_3                -2.429787e-03 1 1  ON 47
+ uuBe_4                -3.813621e-03 1 1  ON 48
+ uuBe_5                -3.518282e-04 1 1  ON 49
+ uuBe_6                 3.376232e-03 1 1  ON 50
+ uuBe_7                 8.002112e-03 1 1  ON 51
+ uuBe_8                 1.054919e-02 1 1  ON 52
+ uuBe_9                 7.308345e-04 1 1  ON 53
+uuBe_10                -1.619515e-03 1 1  ON 54
+uuBe_11                -7.996469e-03 1 1  ON 55
+uuBe_12                -1.170956e-03 1 1  ON 56
+uuBe_13                 7.314900e-05 1 1  ON 57
+uuBe_14                -4.306318e-04 1 1  ON 58
+uuBe_15                 2.342007e-04 1 1  ON 59
+uuBe_16                -4.988488e-03 1 1  ON 60
+uuBe_17                -1.462783e-03 1 1  ON 61
+uuBe_18                -5.892170e-03 1 1  ON 62
+uuBe_19                 2.969216e-04 1 1  ON 63
+uuBe_20                 5.643157e-03 1 1  ON 64
+uuBe_21                 6.911523e-03 1 1  ON 65
+uuBe_22                -2.180168e-03 1 1  ON 66
+uuBe_23                -2.977654e-03 1 1  ON 67
+uuBe_24                -3.159774e-03 1 1  ON 68
+uuBe_25                 1.683576e-03 1 1  ON 69
+ udBe_0                -2.817591e-03 1 1  ON 70
+ udBe_1                -2.738534e-03 1 1  ON 71
+ udBe_2                 1.133546e-02 1 1  ON 72
+ udBe_3                -1.383453e-03 1 1  ON 73
+ udBe_4                -3.016876e-03 1 1  ON 74
+ udBe_5                -1.467537e-04 1 1  ON 75
+ udBe_6                -1.097679e-03 1 1  ON 76
+ udBe_7                -1.993885e-03 1 1  ON 77
+ udBe_8                 2.005518e-02 1 1  ON 78
+ udBe_9                 3.079521e-03 1 1  ON 79
+udBe_10                 1.361540e-03 1 1  ON 80
+udBe_11                -9.413810e-03 1 1  ON 81
+udBe_12                -1.201786e-02 1 1  ON 82
+udBe_13                -1.686791e-03 1 1  ON 83
+udBe_14                 5.687213e-03 1 1  ON 84
+udBe_15                 1.840727e-03 1 1  ON 85
+udBe_16                -2.212919e-03 1 1  ON 86
+udBe_17                 3.400013e-03 1 1  ON 87
+udBe_18                 1.387518e-03 1 1  ON 88
+udBe_19                 8.213387e-03 1 1  ON 89
+udBe_20                -5.240304e-03 1 1  ON 90
+udBe_21                 4.077273e-03 1 1  ON 91
+udBe_22                -2.490037e-03 1 1  ON 92
+udBe_23                 9.282758e-03 1 1  ON 93
+udBe_24                -5.623930e-03 1 1  ON 94
+udBe_25                 1.335935e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.486 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 0                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 0                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s001 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s001 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=1  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.26001997
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16565 MiB
+Memory footprint by rank 0 on node 0       :     100 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 1
+    time step          = 0.1
+    reference energy   = -29.2732
+    reference variance = 0.446964
+====================================================
+  Execution time = 1.1419e+00
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s001
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9273e+01
+  VMC Evar = 4.4696e-01
+  Total weights = 2.5600e+04
+  Execution time = 2.1973e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 7.3709e-02 at parameter 1
+
+******************************************************************************
+Init Cost =  -2.6301e+01    New Cost =  -2.6303e+01  Delta Cost =  -1.9777e-03
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   6.2500e-02
+*****************************************************************************
+  Execution time = 3.0535e-01
+  </log>
+  <optVariables href="opt.s001.opt.xml">
+  eBe_0                -1.120939e+00 1 1  ON 0
+  eBe_1                -1.003757e+00 1 1  ON 1
+  eBe_2                -8.492155e-01 1 1  ON 2
+  eBe_3                -7.601384e-01 1 1  ON 3
+  eBe_4                -6.516012e-01 1 1  ON 4
+  eBe_5                -4.757871e-01 1 1  ON 5
+  eBe_6                -4.026795e-01 1 1  ON 6
+  eBe_7                -3.182826e-01 1 1  ON 7
+  eBe_8                -2.402827e-01 1 1  ON 8
+  eBe_9                -1.638481e-01 1 1  ON 9
+ eBe_10                -9.882391e-02 1 1  ON 10
+ eBe_11                -4.868258e-02 1 1  ON 11
+   uu_0                 2.812860e-01 1 1  ON 12
+   uu_1                 2.218741e-01 1 1  ON 13
+   uu_2                 1.565517e-01 1 1  ON 14
+   uu_3                 1.183983e-01 1 1  ON 15
+   uu_4                 9.382234e-02 1 1  ON 16
+   uu_5                 7.442675e-02 1 1  ON 17
+   uu_6                 6.027542e-02 1 1  ON 18
+   uu_7                 4.340809e-02 1 1  ON 19
+   uu_8                 2.790430e-02 1 1  ON 20
+   uu_9                 1.340511e-02 1 1  ON 21
+  uu_10                 1.421525e-03 1 1  ON 22
+  uu_11                -8.947519e-03 1 1  ON 23
+  uu_12                -1.463690e-02 1 1  ON 24
+  uu_13                -1.043735e-02 1 1  ON 25
+  uu_14                -7.815986e-03 1 1  ON 26
+  uu_15                -5.694879e-03 1 1  ON 27
+   ud_0                 8.682458e-01 1 1  ON 28
+   ud_1                 6.802679e-01 1 1  ON 29
+   ud_2                 5.184042e-01 1 1  ON 30
+   ud_3                 3.958083e-01 1 1  ON 31
+   ud_4                 2.988036e-01 1 1  ON 32
+   ud_5                 2.467269e-01 1 1  ON 33
+   ud_6                 2.090786e-01 1 1  ON 34
+   ud_7                 1.686090e-01 1 1  ON 35
+   ud_8                 1.312140e-01 1 1  ON 36
+   ud_9                 9.744770e-02 1 1  ON 37
+  ud_10                 7.103313e-02 1 1  ON 38
+  ud_11                 4.711027e-02 1 1  ON 39
+  ud_12                 2.921118e-02 1 1  ON 40
+  ud_13                 2.123593e-02 1 1  ON 41
+  ud_14                 1.498712e-02 1 1  ON 42
+  ud_15                 9.623234e-03 1 1  ON 43
+ uuBe_0                -3.443303e-03 1 1  ON 44
+ uuBe_1                 4.256591e-03 1 1  ON 45
+ uuBe_2                 1.183656e-02 1 1  ON 46
+ uuBe_3                -4.257913e-03 1 1  ON 47
+ uuBe_4                -7.505171e-03 1 1  ON 48
+ uuBe_5                -2.847971e-04 1 1  ON 49
+ uuBe_6                 7.488626e-03 1 1  ON 50
+ uuBe_7                 1.624559e-02 1 1  ON 51
+ uuBe_8                 1.502966e-02 1 1  ON 52
+ uuBe_9                -2.086266e-03 1 1  ON 53
+uuBe_10                -6.137522e-03 1 1  ON 54
+uuBe_11                -1.063649e-02 1 1  ON 55
+uuBe_12                -3.006102e-03 1 1  ON 56
+uuBe_13                 2.292703e-03 1 1  ON 57
+uuBe_14                 1.327347e-03 1 1  ON 58
+uuBe_15                 1.620363e-04 1 1  ON 59
+uuBe_16                -3.686944e-03 1 1  ON 60
+uuBe_17                 1.460546e-03 1 1  ON 61
+uuBe_18                -7.293208e-03 1 1  ON 62
+uuBe_19                 1.244112e-03 1 1  ON 63
+uuBe_20                 8.002412e-03 1 1  ON 64
+uuBe_21                 6.719584e-03 1 1  ON 65
+uuBe_22                -2.262162e-03 1 1  ON 66
+uuBe_23                -5.234602e-03 1 1  ON 67
+uuBe_24                -3.016959e-03 1 1  ON 68
+uuBe_25                 1.710648e-03 1 1  ON 69
+ udBe_0                -1.974366e-03 1 1  ON 70
+ udBe_1                -2.793908e-03 1 1  ON 71
+ udBe_2                 1.177394e-02 1 1  ON 72
+ udBe_3                -2.187295e-03 1 1  ON 73
+ udBe_4                -2.566799e-03 1 1  ON 74
+ udBe_5                -5.000098e-04 1 1  ON 75
+ udBe_6                -1.542028e-03 1 1  ON 76
+ udBe_7                -2.080135e-03 1 1  ON 77
+ udBe_8                 2.527412e-02 1 1  ON 78
+ udBe_9                 2.886046e-03 1 1  ON 79
+udBe_10                 1.777015e-03 1 1  ON 80
+udBe_11                -1.260922e-02 1 1  ON 81
+udBe_12                -1.521601e-02 1 1  ON 82
+udBe_13                -3.559101e-04 1 1  ON 83
+udBe_14                 9.990090e-03 1 1  ON 84
+udBe_15                 1.707831e-03 1 1  ON 85
+udBe_16                -4.059370e-03 1 1  ON 86
+udBe_17                 1.068778e-02 1 1  ON 87
+udBe_18                 1.095551e-03 1 1  ON 88
+udBe_19                 1.119006e-02 1 1  ON 89
+udBe_20                -6.559932e-03 1 1  ON 90
+udBe_21                 3.346849e-03 1 1  ON 91
+udBe_22                -3.052131e-03 1 1  ON 92
+udBe_23                 8.959822e-03 1 1  ON 93
+udBe_24                -5.628597e-03 1 1  ON 94
+udBe_25                 1.541018e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.684 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 1                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 1                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s002 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s002 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=2  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.26661872
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16557 MiB
+Memory footprint by rank 0 on node 0       :     101 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 2
+    time step          = 0.1
+    reference energy   = -29.2766
+    reference variance = 0.451622
+====================================================
+  Execution time = 1.0211e+00
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s002
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9277e+01
+  VMC Evar = 4.5162e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.7255e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 5.6937e-02 at parameter 1
+
+******************************************************************************
+Init Cost =  -2.6304e+01    New Cost =  -2.6304e+01  Delta Cost =  -3.2320e-04
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   1.5625e-02
+*****************************************************************************
+  Execution time = 2.4236e-01
+  </log>
+  <optVariables href="opt.s002.opt.xml">
+  eBe_0                -1.174944e+00 1 1  ON 0
+  eBe_1                -1.060694e+00 1 1  ON 1
+  eBe_2                -8.975147e-01 1 1  ON 2
+  eBe_3                -7.859488e-01 1 1  ON 3
+  eBe_4                -6.702680e-01 1 1  ON 4
+  eBe_5                -4.845021e-01 1 1  ON 5
+  eBe_6                -4.123272e-01 1 1  ON 6
+  eBe_7                -3.255100e-01 1 1  ON 7
+  eBe_8                -2.458841e-01 1 1  ON 8
+  eBe_9                -1.731845e-01 1 1  ON 9
+ eBe_10                -1.054567e-01 1 1  ON 10
+ eBe_11                -5.377071e-02 1 1  ON 11
+   uu_0                 2.873585e-01 1 1  ON 12
+   uu_1                 2.175160e-01 1 1  ON 13
+   uu_2                 1.562485e-01 1 1  ON 14
+   uu_3                 1.261052e-01 1 1  ON 15
+   uu_4                 1.014417e-01 1 1  ON 16
+   uu_5                 8.207781e-02 1 1  ON 17
+   uu_6                 6.583083e-02 1 1  ON 18
+   uu_7                 4.947044e-02 1 1  ON 19
+   uu_8                 3.223408e-02 1 1  ON 20
+   uu_9                 1.654792e-02 1 1  ON 21
+  uu_10                 4.482723e-03 1 1  ON 22
+  uu_11                -5.234982e-03 1 1  ON 23
+  uu_12                -1.137861e-02 1 1  ON 24
+  uu_13                -8.769975e-03 1 1  ON 25
+  uu_14                -4.660726e-03 1 1  ON 26
+  uu_15                -8.626586e-04 1 1  ON 27
+   ud_0                 9.147475e-01 1 1  ON 28
+   ud_1                 7.159550e-01 1 1  ON 29
+   ud_2                 5.404582e-01 1 1  ON 30
+   ud_3                 4.113207e-01 1 1  ON 31
+   ud_4                 3.120734e-01 1 1  ON 32
+   ud_5                 2.574368e-01 1 1  ON 33
+   ud_6                 2.179335e-01 1 1  ON 34
+   ud_7                 1.758697e-01 1 1  ON 35
+   ud_8                 1.385886e-01 1 1  ON 36
+   ud_9                 1.055899e-01 1 1  ON 37
+  ud_10                 7.708061e-02 1 1  ON 38
+  ud_11                 5.266927e-02 1 1  ON 39
+  ud_12                 3.324988e-02 1 1  ON 40
+  ud_13                 2.587451e-02 1 1  ON 41
+  ud_14                 1.795790e-02 1 1  ON 42
+  ud_15                 1.198880e-02 1 1  ON 43
+ uuBe_0                -4.730338e-03 1 1  ON 44
+ uuBe_1                 6.562978e-03 1 1  ON 45
+ uuBe_2                 1.488424e-02 1 1  ON 46
+ uuBe_3                -5.726053e-03 1 1  ON 47
+ uuBe_4                -9.185857e-03 1 1  ON 48
+ uuBe_5                -6.857209e-04 1 1  ON 49
+ uuBe_6                 1.638270e-02 1 1  ON 50
+ uuBe_7                 4.697022e-03 1 1  ON 51
+ uuBe_8                 1.652112e-02 1 1  ON 52
+ uuBe_9                -4.670186e-03 1 1  ON 53
+uuBe_10                -8.932774e-03 1 1  ON 54
+uuBe_11                -2.974568e-03 1 1  ON 55
+uuBe_12                -4.399694e-03 1 1  ON 56
+uuBe_13                 3.811716e-03 1 1  ON 57
+uuBe_14                -1.179085e-03 1 1  ON 58
+uuBe_15                 8.038309e-04 1 1  ON 59
+uuBe_16                -5.538911e-04 1 1  ON 60
+uuBe_17                 8.579140e-04 1 1  ON 61
+uuBe_18                -9.153167e-03 1 1  ON 62
+uuBe_19                 3.422265e-04 1 1  ON 63
+uuBe_20                 7.572555e-03 1 1  ON 64
+uuBe_21                 7.191344e-03 1 1  ON 65
+uuBe_22                -1.989251e-03 1 1  ON 66
+uuBe_23                -7.484076e-03 1 1  ON 67
+uuBe_24                -1.712294e-03 1 1  ON 68
+uuBe_25                 1.291373e-03 1 1  ON 69
+ udBe_0                -1.929314e-03 1 1  ON 70
+ udBe_1                -2.439969e-03 1 1  ON 71
+ udBe_2                 1.425385e-02 1 1  ON 72
+ udBe_3                -2.473050e-03 1 1  ON 73
+ udBe_4                -3.775902e-03 1 1  ON 74
+ udBe_5                -2.944294e-04 1 1  ON 75
+ udBe_6                -6.230342e-04 1 1  ON 76
+ udBe_7                -1.830715e-03 1 1  ON 77
+ udBe_8                 3.031701e-02 1 1  ON 78
+ udBe_9                 2.546866e-03 1 1  ON 79
+udBe_10                 1.569002e-03 1 1  ON 80
+udBe_11                -1.583694e-02 1 1  ON 81
+udBe_12                -1.784424e-02 1 1  ON 82
+udBe_13                 3.912513e-04 1 1  ON 83
+udBe_14                 1.152070e-02 1 1  ON 84
+udBe_15                 1.959810e-03 1 1  ON 85
+udBe_16                -2.088510e-03 1 1  ON 86
+udBe_17                 1.135516e-02 1 1  ON 87
+udBe_18                 5.575805e-03 1 1  ON 88
+udBe_19                 1.145699e-02 1 1  ON 89
+udBe_20                -8.324277e-03 1 1  ON 90
+udBe_21                 1.941216e-03 1 1  ON 91
+udBe_22                -2.701323e-03 1 1  ON 92
+udBe_23                 1.063392e-02 1 1  ON 93
+udBe_24                -5.290364e-03 1 1  ON 94
+udBe_25                 1.372388e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.462 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 2                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 2                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s003 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s003 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=3  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.26996118
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16554 MiB
+Memory footprint by rank 0 on node 0       :     102 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 3
+    time step          = 0.1
+    reference energy   = -29.271
+    reference variance = 0.449722
+====================================================
+  Execution time = 1.3635e+00
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s003
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9271e+01
+  VMC Evar = 4.4972e-01
+  Total weights = 2.5600e+04
+  Execution time = 2.4386e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 5.2565e-02 at parameter 3
+
+******************************************************************************
+Init Cost =  -2.6299e+01    New Cost =  -2.6300e+01  Delta Cost =  -1.3001e-03
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   3.9062e-03
+*****************************************************************************
+  Execution time = 2.4192e-01
+  </log>
+  <optVariables href="opt.s003.opt.xml">
+  eBe_0                -1.223530e+00 1 1  ON 0
+  eBe_1                -1.105422e+00 1 1  ON 1
+  eBe_2                -9.455683e-01 1 1  ON 2
+  eBe_3                -8.385136e-01 1 1  ON 3
+  eBe_4                -7.103403e-01 1 1  ON 4
+  eBe_5                -4.959601e-01 1 1  ON 5
+  eBe_6                -4.216959e-01 1 1  ON 6
+  eBe_7                -3.273263e-01 1 1  ON 7
+  eBe_8                -2.478090e-01 1 1  ON 8
+  eBe_9                -1.697044e-01 1 1  ON 9
+ eBe_10                -1.039620e-01 1 1  ON 10
+ eBe_11                -5.234910e-02 1 1  ON 11
+   uu_0                 2.983769e-01 1 1  ON 12
+   uu_1                 2.350657e-01 1 1  ON 13
+   uu_2                 1.722757e-01 1 1  ON 14
+   uu_3                 1.302958e-01 1 1  ON 15
+   uu_4                 9.933625e-02 1 1  ON 16
+   uu_5                 7.781831e-02 1 1  ON 17
+   uu_6                 6.299535e-02 1 1  ON 18
+   uu_7                 4.654438e-02 1 1  ON 19
+   uu_8                 3.048986e-02 1 1  ON 20
+   uu_9                 1.544791e-02 1 1  ON 21
+  uu_10                 3.322151e-03 1 1  ON 22
+  uu_11                -7.589276e-03 1 1  ON 23
+  uu_12                -1.671160e-02 1 1  ON 24
+  uu_13                -1.275991e-02 1 1  ON 25
+  uu_14                -9.116540e-03 1 1  ON 26
+  uu_15                -4.572887e-03 1 1  ON 27
+   ud_0                 9.308452e-01 1 1  ON 28
+   ud_1                 7.207131e-01 1 1  ON 29
+   ud_2                 5.405955e-01 1 1  ON 30
+   ud_3                 4.077947e-01 1 1  ON 31
+   ud_4                 3.107512e-01 1 1  ON 32
+   ud_5                 2.586826e-01 1 1  ON 33
+   ud_6                 2.216453e-01 1 1  ON 34
+   ud_7                 1.814501e-01 1 1  ON 35
+   ud_8                 1.442232e-01 1 1  ON 36
+   ud_9                 1.116066e-01 1 1  ON 37
+  ud_10                 8.505492e-02 1 1  ON 38
+  ud_11                 6.152258e-02 1 1  ON 39
+  ud_12                 4.232484e-02 1 1  ON 40
+  ud_13                 3.334844e-02 1 1  ON 41
+  ud_14                 2.337201e-02 1 1  ON 42
+  ud_15                 1.443978e-02 1 1  ON 43
+ uuBe_0                -3.976609e-03 1 1  ON 44
+ uuBe_1                 7.444846e-03 1 1  ON 45
+ uuBe_2                 1.431438e-02 1 1  ON 46
+ uuBe_3                -6.142037e-03 1 1  ON 47
+ uuBe_4                -8.581402e-03 1 1  ON 48
+ uuBe_5                -6.722224e-04 1 1  ON 49
+ uuBe_6                 1.757734e-02 1 1  ON 50
+ uuBe_7                 2.419947e-03 1 1  ON 51
+ uuBe_8                 2.227530e-02 1 1  ON 52
+ uuBe_9                -5.916803e-03 1 1  ON 53
+uuBe_10                -9.087227e-03 1 1  ON 54
+uuBe_11                -6.266141e-03 1 1  ON 55
+uuBe_12                -9.309641e-03 1 1  ON 56
+uuBe_13                 5.441389e-03 1 1  ON 57
+uuBe_14                 4.055445e-03 1 1  ON 58
+uuBe_15                 8.050833e-04 1 1  ON 59
+uuBe_16                 3.756758e-03 1 1  ON 60
+uuBe_17                 6.014433e-03 1 1  ON 61
+uuBe_18                -6.031564e-03 1 1  ON 62
+uuBe_19                 4.086151e-03 1 1  ON 63
+uuBe_20                 3.416014e-03 1 1  ON 64
+uuBe_21                 5.012063e-03 1 1  ON 65
+uuBe_22                -1.886020e-03 1 1  ON 66
+uuBe_23                -3.151226e-03 1 1  ON 67
+uuBe_24                -2.905388e-03 1 1  ON 68
+uuBe_25                 1.421437e-03 1 1  ON 69
+ udBe_0                -1.641208e-03 1 1  ON 70
+ udBe_1                -2.667124e-03 1 1  ON 71
+ udBe_2                 1.416079e-02 1 1  ON 72
+ udBe_3                -2.299984e-03 1 1  ON 73
+ udBe_4                -3.167438e-03 1 1  ON 74
+ udBe_5                -4.491719e-04 1 1  ON 75
+ udBe_6                -5.104610e-04 1 1  ON 76
+ udBe_7                -3.728062e-03 1 1  ON 77
+ udBe_8                 2.841049e-02 1 1  ON 78
+ udBe_9                 2.292268e-03 1 1  ON 79
+udBe_10                 2.119681e-03 1 1  ON 80
+udBe_11                -1.382848e-02 1 1  ON 81
+udBe_12                -1.654827e-02 1 1  ON 82
+udBe_13                 7.247574e-04 1 1  ON 83
+udBe_14                 1.022595e-02 1 1  ON 84
+udBe_15                 1.944020e-03 1 1  ON 85
+udBe_16                -3.659828e-03 1 1  ON 86
+udBe_17                 1.129716e-02 1 1  ON 87
+udBe_18                 3.763361e-03 1 1  ON 88
+udBe_19                 1.079988e-02 1 1  ON 89
+udBe_20                -7.789627e-03 1 1  ON 90
+udBe_21                 2.842587e-03 1 1  ON 91
+udBe_22                -2.835540e-03 1 1  ON 92
+udBe_23                 1.019422e-02 1 1  ON 93
+udBe_24                -5.614089e-03 1 1  ON 94
+udBe_25                 1.497228e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.874 secs
+Loop execution max-interations = 8
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 3                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 3                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s004 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s004 append = no 
+=========================================================
+Resetting walkers
+  Using the current 1 walkers.
+  Total number of walkers: 16
+  Total weight: 16
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=0  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16542 MiB
+Memory footprint by rank 0 on node 0       :     103 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 0
+    time step          = 0.1
+    reference energy   = -29.2782
+    reference variance = 0.45484
+====================================================
+  Execution time = 1.0001e+00
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s004
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9278e+01
+  VMC Evar = 4.5484e-01
+  Total weights = 2.5600e+04
+  Execution time = 2.2315e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 2.0777e+02 at parameter 62
+WARNING CostFunction-> Number of Effective Walkers is too small! 
+  Number of effective walkers (samples) / total number of samples = 6.6393e-04
+  User specified threshold minwalkers = 5.0000e-01
+  If this message appears frequently. You might have to be cautious. 
+  Find info about parameter "minwalkers" in the user manual!
+
+******************************************************************************
+Init Cost =  -2.6305e+01    New Cost =   1.5058e+04  Delta Cost =   1.5084e+04
+******************************************************************************
+
+The new set of parameters is not valid. Revert to the old set!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   4.0000e+00
+*****************************************************************************
+  Execution time = 2.9805e-01
+  </log>
+  <optVariables href="opt.s004.opt.xml">
+  eBe_0                -1.223530e+00 1 1  ON 0
+  eBe_1                -1.105422e+00 1 1  ON 1
+  eBe_2                -9.455683e-01 1 1  ON 2
+  eBe_3                -8.385136e-01 1 1  ON 3
+  eBe_4                -7.103403e-01 1 1  ON 4
+  eBe_5                -4.959601e-01 1 1  ON 5
+  eBe_6                -4.216959e-01 1 1  ON 6
+  eBe_7                -3.273263e-01 1 1  ON 7
+  eBe_8                -2.478090e-01 1 1  ON 8
+  eBe_9                -1.697044e-01 1 1  ON 9
+ eBe_10                -1.039620e-01 1 1  ON 10
+ eBe_11                -5.234910e-02 1 1  ON 11
+   uu_0                 2.983769e-01 1 1  ON 12
+   uu_1                 2.350657e-01 1 1  ON 13
+   uu_2                 1.722757e-01 1 1  ON 14
+   uu_3                 1.302958e-01 1 1  ON 15
+   uu_4                 9.933625e-02 1 1  ON 16
+   uu_5                 7.781831e-02 1 1  ON 17
+   uu_6                 6.299535e-02 1 1  ON 18
+   uu_7                 4.654438e-02 1 1  ON 19
+   uu_8                 3.048986e-02 1 1  ON 20
+   uu_9                 1.544791e-02 1 1  ON 21
+  uu_10                 3.322151e-03 1 1  ON 22
+  uu_11                -7.589276e-03 1 1  ON 23
+  uu_12                -1.671160e-02 1 1  ON 24
+  uu_13                -1.275991e-02 1 1  ON 25
+  uu_14                -9.116540e-03 1 1  ON 26
+  uu_15                -4.572887e-03 1 1  ON 27
+   ud_0                 9.308452e-01 1 1  ON 28
+   ud_1                 7.207131e-01 1 1  ON 29
+   ud_2                 5.405955e-01 1 1  ON 30
+   ud_3                 4.077947e-01 1 1  ON 31
+   ud_4                 3.107512e-01 1 1  ON 32
+   ud_5                 2.586826e-01 1 1  ON 33
+   ud_6                 2.216453e-01 1 1  ON 34
+   ud_7                 1.814501e-01 1 1  ON 35
+   ud_8                 1.442232e-01 1 1  ON 36
+   ud_9                 1.116066e-01 1 1  ON 37
+  ud_10                 8.505492e-02 1 1  ON 38
+  ud_11                 6.152258e-02 1 1  ON 39
+  ud_12                 4.232484e-02 1 1  ON 40
+  ud_13                 3.334844e-02 1 1  ON 41
+  ud_14                 2.337201e-02 1 1  ON 42
+  ud_15                 1.443978e-02 1 1  ON 43
+ uuBe_0                -3.976609e-03 1 1  ON 44
+ uuBe_1                 7.444846e-03 1 1  ON 45
+ uuBe_2                 1.431438e-02 1 1  ON 46
+ uuBe_3                -6.142037e-03 1 1  ON 47
+ uuBe_4                -8.581402e-03 1 1  ON 48
+ uuBe_5                -6.722224e-04 1 1  ON 49
+ uuBe_6                 1.757734e-02 1 1  ON 50
+ uuBe_7                 2.419947e-03 1 1  ON 51
+ uuBe_8                 2.227530e-02 1 1  ON 52
+ uuBe_9                -5.916803e-03 1 1  ON 53
+uuBe_10                -9.087227e-03 1 1  ON 54
+uuBe_11                -6.266141e-03 1 1  ON 55
+uuBe_12                -9.309641e-03 1 1  ON 56
+uuBe_13                 5.441389e-03 1 1  ON 57
+uuBe_14                 4.055445e-03 1 1  ON 58
+uuBe_15                 8.050833e-04 1 1  ON 59
+uuBe_16                 3.756758e-03 1 1  ON 60
+uuBe_17                 6.014433e-03 1 1  ON 61
+uuBe_18                -6.031564e-03 1 1  ON 62
+uuBe_19                 4.086151e-03 1 1  ON 63
+uuBe_20                 3.416014e-03 1 1  ON 64
+uuBe_21                 5.012063e-03 1 1  ON 65
+uuBe_22                -1.886020e-03 1 1  ON 66
+uuBe_23                -3.151226e-03 1 1  ON 67
+uuBe_24                -2.905388e-03 1 1  ON 68
+uuBe_25                 1.421437e-03 1 1  ON 69
+ udBe_0                -1.641208e-03 1 1  ON 70
+ udBe_1                -2.667124e-03 1 1  ON 71
+ udBe_2                 1.416079e-02 1 1  ON 72
+ udBe_3                -2.299984e-03 1 1  ON 73
+ udBe_4                -3.167438e-03 1 1  ON 74
+ udBe_5                -4.491719e-04 1 1  ON 75
+ udBe_6                -5.104610e-04 1 1  ON 76
+ udBe_7                -3.728062e-03 1 1  ON 77
+ udBe_8                 2.841049e-02 1 1  ON 78
+ udBe_9                 2.292268e-03 1 1  ON 79
+udBe_10                 2.119681e-03 1 1  ON 80
+udBe_11                -1.382848e-02 1 1  ON 81
+udBe_12                -1.654827e-02 1 1  ON 82
+udBe_13                 7.247574e-04 1 1  ON 83
+udBe_14                 1.022595e-02 1 1  ON 84
+udBe_15                 1.944020e-03 1 1  ON 85
+udBe_16                -3.659828e-03 1 1  ON 86
+udBe_17                 1.129716e-02 1 1  ON 87
+udBe_18                 3.763361e-03 1 1  ON 88
+udBe_19                 1.079988e-02 1 1  ON 89
+udBe_20                -7.789627e-03 1 1  ON 90
+udBe_21                 2.842587e-03 1 1  ON 91
+udBe_22                -2.835540e-03 1 1  ON 92
+udBe_23                 1.019422e-02 1 1  ON 93
+udBe_24                -5.614089e-03 1 1  ON 94
+udBe_25                 1.497228e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.539 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 4                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 4                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s005 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s005 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=1  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.27820101
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16538 MiB
+Memory footprint by rank 0 on node 0       :     104 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 1
+    time step          = 0.1
+    reference energy   = -29.2839
+    reference variance = 0.442733
+====================================================
+  Execution time = 9.8450e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s005
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9284e+01
+  VMC Evar = 4.4273e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.7586e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 4.5752e-02 at parameter 1
+
+******************************************************************************
+Init Cost =  -2.6311e+01    New Cost =  -2.6311e+01  Delta Cost =  -2.1530e-04
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   1.0000e+00
+*****************************************************************************
+  Execution time = 2.9424e-01
+  </log>
+  <optVariables href="opt.s005.opt.xml">
+  eBe_0                -1.268396e+00 1 1  ON 0
+  eBe_1                -1.151174e+00 1 1  ON 1
+  eBe_2                -9.855234e-01 1 1  ON 2
+  eBe_3                -8.656997e-01 1 1  ON 3
+  eBe_4                -7.323573e-01 1 1  ON 4
+  eBe_5                -5.093198e-01 1 1  ON 5
+  eBe_6                -4.332535e-01 1 1  ON 6
+  eBe_7                -3.384057e-01 1 1  ON 7
+  eBe_8                -2.570421e-01 1 1  ON 8
+  eBe_9                -1.764376e-01 1 1  ON 9
+ eBe_10                -1.075715e-01 1 1  ON 10
+ eBe_11                -5.452835e-02 1 1  ON 11
+   uu_0                 3.129548e-01 1 1  ON 12
+   uu_1                 2.384651e-01 1 1  ON 13
+   uu_2                 1.859113e-01 1 1  ON 14
+   uu_3                 1.364929e-01 1 1  ON 15
+   uu_4                 1.032729e-01 1 1  ON 16
+   uu_5                 8.263491e-02 1 1  ON 17
+   uu_6                 6.651643e-02 1 1  ON 18
+   uu_7                 4.921292e-02 1 1  ON 19
+   uu_8                 3.266348e-02 1 1  ON 20
+   uu_9                 1.636411e-02 1 1  ON 21
+  uu_10                 3.246435e-03 1 1  ON 22
+  uu_11                -8.331766e-03 1 1  ON 23
+  uu_12                -1.590704e-02 1 1  ON 24
+  uu_13                -1.219713e-02 1 1  ON 25
+  uu_14                -9.452870e-03 1 1  ON 26
+  uu_15                -6.647868e-03 1 1  ON 27
+   ud_0                 9.323540e-01 1 1  ON 28
+   ud_1                 7.235885e-01 1 1  ON 29
+   ud_2                 5.442713e-01 1 1  ON 30
+   ud_3                 4.127315e-01 1 1  ON 31
+   ud_4                 3.159505e-01 1 1  ON 32
+   ud_5                 2.621422e-01 1 1  ON 33
+   ud_6                 2.234462e-01 1 1  ON 34
+   ud_7                 1.825241e-01 1 1  ON 35
+   ud_8                 1.449971e-01 1 1  ON 36
+   ud_9                 1.120372e-01 1 1  ON 37
+  ud_10                 8.435533e-02 1 1  ON 38
+  ud_11                 6.029646e-02 1 1  ON 39
+  ud_12                 4.021781e-02 1 1  ON 40
+  ud_13                 3.189429e-02 1 1  ON 41
+  ud_14                 2.192173e-02 1 1  ON 42
+  ud_15                 1.314751e-02 1 1  ON 43
+ uuBe_0                -3.180902e-03 1 1  ON 44
+ uuBe_1                 6.486071e-03 1 1  ON 45
+ uuBe_2                 1.456839e-02 1 1  ON 46
+ uuBe_3                -4.750202e-03 1 1  ON 47
+ uuBe_4                -6.181823e-03 1 1  ON 48
+ uuBe_5                -4.944269e-04 1 1  ON 49
+ uuBe_6                 1.530747e-02 1 1  ON 50
+ uuBe_7                -3.589707e-03 1 1  ON 51
+ uuBe_8                 2.383581e-02 1 1  ON 52
+ uuBe_9                -5.557294e-03 1 1  ON 53
+uuBe_10                -5.358240e-03 1 1  ON 54
+uuBe_11                -7.698133e-03 1 1  ON 55
+uuBe_12                -1.000745e-02 1 1  ON 56
+uuBe_13                 6.692708e-03 1 1  ON 57
+uuBe_14                 4.866427e-03 1 1  ON 58
+uuBe_15                 8.866143e-04 1 1  ON 59
+uuBe_16                 2.101205e-03 1 1  ON 60
+uuBe_17                 8.143860e-03 1 1  ON 61
+uuBe_18                -6.542115e-03 1 1  ON 62
+uuBe_19                 6.635307e-03 1 1  ON 63
+uuBe_20                 1.466819e-03 1 1  ON 64
+uuBe_21                 5.437110e-03 1 1  ON 65
+uuBe_22                -2.814111e-03 1 1  ON 66
+uuBe_23                -1.594040e-03 1 1  ON 67
+uuBe_24                -3.796765e-03 1 1  ON 68
+uuBe_25                 1.957448e-03 1 1  ON 69
+ udBe_0                -1.545318e-03 1 1  ON 70
+ udBe_1                -2.584145e-03 1 1  ON 71
+ udBe_2                 1.430892e-02 1 1  ON 72
+ udBe_3                -2.309927e-03 1 1  ON 73
+ udBe_4                -3.385500e-03 1 1  ON 74
+ udBe_5                -3.337934e-04 1 1  ON 75
+ udBe_6                -5.471096e-04 1 1  ON 76
+ udBe_7                -4.193990e-03 1 1  ON 77
+ udBe_8                 2.989406e-02 1 1  ON 78
+ udBe_9                 2.303569e-03 1 1  ON 79
+udBe_10                 2.165742e-03 1 1  ON 80
+udBe_11                -1.534373e-02 1 1  ON 81
+udBe_12                -1.735264e-02 1 1  ON 82
+udBe_13                 1.322665e-03 1 1  ON 83
+udBe_14                 1.094301e-02 1 1  ON 84
+udBe_15                 1.969086e-03 1 1  ON 85
+udBe_16                -1.546497e-03 1 1  ON 86
+udBe_17                 1.122882e-02 1 1  ON 87
+udBe_18                 9.036879e-03 1 1  ON 88
+udBe_19                 9.717407e-03 1 1  ON 89
+udBe_20                -1.112040e-02 1 1  ON 90
+udBe_21                 1.299114e-03 1 1  ON 91
+udBe_22                -2.188268e-03 1 1  ON 92
+udBe_23                 1.340731e-02 1 1  ON 93
+udBe_24                -5.755837e-03 1 1  ON 94
+udBe_25                 1.317879e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.473 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 5                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 5                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s006 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s006 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=2  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.28105104
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16528 MiB
+Memory footprint by rank 0 on node 0       :     105 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 2
+    time step          = 0.1
+    reference energy   = -29.2794
+    reference variance = 0.452627
+====================================================
+  Execution time = 9.5045e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s006
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9279e+01
+  VMC Evar = 4.5263e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.9784e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 2.1159e+02 at parameter 62
+WARNING CostFunction-> Number of Effective Walkers is too small! 
+  Number of effective walkers (samples) / total number of samples = 3.9168e-05
+  User specified threshold minwalkers = 5.0000e-01
+  If this message appears frequently. You might have to be cautious. 
+  Find info about parameter "minwalkers" in the user manual!
+
+******************************************************************************
+Init Cost =  -2.6306e+01    New Cost =  -8.2975e+03  Delta Cost =  -8.2712e+03
+******************************************************************************
+
+The new set of parameters is not valid. Revert to the old set!
+Update shift_s_base to 2.0000e+00
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   4.0000e+00
+*****************************************************************************
+  Execution time = 2.4813e-01
+  </log>
+  <optVariables href="opt.s006.opt.xml">
+  eBe_0                -1.268396e+00 1 1  ON 0
+  eBe_1                -1.151174e+00 1 1  ON 1
+  eBe_2                -9.855234e-01 1 1  ON 2
+  eBe_3                -8.656997e-01 1 1  ON 3
+  eBe_4                -7.323573e-01 1 1  ON 4
+  eBe_5                -5.093198e-01 1 1  ON 5
+  eBe_6                -4.332535e-01 1 1  ON 6
+  eBe_7                -3.384057e-01 1 1  ON 7
+  eBe_8                -2.570421e-01 1 1  ON 8
+  eBe_9                -1.764376e-01 1 1  ON 9
+ eBe_10                -1.075715e-01 1 1  ON 10
+ eBe_11                -5.452835e-02 1 1  ON 11
+   uu_0                 3.129548e-01 1 1  ON 12
+   uu_1                 2.384651e-01 1 1  ON 13
+   uu_2                 1.859113e-01 1 1  ON 14
+   uu_3                 1.364929e-01 1 1  ON 15
+   uu_4                 1.032729e-01 1 1  ON 16
+   uu_5                 8.263491e-02 1 1  ON 17
+   uu_6                 6.651643e-02 1 1  ON 18
+   uu_7                 4.921292e-02 1 1  ON 19
+   uu_8                 3.266348e-02 1 1  ON 20
+   uu_9                 1.636411e-02 1 1  ON 21
+  uu_10                 3.246435e-03 1 1  ON 22
+  uu_11                -8.331766e-03 1 1  ON 23
+  uu_12                -1.590704e-02 1 1  ON 24
+  uu_13                -1.219713e-02 1 1  ON 25
+  uu_14                -9.452870e-03 1 1  ON 26
+  uu_15                -6.647868e-03 1 1  ON 27
+   ud_0                 9.323540e-01 1 1  ON 28
+   ud_1                 7.235885e-01 1 1  ON 29
+   ud_2                 5.442713e-01 1 1  ON 30
+   ud_3                 4.127315e-01 1 1  ON 31
+   ud_4                 3.159505e-01 1 1  ON 32
+   ud_5                 2.621422e-01 1 1  ON 33
+   ud_6                 2.234462e-01 1 1  ON 34
+   ud_7                 1.825241e-01 1 1  ON 35
+   ud_8                 1.449971e-01 1 1  ON 36
+   ud_9                 1.120372e-01 1 1  ON 37
+  ud_10                 8.435533e-02 1 1  ON 38
+  ud_11                 6.029646e-02 1 1  ON 39
+  ud_12                 4.021781e-02 1 1  ON 40
+  ud_13                 3.189429e-02 1 1  ON 41
+  ud_14                 2.192173e-02 1 1  ON 42
+  ud_15                 1.314751e-02 1 1  ON 43
+ uuBe_0                -3.180902e-03 1 1  ON 44
+ uuBe_1                 6.486071e-03 1 1  ON 45
+ uuBe_2                 1.456839e-02 1 1  ON 46
+ uuBe_3                -4.750202e-03 1 1  ON 47
+ uuBe_4                -6.181823e-03 1 1  ON 48
+ uuBe_5                -4.944269e-04 1 1  ON 49
+ uuBe_6                 1.530747e-02 1 1  ON 50
+ uuBe_7                -3.589707e-03 1 1  ON 51
+ uuBe_8                 2.383581e-02 1 1  ON 52
+ uuBe_9                -5.557294e-03 1 1  ON 53
+uuBe_10                -5.358240e-03 1 1  ON 54
+uuBe_11                -7.698133e-03 1 1  ON 55
+uuBe_12                -1.000745e-02 1 1  ON 56
+uuBe_13                 6.692708e-03 1 1  ON 57
+uuBe_14                 4.866427e-03 1 1  ON 58
+uuBe_15                 8.866143e-04 1 1  ON 59
+uuBe_16                 2.101205e-03 1 1  ON 60
+uuBe_17                 8.143860e-03 1 1  ON 61
+uuBe_18                -6.542115e-03 1 1  ON 62
+uuBe_19                 6.635307e-03 1 1  ON 63
+uuBe_20                 1.466819e-03 1 1  ON 64
+uuBe_21                 5.437110e-03 1 1  ON 65
+uuBe_22                -2.814111e-03 1 1  ON 66
+uuBe_23                -1.594040e-03 1 1  ON 67
+uuBe_24                -3.796765e-03 1 1  ON 68
+uuBe_25                 1.957448e-03 1 1  ON 69
+ udBe_0                -1.545318e-03 1 1  ON 70
+ udBe_1                -2.584145e-03 1 1  ON 71
+ udBe_2                 1.430892e-02 1 1  ON 72
+ udBe_3                -2.309927e-03 1 1  ON 73
+ udBe_4                -3.385500e-03 1 1  ON 74
+ udBe_5                -3.337934e-04 1 1  ON 75
+ udBe_6                -5.471096e-04 1 1  ON 76
+ udBe_7                -4.193990e-03 1 1  ON 77
+ udBe_8                 2.989406e-02 1 1  ON 78
+ udBe_9                 2.303569e-03 1 1  ON 79
+udBe_10                 2.165742e-03 1 1  ON 80
+udBe_11                -1.534373e-02 1 1  ON 81
+udBe_12                -1.735264e-02 1 1  ON 82
+udBe_13                 1.322665e-03 1 1  ON 83
+udBe_14                 1.094301e-02 1 1  ON 84
+udBe_15                 1.969086e-03 1 1  ON 85
+udBe_16                -1.546497e-03 1 1  ON 86
+udBe_17                 1.122882e-02 1 1  ON 87
+udBe_18                 9.036879e-03 1 1  ON 88
+udBe_19                 9.717407e-03 1 1  ON 89
+udBe_20                -1.112040e-02 1 1  ON 90
+udBe_21                 1.299114e-03 1 1  ON 91
+udBe_22                -2.188268e-03 1 1  ON 92
+udBe_23                 1.340731e-02 1 1  ON 93
+udBe_24                -5.755837e-03 1 1  ON 94
+udBe_25                 1.317879e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.415 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 6                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 6                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s007 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s007 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=3  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.28051707
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16525 MiB
+Memory footprint by rank 0 on node 0       :     106 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 3
+    time step          = 0.1
+    reference energy   = -29.2809
+    reference variance = 0.448285
+====================================================
+  Execution time = 9.2494e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s007
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9281e+01
+  VMC Evar = 4.4829e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.9912e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 3.1201e-02 at parameter 1
+
+******************************************************************************
+Init Cost =  -2.6308e+01    New Cost =  -2.6308e+01  Delta Cost =   8.5991e-05
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   2.0000e+00
+*****************************************************************************
+  Execution time = 2.7097e-01
+  </log>
+  <optVariables href="opt.s007.opt.xml">
+  eBe_0                -1.295239e+00 1 1  ON 0
+  eBe_1                -1.182374e+00 1 1  ON 1
+  eBe_2                -1.011210e+00 1 1  ON 2
+  eBe_3                -8.872825e-01 1 1  ON 3
+  eBe_4                -7.443865e-01 1 1  ON 4
+  eBe_5                -5.171814e-01 1 1  ON 5
+  eBe_6                -4.420327e-01 1 1  ON 6
+  eBe_7                -3.446453e-01 1 1  ON 7
+  eBe_8                -2.623440e-01 1 1  ON 8
+  eBe_9                -1.809095e-01 1 1  ON 9
+ eBe_10                -1.118411e-01 1 1  ON 10
+ eBe_11                -5.670871e-02 1 1  ON 11
+   uu_0                 3.190344e-01 1 1  ON 12
+   uu_1                 2.442064e-01 1 1  ON 13
+   uu_2                 1.869747e-01 1 1  ON 14
+   uu_3                 1.395874e-01 1 1  ON 15
+   uu_4                 1.077423e-01 1 1  ON 16
+   uu_5                 8.582405e-02 1 1  ON 17
+   uu_6                 6.964179e-02 1 1  ON 18
+   uu_7                 5.191034e-02 1 1  ON 19
+   uu_8                 3.579185e-02 1 1  ON 20
+   uu_9                 1.874420e-02 1 1  ON 21
+  uu_10                 4.787808e-03 1 1  ON 22
+  uu_11                -7.261319e-03 1 1  ON 23
+  uu_12                -1.580421e-02 1 1  ON 24
+  uu_13                -1.282953e-02 1 1  ON 25
+  uu_14                -9.321193e-03 1 1  ON 26
+  uu_15                -6.045142e-03 1 1  ON 27
+   ud_0                 9.368557e-01 1 1  ON 28
+   ud_1                 7.249571e-01 1 1  ON 29
+   ud_2                 5.462791e-01 1 1  ON 30
+   ud_3                 4.181648e-01 1 1  ON 31
+   ud_4                 3.193180e-01 1 1  ON 32
+   ud_5                 2.653956e-01 1 1  ON 33
+   ud_6                 2.256986e-01 1 1  ON 34
+   ud_7                 1.835987e-01 1 1  ON 35
+   ud_8                 1.460896e-01 1 1  ON 36
+   ud_9                 1.125991e-01 1 1  ON 37
+  ud_10                 8.489749e-02 1 1  ON 38
+  ud_11                 6.019827e-02 1 1  ON 39
+  ud_12                 4.017072e-02 1 1  ON 40
+  ud_13                 3.203345e-02 1 1  ON 41
+  ud_14                 2.212778e-02 1 1  ON 42
+  ud_15                 1.404368e-02 1 1  ON 43
+ uuBe_0                -5.017670e-03 1 1  ON 44
+ uuBe_1                 5.498008e-03 1 1  ON 45
+ uuBe_2                 1.722980e-02 1 1  ON 46
+ uuBe_3                -3.398051e-03 1 1  ON 47
+ uuBe_4                -7.476660e-03 1 1  ON 48
+ uuBe_5                -3.558421e-04 1 1  ON 49
+ uuBe_6                 1.818910e-02 1 1  ON 50
+ uuBe_7                -3.392603e-03 1 1  ON 51
+ uuBe_8                 2.385562e-02 1 1  ON 52
+ uuBe_9                -6.354346e-03 1 1  ON 53
+uuBe_10                -5.762948e-03 1 1  ON 54
+uuBe_11                -6.524633e-03 1 1  ON 55
+uuBe_12                -1.053976e-02 1 1  ON 56
+uuBe_13                 4.499851e-03 1 1  ON 57
+uuBe_14                 3.568956e-03 1 1  ON 58
+uuBe_15                 1.195877e-03 1 1  ON 59
+uuBe_16                 6.750812e-03 1 1  ON 60
+uuBe_17                 3.275550e-03 1 1  ON 61
+uuBe_18                -1.000215e-02 1 1  ON 62
+uuBe_19                 8.322075e-03 1 1  ON 63
+uuBe_20                 3.292216e-03 1 1  ON 64
+uuBe_21                 6.610708e-03 1 1  ON 65
+uuBe_22                -3.280883e-03 1 1  ON 66
+uuBe_23                -4.721113e-03 1 1  ON 67
+uuBe_24                -2.261682e-03 1 1  ON 68
+uuBe_25                 1.447230e-03 1 1  ON 69
+ udBe_0                -2.054714e-03 1 1  ON 70
+ udBe_1                -2.270058e-03 1 1  ON 71
+ udBe_2                 1.633438e-02 1 1  ON 72
+ udBe_3                -2.196813e-03 1 1  ON 73
+ udBe_4                -4.076916e-03 1 1  ON 74
+ udBe_5                -2.750710e-04 1 1  ON 75
+ udBe_6                 1.109496e-03 1 1  ON 76
+ udBe_7                -3.684926e-03 1 1  ON 77
+ udBe_8                 3.223156e-02 1 1  ON 78
+ udBe_9                 1.680072e-03 1 1  ON 79
+udBe_10                 2.293638e-03 1 1  ON 80
+udBe_11                -1.751852e-02 1 1  ON 81
+udBe_12                -1.833452e-02 1 1  ON 82
+udBe_13                 7.755642e-04 1 1  ON 83
+udBe_14                 1.139465e-02 1 1  ON 84
+udBe_15                 2.077370e-03 1 1  ON 85
+udBe_16                 6.781323e-04 1 1  ON 86
+udBe_17                 9.622951e-03 1 1  ON 87
+udBe_18                 9.194337e-03 1 1  ON 88
+udBe_19                 1.156369e-02 1 1  ON 89
+udBe_20                -1.062756e-02 1 1  ON 90
+udBe_21                 1.200059e-03 1 1  ON 91
+udBe_22                -2.750741e-03 1 1  ON 92
+udBe_23                 1.219577e-02 1 1  ON 93
+udBe_24                -5.179423e-03 1 1  ON 94
+udBe_25                 1.381901e-03 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.421 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 7                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 7                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s008 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s008 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=4  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.28061371
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16529 MiB
+Memory footprint by rank 0 on node 0       :     107 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 4
+    time step          = 0.1
+    reference energy   = -29.2864
+    reference variance = 0.456051
+====================================================
+  Execution time = 8.6445e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s008
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9286e+01
+  VMC Evar = 4.5605e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.7363e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 3.2257e-02 at parameter 1
+
+******************************************************************************
+Init Cost =  -2.6312e+01    New Cost =  -2.6313e+01  Delta Cost =  -4.9743e-04
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   1.0000e+00
+*****************************************************************************
+  Execution time = 2.6937e-01
+  </log>
+  <optVariables href="opt.s008.opt.xml">
+  eBe_0                -1.324855e+00 1 1  ON 0
+  eBe_1                -1.214631e+00 1 1  ON 1
+  eBe_2                -1.040724e+00 1 1  ON 2
+  eBe_3                -9.040055e-01 1 1  ON 3
+  eBe_4                -7.535936e-01 1 1  ON 4
+  eBe_5                -5.285419e-01 1 1  ON 5
+  eBe_6                -4.523161e-01 1 1  ON 6
+  eBe_7                -3.548569e-01 1 1  ON 7
+  eBe_8                -2.689827e-01 1 1  ON 8
+  eBe_9                -1.861692e-01 1 1  ON 9
+ eBe_10                -1.154437e-01 1 1  ON 10
+ eBe_11                -5.973343e-02 1 1  ON 11
+   uu_0                 3.322449e-01 1 1  ON 12
+   uu_1                 2.595791e-01 1 1  ON 13
+   uu_2                 1.958897e-01 1 1  ON 14
+   uu_3                 1.461164e-01 1 1  ON 15
+   uu_4                 1.128616e-01 1 1  ON 16
+   uu_5                 9.037617e-02 1 1  ON 17
+   uu_6                 7.313443e-02 1 1  ON 18
+   uu_7                 5.564157e-02 1 1  ON 19
+   uu_8                 3.791242e-02 1 1  ON 20
+   uu_9                 2.243653e-02 1 1  ON 21
+  uu_10                 7.297248e-03 1 1  ON 22
+  uu_11                -4.509287e-03 1 1  ON 23
+  uu_12                -1.390057e-02 1 1  ON 24
+  uu_13                -1.065662e-02 1 1  ON 25
+  uu_14                -7.054663e-03 1 1  ON 26
+  uu_15                -5.115075e-03 1 1  ON 27
+   ud_0                 9.396499e-01 1 1  ON 28
+   ud_1                 7.290147e-01 1 1  ON 29
+   ud_2                 5.478491e-01 1 1  ON 30
+   ud_3                 4.173616e-01 1 1  ON 31
+   ud_4                 3.202739e-01 1 1  ON 32
+   ud_5                 2.659799e-01 1 1  ON 33
+   ud_6                 2.259934e-01 1 1  ON 34
+   ud_7                 1.846222e-01 1 1  ON 35
+   ud_8                 1.453961e-01 1 1  ON 36
+   ud_9                 1.108478e-01 1 1  ON 37
+  ud_10                 8.315659e-02 1 1  ON 38
+  ud_11                 5.658826e-02 1 1  ON 39
+  ud_12                 3.745436e-02 1 1  ON 40
+  ud_13                 2.827693e-02 1 1  ON 41
+  ud_14                 1.944269e-02 1 1  ON 42
+  ud_15                 1.274851e-02 1 1  ON 43
+ uuBe_0                -5.911553e-03 1 1  ON 44
+ uuBe_1                 6.700747e-03 1 1  ON 45
+ uuBe_2                 1.958450e-02 1 1  ON 46
+ uuBe_3                -3.747877e-03 1 1  ON 47
+ uuBe_4                -8.320861e-03 1 1  ON 48
+ uuBe_5                -6.325350e-04 1 1  ON 49
+ uuBe_6                 2.096069e-02 1 1  ON 50
+ uuBe_7                -8.500337e-04 1 1  ON 51
+ uuBe_8                 2.771320e-02 1 1  ON 52
+ uuBe_9                -6.898230e-03 1 1  ON 53
+uuBe_10                -6.045366e-03 1 1  ON 54
+uuBe_11                -9.411321e-03 1 1  ON 55
+uuBe_12                -1.207804e-02 1 1  ON 56
+uuBe_13                 4.885986e-03 1 1  ON 57
+uuBe_14                 5.866474e-03 1 1  ON 58
+uuBe_15                 1.021991e-03 1 1  ON 59
+uuBe_16                 2.763556e-03 1 1  ON 60
+uuBe_17                 6.840431e-03 1 1  ON 61
+uuBe_18                -9.066994e-03 1 1  ON 62
+uuBe_19                 9.697593e-03 1 1  ON 63
+uuBe_20                 5.011947e-03 1 1  ON 64
+uuBe_21                 4.774597e-03 1 1  ON 65
+uuBe_22                -3.227425e-03 1 1  ON 66
+uuBe_23                -5.273441e-03 1 1  ON 67
+uuBe_24                -1.763227e-03 1 1  ON 68
+uuBe_25                 1.467889e-03 1 1  ON 69
+ udBe_0                -1.684217e-03 1 1  ON 70
+ udBe_1                -2.186704e-03 1 1  ON 71
+ udBe_2                 1.545544e-02 1 1  ON 72
+ udBe_3                -2.495604e-03 1 1  ON 73
+ udBe_4                -3.972143e-03 1 1  ON 74
+ udBe_5                -2.216142e-04 1 1  ON 75
+ udBe_6                 2.366692e-04 1 1  ON 76
+ udBe_7                -3.362778e-03 1 1  ON 77
+ udBe_8                 3.269150e-02 1 1  ON 78
+ udBe_9                 2.160939e-03 1 1  ON 79
+udBe_10                 2.066056e-03 1 1  ON 80
+udBe_11                -1.860358e-02 1 1  ON 81
+udBe_12                -1.855008e-02 1 1  ON 82
+udBe_13                 9.612290e-04 1 1  ON 83
+udBe_14                 1.196935e-02 1 1  ON 84
+udBe_15                 2.000925e-03 1 1  ON 85
+udBe_16                 1.238347e-04 1 1  ON 86
+udBe_17                 9.578332e-03 1 1  ON 87
+udBe_18                 1.605527e-02 1 1  ON 88
+udBe_19                 9.094627e-03 1 1  ON 89
+udBe_20                -1.084415e-02 1 1  ON 90
+udBe_21                -2.176298e-03 1 1  ON 91
+udBe_22                -1.263347e-03 1 1  ON 92
+udBe_23                 1.249260e-02 1 1  ON 93
+udBe_24                -3.355380e-03 1 1  ON 94
+udBe_25                 5.091841e-04 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.333 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 8                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 8                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s009 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s009 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=5  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.28177703
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16524 MiB
+Memory footprint by rank 0 on node 0       :     108 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 5
+    time step          = 0.1
+    reference energy   = -29.2836
+    reference variance = 0.464207
+====================================================
+  Execution time = 1.0049e+00
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s009
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9284e+01
+  VMC Evar = 4.6421e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.7258e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 2.8653e-02 at parameter 0
+
+******************************************************************************
+Init Cost =  -2.6309e+01    New Cost =  -2.6309e+01  Delta Cost =  -4.3810e-04
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   5.0000e-01
+*****************************************************************************
+  Execution time = 2.4339e-01
+  </log>
+  <optVariables href="opt.s009.opt.xml">
+  eBe_0                -1.353507e+00 1 1  ON 0
+  eBe_1                -1.240972e+00 1 1  ON 1
+  eBe_2                -1.060220e+00 1 1  ON 2
+  eBe_3                -9.163852e-01 1 1  ON 3
+  eBe_4                -7.640667e-01 1 1  ON 4
+  eBe_5                -5.438033e-01 1 1  ON 5
+  eBe_6                -4.662470e-01 1 1  ON 6
+  eBe_7                -3.671484e-01 1 1  ON 7
+  eBe_8                -2.803848e-01 1 1  ON 8
+  eBe_9                -1.970552e-01 1 1  ON 9
+ eBe_10                -1.223455e-01 1 1  ON 10
+ eBe_11                -6.340955e-02 1 1  ON 11
+   uu_0                 3.323440e-01 1 1  ON 12
+   uu_1                 2.566866e-01 1 1  ON 13
+   uu_2                 1.959952e-01 1 1  ON 14
+   uu_3                 1.504856e-01 1 1  ON 15
+   uu_4                 1.225388e-01 1 1  ON 16
+   uu_5                 1.037104e-01 1 1  ON 17
+   uu_6                 8.472459e-02 1 1  ON 18
+   uu_7                 6.475193e-02 1 1  ON 19
+   uu_8                 4.448757e-02 1 1  ON 20
+   uu_9                 2.639655e-02 1 1  ON 21
+  uu_10                 1.199162e-02 1 1  ON 22
+  uu_11                -1.345911e-03 1 1  ON 23
+  uu_12                -1.165798e-02 1 1  ON 24
+  uu_13                -9.452086e-03 1 1  ON 25
+  uu_14                -8.753887e-03 1 1  ON 26
+  uu_15                -5.540143e-03 1 1  ON 27
+   ud_0                 9.548427e-01 1 1  ON 28
+   ud_1                 7.439627e-01 1 1  ON 29
+   ud_2                 5.591472e-01 1 1  ON 30
+   ud_3                 4.247962e-01 1 1  ON 31
+   ud_4                 3.245184e-01 1 1  ON 32
+   ud_5                 2.700869e-01 1 1  ON 33
+   ud_6                 2.293382e-01 1 1  ON 34
+   ud_7                 1.872529e-01 1 1  ON 35
+   ud_8                 1.489463e-01 1 1  ON 36
+   ud_9                 1.130987e-01 1 1  ON 37
+  ud_10                 8.300323e-02 1 1  ON 38
+  ud_11                 5.720306e-02 1 1  ON 39
+  ud_12                 3.663311e-02 1 1  ON 40
+  ud_13                 3.082911e-02 1 1  ON 41
+  ud_14                 2.190135e-02 1 1  ON 42
+  ud_15                 1.550770e-02 1 1  ON 43
+ uuBe_0                -3.364136e-03 1 1  ON 44
+ uuBe_1                 6.736486e-03 1 1  ON 45
+ uuBe_2                 1.619673e-02 1 1  ON 46
+ uuBe_3                -4.859774e-03 1 1  ON 47
+ uuBe_4                -8.189259e-03 1 1  ON 48
+ uuBe_5                -3.901688e-04 1 1  ON 49
+ uuBe_6                 1.752526e-02 1 1  ON 50
+ uuBe_7                 1.418722e-03 1 1  ON 51
+ uuBe_8                 2.624746e-02 1 1  ON 52
+ uuBe_9                -7.860827e-03 1 1  ON 53
+uuBe_10                -6.966903e-03 1 1  ON 54
+uuBe_11                -9.719756e-03 1 1  ON 55
+uuBe_12                -1.102692e-02 1 1  ON 56
+uuBe_13                 8.607476e-03 1 1  ON 57
+uuBe_14                 6.370244e-03 1 1  ON 58
+uuBe_15                 7.122648e-04 1 1  ON 59
+uuBe_16                 3.179487e-03 1 1  ON 60
+uuBe_17                 1.098689e-02 1 1  ON 61
+uuBe_18                -7.956378e-03 1 1  ON 62
+uuBe_19                 8.553877e-03 1 1  ON 63
+uuBe_20                 1.982043e-03 1 1  ON 64
+uuBe_21                 4.179985e-03 1 1  ON 65
+uuBe_22                -2.927783e-03 1 1  ON 66
+uuBe_23                -2.417086e-03 1 1  ON 67
+uuBe_24                -2.828150e-03 1 1  ON 68
+uuBe_25                 1.755782e-03 1 1  ON 69
+ udBe_0                -1.312527e-03 1 1  ON 70
+ udBe_1                -2.352861e-03 1 1  ON 71
+ udBe_2                 1.486999e-02 1 1  ON 72
+ udBe_3                -2.295654e-03 1 1  ON 73
+ udBe_4                -2.509513e-03 1 1  ON 74
+ udBe_5                -1.802246e-04 1 1  ON 75
+ udBe_6                -9.470876e-04 1 1  ON 76
+ udBe_7                -3.381326e-03 1 1  ON 77
+ udBe_8                 3.192588e-02 1 1  ON 78
+ udBe_9                 2.678517e-03 1 1  ON 79
+udBe_10                 3.363670e-03 1 1  ON 80
+udBe_11                -2.023008e-02 1 1  ON 81
+udBe_12                -1.745224e-02 1 1  ON 82
+udBe_13                 2.277768e-04 1 1  ON 83
+udBe_14                 1.167098e-02 1 1  ON 84
+udBe_15                 1.913977e-03 1 1  ON 85
+udBe_16                -2.150293e-03 1 1  ON 86
+udBe_17                 7.875892e-03 1 1  ON 87
+udBe_18                 1.929763e-02 1 1  ON 88
+udBe_19                 7.889018e-03 1 1  ON 89
+udBe_20                -8.752048e-03 1 1  ON 90
+udBe_21                -2.759178e-03 1 1  ON 91
+udBe_22                -1.137724e-03 1 1  ON 92
+udBe_23                 1.028171e-02 1 1  ON 93
+udBe_24                -3.012474e-03 1 1  ON 94
+udBe_25                 5.538111e-04 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.447 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                 9                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                 9                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s010 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s010 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=6  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.28208733
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16517 MiB
+Memory footprint by rank 0 on node 0       :     109 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 6
+    time step          = 0.1
+    reference energy   = -29.2858
+    reference variance = 0.467645
+====================================================
+  Execution time = 9.4217e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s010
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9286e+01
+  VMC Evar = 4.6764e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.7416e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 2.1643e-02 at parameter 3
+
+******************************************************************************
+Init Cost =  -2.6310e+01    New Cost =  -2.6311e+01  Delta Cost =  -1.7064e-04
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   2.5000e-01
+*****************************************************************************
+  Execution time = 2.4342e-01
+  </log>
+  <optVariables href="opt.s010.opt.xml">
+  eBe_0                -1.356756e+00 1 1  ON 0
+  eBe_1                -1.248085e+00 1 1  ON 1
+  eBe_2                -1.073706e+00 1 1  ON 2
+  eBe_3                -9.380278e-01 1 1  ON 3
+  eBe_4                -7.744555e-01 1 1  ON 4
+  eBe_5                -5.360782e-01 1 1  ON 5
+  eBe_6                -4.616375e-01 1 1  ON 6
+  eBe_7                -3.638133e-01 1 1  ON 7
+  eBe_8                -2.784789e-01 1 1  ON 8
+  eBe_9                -1.965244e-01 1 1  ON 9
+ eBe_10                -1.227714e-01 1 1  ON 10
+ eBe_11                -6.314671e-02 1 1  ON 11
+   uu_0                 3.335441e-01 1 1  ON 12
+   uu_1                 2.684217e-01 1 1  ON 13
+   uu_2                 1.975313e-01 1 1  ON 14
+   uu_3                 1.448152e-01 1 1  ON 15
+   uu_4                 1.144596e-01 1 1  ON 16
+   uu_5                 9.343516e-02 1 1  ON 17
+   uu_6                 7.642619e-02 1 1  ON 18
+   uu_7                 5.683555e-02 1 1  ON 19
+   uu_8                 3.962939e-02 1 1  ON 20
+   uu_9                 2.328622e-02 1 1  ON 21
+  uu_10                 1.019057e-02 1 1  ON 22
+  uu_11                -1.994585e-03 1 1  ON 23
+  uu_12                -1.151789e-02 1 1  ON 24
+  uu_13                -9.295761e-03 1 1  ON 25
+  uu_14                -6.131904e-03 1 1  ON 26
+  uu_15                -2.420422e-03 1 1  ON 27
+   ud_0                 9.602136e-01 1 1  ON 28
+   ud_1                 7.520574e-01 1 1  ON 29
+   ud_2                 5.696527e-01 1 1  ON 30
+   ud_3                 4.369994e-01 1 1  ON 31
+   ud_4                 3.369835e-01 1 1  ON 32
+   ud_5                 2.817108e-01 1 1  ON 33
+   ud_6                 2.405857e-01 1 1  ON 34
+   ud_7                 1.965277e-01 1 1  ON 35
+   ud_8                 1.568922e-01 1 1  ON 36
+   ud_9                 1.188181e-01 1 1  ON 37
+  ud_10                 8.791911e-02 1 1  ON 38
+  ud_11                 5.907705e-02 1 1  ON 39
+  ud_12                 3.726750e-02 1 1  ON 40
+  ud_13                 2.878122e-02 1 1  ON 41
+  ud_14                 1.976641e-02 1 1  ON 42
+  ud_15                 1.308218e-02 1 1  ON 43
+ uuBe_0                -3.510689e-03 1 1  ON 44
+ uuBe_1                 9.855550e-03 1 1  ON 45
+ uuBe_2                 1.549499e-02 1 1  ON 46
+ uuBe_3                -9.059652e-03 1 1  ON 47
+ uuBe_4                -1.018485e-02 1 1  ON 48
+ uuBe_5                -7.913137e-04 1 1  ON 49
+ uuBe_6                 2.314920e-02 1 1  ON 50
+ uuBe_7                -3.379404e-03 1 1  ON 51
+ uuBe_8                 2.548775e-02 1 1  ON 52
+ uuBe_9                -9.541266e-03 1 1  ON 53
+uuBe_10                -1.329920e-02 1 1  ON 54
+uuBe_11                -1.230466e-03 1 1  ON 55
+uuBe_12                -1.130246e-02 1 1  ON 56
+uuBe_13                 1.121630e-02 1 1  ON 57
+uuBe_14                 4.050611e-03 1 1  ON 58
+uuBe_15                 1.119940e-03 1 1  ON 59
+uuBe_16                 6.574329e-03 1 1  ON 60
+uuBe_17                 1.217007e-02 1 1  ON 61
+uuBe_18                -8.660114e-03 1 1  ON 62
+uuBe_19                 4.887466e-03 1 1  ON 63
+uuBe_20                 5.074022e-04 1 1  ON 64
+uuBe_21                 4.683256e-03 1 1  ON 65
+uuBe_22                -1.892157e-03 1 1  ON 66
+uuBe_23                -3.685786e-03 1 1  ON 67
+uuBe_24                -1.240681e-03 1 1  ON 68
+uuBe_25                 9.179635e-04 1 1  ON 69
+ udBe_0                -1.755178e-03 1 1  ON 70
+ udBe_1                -2.235255e-03 1 1  ON 71
+ udBe_2                 1.602830e-02 1 1  ON 72
+ udBe_3                -2.176087e-03 1 1  ON 73
+ udBe_4                -3.528397e-03 1 1  ON 74
+ udBe_5                -1.264948e-04 1 1  ON 75
+ udBe_6                -2.216594e-04 1 1  ON 76
+ udBe_7                -3.224078e-03 1 1  ON 77
+ udBe_8                 3.475287e-02 1 1  ON 78
+ udBe_9                 2.574564e-03 1 1  ON 79
+udBe_10                 2.905138e-03 1 1  ON 80
+udBe_11                -2.136606e-02 1 1  ON 81
+udBe_12                -1.946163e-02 1 1  ON 82
+udBe_13                 7.132738e-04 1 1  ON 83
+udBe_14                 1.302453e-02 1 1  ON 84
+udBe_15                 2.007958e-03 1 1  ON 85
+udBe_16                -6.251655e-04 1 1  ON 86
+udBe_17                 9.038893e-03 1 1  ON 87
+udBe_18                 1.896388e-02 1 1  ON 88
+udBe_19                 9.667308e-03 1 1  ON 89
+udBe_20                -9.783405e-03 1 1  ON 90
+udBe_21                -2.906657e-03 1 1  ON 91
+udBe_22                -1.358774e-03 1 1  ON 92
+udBe_23                 1.131979e-02 1 1  ON 93
+udBe_24                -3.235462e-03 1 1  ON 94
+udBe_25                 5.868628e-04 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.379 secs
+BRANCH resetRun
+  Continue with the same input as the previous block.
+ SimpleFixedNodeBranch::resetRun detected changes in <parameter>'s 
+ BranchMode : 0000001100 0000001100
+ iParam (old):                 10                 1                10                 0                 0                 0                 1                 0
+ iParam (new):                 10                 1                10                 0                 0                 0                 1                 0
+ vParam (old):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+ vParam (new):                0.1               0.1                 1                 1                 1                 1                 1                 1                 1                 0                 0                 1                10                 1                 1                 1                 1
+
+=========================================================
+  Start QMCFixedSampleLinearOptimize
+  File Root opt.s011 append = no 
+=========================================================
+  Skip QMCDriver::putQMCInfo 
+  Resetting Properties of the walkers 1 x 13
+
+=========================================================
+  Start VMC
+  File Root opt.s011 append = no 
+=========================================================
+Using existing walkers 
+  Resetting Properties of the walkers 1 x 13
+
+<vmc function="put">
+  qmc_counter=7  my_counter=0
+  time step      = 0.1
+  blocks         = 20
+  steps          = 80
+  substeps       = 10
+  current        = 0
+  target samples = 25600
+  walkers/mpi    = 1
+
+  stepsbetweensamples = 1
+<parameter name="blocks">20</parameter>
+<parameter name="blocks_between_recompute">0</parameter>
+<parameter name="check_properties">100</parameter>
+<parameter name="checkproperties">100</parameter>
+<parameter name="current">0</parameter>
+<parameter name="dmcwalkersperthread">1600</parameter>
+<parameter name="max_seconds">360000</parameter>
+<parameter name="maxcpusecs">360000</parameter>
+<parameter name="record_configs">0</parameter>
+<parameter name="record_walkers">1</parameter>
+<parameter name="recordconfigs">0</parameter>
+<parameter name="recordwalkers">1</parameter>
+<parameter name="samples">25600</parameter>
+<parameter name="samplesperthread">1600</parameter>
+<parameter name="spinmass">1</parameter>
+<parameter name="steps">80</parameter>
+<parameter name="stepsbetweensamples">1</parameter>
+<parameter name="store_configs">0</parameter>
+<parameter name="storeconfigs">0</parameter>
+<parameter name="sub_steps">10</parameter>
+<parameter name="substeps">10</parameter>
+<parameter name="tau">0.1</parameter>
+<parameter name="time_step">0.1</parameter>
+<parameter name="timestep">0.1</parameter>
+<parameter name="use_drift">no</parameter>
+<parameter name="usedrift">no</parameter>
+<parameter name="walkers">1</parameter>
+<parameter name="warmup_steps">10</parameter>
+<parameter name="warmupsteps">10</parameter>
+  DumpConfig==false Nothing (configurations, state) will be saved.
+  Walker Samples are dumped every 1 steps.
+</vmc>
+    Restarting, cummulative properties:
+      energy     = -29.28262151
+      variance   = 0
+      r2accepted = 1e-10
+      r2proposed = 1e-10
+  Set drift_modifier UNR parameter a = 1
+  Adding a default LocalEnergyEstimator for the MainEstimator 
+ Using QMCCostFunction::QMCCostFunction
+   Going to include the derivatives of NonLocalECP
+ Using Default Cost Function: Cost = <|E-E_ff|^2>
+  Set drift_modifier UNR parameter a = 1.0000000000e+00
+<optimization-report>
+<vmc stage="main" blocks="20">
+  Cannot make clones again. Use existing 1 clones
+  Initial partition of walkers 0 1 
+
+  Using Particle by Particle moves
+  Walker moves without drift
+  Total Sample Size   =25600
+  Walker distribution on root = 0 1 
+========================================================================
+--- Memory usage report : Memory Usage after the buffer registration ---
+========================================================================
+Available memory on node 0, free + buffers :   16523 MiB
+Memory footprint by rank 0 on node 0       :     110 MiB
+========================================================================
+  Anonymous Buffer size per walker : 19232 Bytes.
+MEMORY increase 0 MB VMC::resetRun
+====================================================
+  SimpleFixedNodeBranch::finalize after a VMC block
+    QMC counter        = 7
+    time step          = 0.1
+    reference energy   = -29.2763
+    reference variance = 0.47359
+====================================================
+  Execution time = 9.8755e-01
+</vmc>
+<opt stage="setup">
+  <log>
+   Reading configurations from h5FileRoot opt.s011
+  QMCCostFunction is created with 1 threads.
+  Using Nonlocal PP in Opt: NonLocalECP
+   Number of samples loaded to each thread : 1600 
+  VMC Eavg = -2.9276e+01
+  VMC Evar = 4.7359e-01
+  Total weights = 2.5600e+04
+  Execution time = 1.9436e-01
+  </log>
+</opt>
+<opt stage="main" walkers="25600">
+  <log>
+
+*****************************************
+Building overlap and Hamiltonian matrices
+*****************************************
+
+Among totally 96 optimized parameters, largest LM parameter change : 2.5688e-02 at parameter 0
+
+******************************************************************************
+Init Cost =  -2.6301e+01    New Cost =  -2.6302e+01  Delta Cost =  -4.5383e-04
+******************************************************************************
+
+The new set of parameters is valid. Updating the trial wave function!
+
+*****************************************************************************
+Applying the update for shift_i =   1.0000e-02     and shift_s =   1.2500e-01
+*****************************************************************************
+  Execution time = 2.7603e-01
+  </log>
+  <optVariables href="opt.s011.opt.xml">
+  eBe_0                -1.382445e+00 1 1  ON 0
+  eBe_1                -1.270184e+00 1 1  ON 1
+  eBe_2                -1.091331e+00 1 1  ON 2
+  eBe_3                -9.398256e-01 1 1  ON 3
+  eBe_4                -7.739239e-01 1 1  ON 4
+  eBe_5                -5.375173e-01 1 1  ON 5
+  eBe_6                -4.623088e-01 1 1  ON 6
+  eBe_7                -3.613708e-01 1 1  ON 7
+  eBe_8                -2.766303e-01 1 1  ON 8
+  eBe_9                -1.916052e-01 1 1  ON 9
+ eBe_10                -1.179776e-01 1 1  ON 10
+ eBe_11                -6.034308e-02 1 1  ON 11
+   uu_0                 3.417915e-01 1 1  ON 12
+   uu_1                 2.682328e-01 1 1  ON 13
+   uu_2                 1.948363e-01 1 1  ON 14
+   uu_3                 1.438661e-01 1 1  ON 15
+   uu_4                 1.109657e-01 1 1  ON 16
+   uu_5                 8.900420e-02 1 1  ON 17
+   uu_6                 7.005976e-02 1 1  ON 18
+   uu_7                 5.067204e-02 1 1  ON 19
+   uu_8                 3.303494e-02 1 1  ON 20
+   uu_9                 1.551439e-02 1 1  ON 21
+  uu_10                 2.055755e-03 1 1  ON 22
+  uu_11                -9.101814e-03 1 1  ON 23
+  uu_12                -1.714147e-02 1 1  ON 24
+  uu_13                -1.272365e-02 1 1  ON 25
+  uu_14                -8.927454e-03 1 1  ON 26
+  uu_15                -5.066872e-03 1 1  ON 27
+   ud_0                 9.635128e-01 1 1  ON 28
+   ud_1                 7.580974e-01 1 1  ON 29
+   ud_2                 5.763577e-01 1 1  ON 30
+   ud_3                 4.406804e-01 1 1  ON 31
+   ud_4                 3.387705e-01 1 1  ON 32
+   ud_5                 2.815423e-01 1 1  ON 33
+   ud_6                 2.401821e-01 1 1  ON 34
+   ud_7                 1.957091e-01 1 1  ON 35
+   ud_8                 1.547136e-01 1 1  ON 36
+   ud_9                 1.190065e-01 1 1  ON 37
+  ud_10                 8.850088e-02 1 1  ON 38
+  ud_11                 6.084918e-02 1 1  ON 39
+  ud_12                 3.909972e-02 1 1  ON 40
+  ud_13                 3.094872e-02 1 1  ON 41
+  ud_14                 2.281368e-02 1 1  ON 42
+  ud_15                 1.373801e-02 1 1  ON 43
+ uuBe_0                -1.736025e-03 1 1  ON 44
+ uuBe_1                 9.209520e-03 1 1  ON 45
+ uuBe_2                 1.496884e-02 1 1  ON 46
+ uuBe_3                -8.107938e-03 1 1  ON 47
+ uuBe_4                -8.496202e-03 1 1  ON 48
+ uuBe_5                -9.181569e-04 1 1  ON 49
+ uuBe_6                 1.959106e-02 1 1  ON 50
+ uuBe_7                -3.912803e-03 1 1  ON 51
+ uuBe_8                 2.546291e-02 1 1  ON 52
+ uuBe_9                -8.744364e-03 1 1  ON 53
+uuBe_10                -9.946926e-03 1 1  ON 54
+uuBe_11                -3.577419e-03 1 1  ON 55
+uuBe_12                -9.909831e-03 1 1  ON 56
+uuBe_13                 1.228940e-02 1 1  ON 57
+uuBe_14                 4.432242e-03 1 1  ON 58
+uuBe_15                 8.563094e-04 1 1  ON 59
+uuBe_16                 3.678460e-03 1 1  ON 60
+uuBe_17                 1.628130e-02 1 1  ON 61
+uuBe_18                -1.265166e-02 1 1  ON 62
+uuBe_19                 4.407472e-03 1 1  ON 63
+uuBe_20                -8.769430e-04 1 1  ON 64
+uuBe_21                 7.062354e-03 1 1  ON 65
+uuBe_22                -2.189853e-03 1 1  ON 66
+uuBe_23                -1.409601e-03 1 1  ON 67
+uuBe_24                -3.465487e-03 1 1  ON 68
+uuBe_25                 1.455051e-03 1 1  ON 69
+ udBe_0                -2.313403e-03 1 1  ON 70
+ udBe_1                -2.312727e-03 1 1  ON 71
+ udBe_2                 1.731108e-02 1 1  ON 72
+ udBe_3                -1.966612e-03 1 1  ON 73
+ udBe_4                -3.461519e-03 1 1  ON 74
+ udBe_5                -4.716310e-05 1 1  ON 75
+ udBe_6                 2.878615e-04 1 1  ON 76
+ udBe_7                -3.407438e-03 1 1  ON 77
+ udBe_8                 3.347863e-02 1 1  ON 78
+ udBe_9                 2.556292e-03 1 1  ON 79
+udBe_10                 3.528396e-03 1 1  ON 80
+udBe_11                -2.044232e-02 1 1  ON 81
+udBe_12                -1.778933e-02 1 1  ON 82
+udBe_13                -1.449853e-04 1 1  ON 83
+udBe_14                 1.075155e-02 1 1  ON 84
+udBe_15                 2.168292e-03 1 1  ON 85
+udBe_16                -2.172923e-03 1 1  ON 86
+udBe_17                 6.809900e-03 1 1  ON 87
+udBe_18                 1.578642e-02 1 1  ON 88
+udBe_19                 8.531370e-03 1 1  ON 89
+udBe_20                -8.113865e-03 1 1  ON 90
+udBe_21                -1.971961e-04 1 1  ON 91
+udBe_22                -1.774695e-03 1 1  ON 92
+udBe_23                 1.028230e-02 1 1  ON 93
+udBe_24                -4.235201e-03 1 1  ON 94
+udBe_25                 8.824373e-04 1 1  ON 95
+  </optVariables>
+   Restore the number of walkers to 1, removing 0 walkers.
+</opt>
+</optimization-report>
+  QMC Execution time = 1.484 secs
+  Total Execution time = 18.02 secs
+
+=========================================================
+  A new xml input file : opt.s011.cont.xml
+
+Use --enable-timers=<value> command line option to increase or decrease level of timing information
+Stack timer profile
+Timer                           Inclusive_time  Exclusive_time  Calls       Time_per_call
+Total                             18.1458     0.0004              1      18.145838022
+  QMCFixedSampleLinearOptimize    18.0205     0.0043              2       9.010244966
+    VMC                           18.0162    18.0162             12       1.501348237
+  Startup                          0.1250     0.1250              1       0.124980211
+
+QMCPACK execution completed successfully
