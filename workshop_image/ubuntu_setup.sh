@@ -88,38 +88,29 @@ if [ ! -e $HOME/apps ]; then
 fi
 
 #
-## QP (OUT OF DATE)
-#sudo apt-get -y install ninja-build m4 unzip
-#sudo apt-get -y install python # QP dependencies assume python availability
-#cd $HOME/apps
-#if [ ! -e qp2 ]; then
-#    echo --- Building QP2 `date`
-#    CC=gcc
-#    CXX=g++
-#    F90=gfortran
-#    F95=gfortran
-#    F77=gfortran
-#    git clone https://github.com/QuantumPackage/qp2.git 
-#    cd qp2
-#    ./configure -i all
-## Default 
-##    ./configure -c config/gfortran.cfg
-## Workaround for AWS     
-#    sed 's/-Ofast -march=native/-O3 -march=broadwell/g' config/gfortran.cfg >config/gfortran_safe.cfg
-#    ./configure -c config/gfortran_safe.cfg
-## Failed attempt to use MKL. Is unreliable.    
-##    sed -e 's/-lblas -llapack/-L\/opt\/intel\/compilers_and_libraries_2019.3.199\/linux\/mkl\/lib\/intel64 -Wl,--no-as-needed -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm -ldl/g' config/gfortran.cfg >config/gfortran_mkl.cfg
-##    ./configure -c config/gfortran_mkl.cfg
-#    source quantum_package.rc
-#    ninja
-#    cd plugins
-#    git clone https://github.com/QuantumPackage/QMCPACK_ff.git qmcpack
-#    sed -i s/"QMCPack"/"qmcpack"/ qmcpack/save_for_qmcpack.irp.f
-#    cd ../
-#    qp_plugins install qmcpack
-#    sed -i s/"  read_wf = .False."/"  \!read_wf = .False."/g    src/determinants/determinants.irp.f
-#    ninja
-#fi
+# QP 
+sudo apt-get install libgmp-dev libzmq3-dev
+cd $HOME/apps
+if [ ! -e qp2 ]; then
+    echo --- Building QP2 `date`
+    CC=gcc
+    CXX=g++
+    F90=gfortran
+    F95=gfortran
+    F77=gfortran
+    git clone https://github.com/QuantumPackage/qp2.git 
+    cd qp2
+    git checkout dev-pbc
+    ./configure -i all
+    ./configure -c config/gfortran.cfg
+    source quantum_package.rc
+    ninja
+    cd plugins
+    git clone https://github.com/QuantumPackage/qmcpack.git
+    cd ../
+    qp_plugins install qmcpack
+    ninja
+fi
 
 #
 # PySCF
@@ -394,8 +385,8 @@ export PATH=\$HOME/apps/qe-6.8/bin:\$PATH
 export PYTHONPATH=\$HOME/apps/pyscf/pyscf:\$PYTHONPATH
 export PYTHONPATH=\$HOME/apps/qmcpack/qmcpack/src/QMCTools:\$PYTHONPATH
 export LD_LIBRARY_PATH=\$HOME/apps/pyscf/pyscf/opt/lib:\$LD_LIBRARY_PATH
-## QP
-#source \$HOME/apps/qp2/quantum_package.rc
+# QP
+source \$HOME/apps/qp2/quantum_package.rc
 # DIRAC
 export PATH=\$HOME/apps/dirac/bin:\$PATH
 # VESTA
@@ -420,8 +411,8 @@ export PATH=$HOME/apps/qe-6.8/bin:$PATH
 export PYTHONPATH=$HOME/apps/pyscf/pyscf:$PYTHONPATH
 export PYTHONPATH=$HOME/apps/qmcpack/qmcpack/src/QMCTools:$PYTHONPATH
 export LD_LIBRARY_PATH=$HOME/apps/pyscf/pyscf/opt/lib:$LD_LIBRARY_PATH
-## QP
-#source $HOME/apps/qp2/quantum_package.rc
+# QP
+source $HOME/apps/qp2/quantum_package.rc
 # DIRAC
 export PATH=$HOME/apps/dirac/bin:$PATH
 # VESTA
