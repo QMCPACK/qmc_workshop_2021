@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<qmcsystem>
+  <wavefunction name="psi0" target="e">
+         <determinantset type="MolecularOrbital" href="../SCF/scf.h5" source="ion0" transform="yes" name="LCAOBSet">
+            <slaterdeterminant>
+               <determinant id="updet" size="7">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="58" spindataset="0">                                                     </coefficient>
+               </determinant>
+               <determinant id="downdet" size="5">
+                  <occupation mode="ground">                                                     </occupation>
+                  <coefficient size="58" spindataset="0">                                                     </coefficient>
+               </determinant>
+            </slaterdeterminant>
+         </determinantset>
+         <jastrow type="One-Body" name="J1" function="bspline" source="ion0" print="yes">
+            <correlation elementType="O" size="12" rcut="6.0" cusp="0.0">
+               <coefficients id="eO" type="Array"> -1.216231446 -1.127894946 -0.9400451158 -0.7247983695 -0.5178351346 -0.3253491286 -0.1655679332 -0.04108765364 0.05493523029 0.1139908549 0.1270267293 0.1144755568</coefficients>
+            </correlation>
+         </jastrow>
+         <jastrow type="Two-Body" name="J2" function="bspline" print="yes">
+            <correlation speciesA="u" speciesB="u" size="16" rcut="8.0">
+               <coefficients id="uu" type="Array"> 0.3405436804 0.2401912861 0.1568401431 0.09109577836 0.03945042479 -0.0005015560152 -0.03143141526 -0.05426531408 -0.0705780979 -0.08197271051 -0.08612400012 -0.08423662279 -0.07153725885 -0.05616994512 -0.04112522925 -0.02175144221</coefficients>
+            </correlation>
+            <correlation speciesA="u" speciesB="d" size="16" rcut="8.0">
+               <coefficients id="ud" type="Array"> 0.5201682582 0.3325876898 0.2050629971 0.1148662515 0.04996414976 0.002116467316 -0.03314508617 -0.05954764948 -0.07939033068 -0.09310457495 -0.09962175156 -0.1015310025 -0.09563005869 -0.08154589236 -0.06686666468 -0.04262970433</coefficients>
+            </correlation>
+         </jastrow>
+      </wavefunction>
+</qmcsystem>
