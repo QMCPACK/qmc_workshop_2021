@@ -17,6 +17,7 @@
 # QMCPACK and NEXUS workflow software
 # Quantum ESPRESSO (QE) 6.8
 # PySCF 2.0.0a
+# Quantum Package 2 (QP2)
 # DIRAC 21.1
 # VESTA 3.5.7
 #
@@ -39,12 +40,13 @@
 echo -- START `date`
 
 #
-# Scripte configuration options
+# Script configuration options
 #
 INSTALL_SYSTEM_PACKAGES=1
 INSTALL_QMCPACK=1
 INSTALL_QE=1 # Subset of INSTALL_QMCPACK. Requires INSTALL_QMCPACK=1
 INSTALL_PYSCF=1
+INSTALL_QP2=1
 INSTALL_DIRAC=1
 INSTALL_VESTA=1
 SETUP_DESKTOP=1
@@ -78,6 +80,11 @@ pip install --user spglib
 pip install --user seekpath
 pip install --user cif2cell
 pip install --user pycifrw
+
+if [ $INSTALL_QP2 -eq 1 ]; then
+sudo apt-get -y install libgmp-dev libzmq3-dev
+fi
+
 fi
 
 #
@@ -88,8 +95,10 @@ if [ ! -e $HOME/apps ]; then
 fi
 
 #
-# QP 
-sudo apt-get install libgmp-dev libzmq3-dev
+# QP2
+#
+if [ $INSTALL_QP2 -eq 1 ]; then
+
 cd $HOME/apps
 if [ ! -e qp2 ]; then
     echo --- Building QP2 `date`
@@ -110,6 +119,7 @@ if [ ! -e qp2 ]; then
     cd ../
     qp_plugins install qmcpack
     ninja
+fi
 fi
 
 #
@@ -386,7 +396,9 @@ export PYTHONPATH=\$HOME/apps/pyscf/pyscf:\$PYTHONPATH
 export PYTHONPATH=\$HOME/apps/qmcpack/qmcpack/src/QMCTools:\$PYTHONPATH
 export LD_LIBRARY_PATH=\$HOME/apps/pyscf/pyscf/opt/lib:\$LD_LIBRARY_PATH
 # QP
+if [ -e \$HOME/apps/qp2/quantum_package.rc ]; then
 source \$HOME/apps/qp2/quantum_package.rc
+fi
 # DIRAC
 export PATH=\$HOME/apps/dirac/bin:\$PATH
 # VESTA
@@ -412,7 +424,9 @@ export PYTHONPATH=$HOME/apps/pyscf/pyscf:$PYTHONPATH
 export PYTHONPATH=$HOME/apps/qmcpack/qmcpack/src/QMCTools:$PYTHONPATH
 export LD_LIBRARY_PATH=$HOME/apps/pyscf/pyscf/opt/lib:$LD_LIBRARY_PATH
 # QP
-source $HOME/apps/qp2/quantum_package.rc
+if [ -e $HOME/apps/qp2/quantum_package.rc ]; then
+    source $HOME/apps/qp2/quantum_package.rc
+fi
 # DIRAC
 export PATH=$HOME/apps/dirac/bin:$PATH
 # VESTA
@@ -461,6 +475,7 @@ QMCPACK
 NEXUS
 Quantum ESPRESSO (QE) 6.8
 PySCF 2.0.0a
+Quantum Package 2 (QP2)
 DIRAC 21.1
 
 See the individual packages for details of their licenses
