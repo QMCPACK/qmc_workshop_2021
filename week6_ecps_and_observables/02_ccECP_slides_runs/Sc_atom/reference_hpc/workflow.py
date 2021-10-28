@@ -64,6 +64,28 @@ sims.append(c4q)
 orbdeps = [(c4q,'particles'), # pyscf changes particle positions
            (c4q,'orbitals' ),]
 
+### Run VMC without Jastrow for sanity check
+gs_noj = generate_qmcpack(
+    identifier   = 'gs_noj',
+    path         = 'gs_noj',
+    job          = job(nodes=8, queue='debug', hours=0.5, constraint='knl', presub=my_presub),
+    system       = system,
+    pseudos        = ['Sc.ccECP.xml'],
+    jastrows     = [],
+    calculations   = [ 
+        vmc(
+            walkers     =   1,
+            warmupsteps =  20,
+            blocks      = 100,
+            steps       = 400,
+            substeps    =   2,
+            timestep    = 0.7,
+            ),
+        ],
+    dependencies = orbdeps,
+    )
+sims.append(gs_noj)
+
 #### OPTIMIZATION methods
 linopt1 = linear(
     energy               = 0.0,
