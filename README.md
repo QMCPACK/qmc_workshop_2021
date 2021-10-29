@@ -21,7 +21,7 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
  * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week3_stats_and_nexus/week3_stats_nexus_vfinal.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=fpEHyQHPCuA)
 ## Week 4 / 26 October : Molecular Calculations
  * Speaker: Anouar Benali
- * Link to slides. Link to YouTube
+ * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week4_molecules/week4_molecules.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=2H_FWv8SWkY)
 ## Week 5 / 2 November : Solid-State Calculations
  * Speaker: Joshua Townsend
  * Link to slides. Link to YouTube
