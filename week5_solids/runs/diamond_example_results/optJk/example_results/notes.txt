@@ -1,0 +1,24 @@
+K-space jastrow example. This input file starts with a well-converged
+1- and 2-body jastrow factors. Note that you can control the symmetry of the jastrow,
+"crystal" vs "spherical". You can also change the kspace cutoff. Because this
+jastrow is used to repair the long-range correlations, typically a cutoff ~1 is suggested.
+
+Note that this jastrow reduces the block time, so examine the efficiency to
+determine whether it's worth using.
+
+Sample results:
+                            LocalEnergy               Variance           ratio 
+optJk/diaqmc  series  0  -45.019830 +/- 0.008682   1.430190 +/- 0.025713   0.0318 
+optJk/diaqmc  series  1  -45.032060 +/- 0.007881   1.232514 +/- 0.027220   0.0274 
+optJk/diaqmc  series  2  -45.055808 +/- 0.010261   1.193091 +/- 0.025161   0.0265 
+optJk/diaqmc  series  3  -45.055696 +/- 0.009675   1.167795 +/- 0.021366   0.0259 
+optJk/diaqmc  series  4  -45.064253 +/- 0.008146   1.114611 +/- 0.021822   0.0247 
+optJk/diaqmc  series  5  -45.064141 +/- 0.006873   1.176450 +/- 0.022396   0.0261 
+optJk/diaqmc  series  6  -45.060822 +/- 0.008058   1.121079 +/- 0.023086   0.0249 
+optJk/diaqmc  series  7  -45.053427 +/- 0.008135   1.194682 +/- 0.025549   0.0265 
+optJk/diaqmc  series  8  -45.060815 +/- 0.007086   1.139879 +/- 0.023419   0.0253 
+optJk/diaqmc  series  9  -45.070766 +/- 0.009473   1.237917 +/- 0.049706   0.0275 
+optJk/diaqmc  series 10  -45.066369 +/- 0.008314   1.198912 +/- 0.035524   0.0266 
+optJk/diaqmc  series 11  -45.069097 +/- 0.008573   1.224152 +/- 0.041500   0.0272 
+optJk/diaqmc  series 12  -45.080847 +/- 0.007536   1.175657 +/- 0.024334   0.0261 
+optJk/diaqmc  series 13  -45.081027 +/- 0.009494   1.163980 +/- 0.033013   0.0258 

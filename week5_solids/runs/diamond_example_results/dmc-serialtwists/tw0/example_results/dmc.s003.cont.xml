@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<simulation>
+   <project id="dmc" series="4">
+      <application name="qmcpack" role="molecu" class="serial" version="1.0"/>
+   <host>jemez</host><date>Fri Oct 29 16:18:16 2021
+</date></project>
+   <qmcsystem>
+      <simulationcell>
+         <parameter name="lattice" units="bohr">
+                  6.74632230        0.00000000        0.00000000
+                  0.00000000        6.74632230        0.00000000
+                  0.00000000        0.00000000        6.74632230
+         </parameter>
+         <parameter name="bconds">
+            p p p
+         </parameter>
+         <parameter name="LR_dim_cutoff">    15                 </parameter>
+      </simulationcell>
+      <particleset name="e" random="yes" randomsrc="ion0">
+         <group name="u" size="16" mass="1.0">
+            <parameter name="charge">    -1                    </parameter>
+            <parameter name="mass">    1.0                   </parameter>
+         </group>
+         <group name="d" size="16" mass="1.0">
+            <parameter name="charge">    -1                    </parameter>
+            <parameter name="mass">    1.0                   </parameter>
+         </group>
+      </particleset>
+      <particleset name="ion0">
+         <group name="C" size="8" mass="21894.71359057295">
+            <parameter name="charge">    4                     </parameter>
+            <parameter name="valence">    4                     </parameter>
+            <parameter name="atomicnumber">    6                     </parameter>
+            <parameter name="mass">    21894.71359057295            </parameter>
+            <attrib name="position" datatype="posArray" condition="0">
+                     0.00000000        0.00000000        0.00000000
+                     1.68658058        1.68658058        1.68658058
+                     3.37316115        3.37316115        0.00000000
+                     5.05974172        5.05974172        1.68658058
+                     0.00000000        3.37316115        3.37316115
+                     1.68658058        5.05974172        5.05974172
+                     3.37316115        0.00000000        3.37316115
+                     5.05974172        1.68658057        5.05974172
+            </attrib>
+         </group>
+      </particleset>
+      <wavefunction name="psi0" target="e">
+         <sposet_builder type="bspline" href="../../nscf/pwscf_output/pwscf.pwscf.h5" tilematrix="1 -1 1 1 1 -1 -1 1 1" twistnum="0" source="ion0" version="0.10" meshfactor="1.0" precision="float" truncate="no">
+            <sposet type="bspline" name="spo_ud" size="16" spindataset="0"/>
+         </sposet_builder>
+         <determinantset>
+            <slaterdeterminant>
+               <determinant id="updet" group="u" sposet="spo_ud" size="16"/>
+               <determinant id="downdet" group="d" sposet="spo_ud" size="16"/>
+            </slaterdeterminant>
+         </determinantset>
+         <jastrow type="One-Body" name="J1" function="bspline" source="ion0" print="yes">
+            <correlation elementType="C" size="7" rcut="3.37" cusp="0.0">
+               <coefficients id="eC" type="Array">                  
+-0.3362026961 -0.2702231411 -0.217806202 -0.1504317383 -0.0887603704 -0.03981976953 
+-0.01091111977
+               </coefficients>
+            </correlation>
+         </jastrow>
+         <jastrow type="Two-Body" name="J2" function="bspline" print="yes">
+            <correlation speciesA="u" speciesB="u" size="7" rcut="3.37">
+               <coefficients id="uu" type="Array">                  
+0.3583893349 0.2626373909 0.1861859424 0.1229228395 0.0755692378 0.03943379216 
+0.01820982113
+               </coefficients>
+            </correlation>
+            <correlation speciesA="u" speciesB="d" size="7" rcut="3.37">
+               <coefficients id="ud" type="Array">                  
+0.5632239749 0.3836955288 0.2534642091 0.1578132729 0.09206130026 0.04662953905 
+0.02104628187
+               </coefficients>
+            </correlation>
+         </jastrow>
+      </wavefunction>
+      <hamiltonian name="h0" type="generic" target="e">
+         <pairpot type="coulomb" name="ElecElec" source="e" target="e"/>
+         <pairpot type="coulomb" name="IonIon" source="ion0" target="ion0"/>
+         <pairpot type="pseudo" name="PseudoPot" source="ion0" wavefunction="psi0" format="xml">
+            <pseudo elementType="C" href="C.ccECP.xml"/>
+         </pairpot>
+         <pairpot type="MPC" name="MPC" source="e" target="e" ecut="60.0" physical="no"/>
+         <estimator name="KEcorr" type="chiesa" source="e" psi="psi0"/>
+      </hamiltonian>
+   </qmcsystem><mcwalkerset fileroot="dmc.s003" node="-1" nprocs="1" version="3 11" collected="yes"/>
+   <qmc method="vmc" move="pbyp" checkpoint="-1">
+      <parameter name="walkers">    1               </parameter>
+      <parameter name="warmupSteps">    8               </parameter>
+      <parameter name="blocks">    500             </parameter>
+      <parameter name="steps">    8               </parameter>
+      <parameter name="subSteps">    3               </parameter>
+      <parameter name="timestep">    0.1             </parameter>
+      <parameter name="samples">    2048            </parameter>
+   </qmc>
+   <qmc method="dmc" move="pbyp" checkpoint="-1">
+      <parameter name="warmupSteps">    20              </parameter>
+      <parameter name="blocks">    200             </parameter>
+      <parameter name="steps">    1               </parameter>
+      <parameter name="timestep">    0.02            </parameter>
+   </qmc>
+   <qmc method="dmc" move="pbyp" checkpoint="-1">
+      <parameter name="warmupSteps">    40              </parameter>
+      <parameter name="blocks">    200             </parameter>
+      <parameter name="steps">    2               </parameter>
+      <parameter name="timestep">    0.01            </parameter>
+   </qmc>
+   <qmc method="dmc" move="pbyp" checkpoint="-1">
+      <parameter name="warmupSteps">    80              </parameter>
+      <parameter name="blocks">    200             </parameter>
+      <parameter name="steps">    4               </parameter>
+      <parameter name="timestep">    0.005           </parameter>
+   </qmc>
+</simulation>
