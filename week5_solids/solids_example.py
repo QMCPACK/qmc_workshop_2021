@@ -2,12 +2,15 @@
 
 # Obtain the core count of the local machine (lab only)
 import os
-cores = os.cpu_count() // 2
+cores = os.cpu_count()
 
 # Paths to executables.  *** EDIT ME ***
-pwx_bin="${HOME}/qmcpack/external_codes/quantum_espresso/6.7.0/bin/pw.x"
-wfc_bin="${HOME}/qmcpack/external_codes/quantum_espresso/6.7.0/bin/pw2qmcpack.x"
-qmc_bin="${HOME}/qmcpack/build-vanilla/bin/qmcpack_complex"
+#pwx_bin="${HOME}/qmcpack/external_codes/quantum_espresso/6.7.0/bin/pw.x"
+pwx_bin="pw.x"
+#wfc_bin="${HOME}/qmcpack/external_codes/quantum_espresso/6.7.0/bin/pw2qmcpack.x"
+wfc_bin="pw2qmcpack.x"
+#qmc_bin="${HOME}/qmcpack/build-vanilla/bin/qmcpack_complex"
+qmc_bin="qmcpack_complex"
 
 # Import Nexus stuff
 from nexus import settings,job,run_project
