@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<qmcsystem>
+  <wavefunction name="psi0" target="e">
+    <determinantset type="MolecularOrbital" name="LCAOBSet" source="ion0" transform="yes" href="scf.h5">
+      <slaterdeterminant>
+        <determinant id="updet" size="1">
+          <occupation mode="ground"/>
+          <coefficient size="29" spindataset="0"/>
+        </determinant>
+        <determinant id="downdet" size="1">
+          <occupation mode="ground"/>
+          <coefficient size="29" spindataset="0"/>
+        </determinant>
+      </slaterdeterminant>
+    </determinantset>
+    <jastrow name="J2" type="Two-Body" function="Bspline" print="yes">
+      <correlation rcut="10" size="10" speciesA="u" speciesB="d">
+        <coefficients id="ud" type="Array"> 0.6616939048 0.6212773647 0.3028351695 0.09728061879 -0.07094876821 -0.1929876323 -0.2778285564 -0.3187210824 -0.3006495307 -0.2325504687</coefficients>
+      </correlation>
+    </jastrow>
+    <jastrow name="J1" type="One-Body" function="Bspline" source="ion0" print="yes">
+      <correlation rcut="10" size="10" cusp="0" elementType="Be">
+        <coefficients id="eBe" type="Array"> -0.2491729079 -0.205095349 -0.1241047781 -0.03217590159 0.06148811555 0.1293839102 0.1652232746 0.1467203416 0.0784206383 0.02307211417</coefficients>
+      </correlation>
+    </jastrow>
+    <!--jastrow name="J3" type="eeI" function="polynomial" source="ion0" print="yes">
+      <correlation ispecies="Be" especies="u" isize="3" esize="3" rcut="5">
+        <coefficients id="uuBe" type="Array" optimize="yes">
+        </coefficients>
+      </correlation>
+      <correlation ispecies="Be" especies1="u" especies2="d" isize="3" esize="3" rcut="5">
+        <coefficients id="udBe" type="Array" optimize="yes">
+        </coefficients>
+      </correlation>
+    </jastrow-->
+  </wavefunction>
+</qmcsystem>

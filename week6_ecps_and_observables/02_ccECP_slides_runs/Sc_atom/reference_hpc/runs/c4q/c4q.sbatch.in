@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -A m2113
+#SBATCH -p debug
+#SBATCH -C knl
+#SBATCH -J c4q
+#SBATCH -t 00:30:00
+#SBATCH -N 1
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=272
+#SBATCH -o c4q.out
+#SBATCH -e c4q.err
+#SBATCH --export=ALL
+
+echo $SLURM_SUBMIT_DIR
+cd $SLURM_SUBMIT_DIR
+
+
+export HDF5_USE_FILE_LOCKING=FALSE
+module unload cray-libsci
+module load cray-hdf5
+source activate nexus3   # Activating the conda environment
+module list
+
+export OMP_NUM_THREADS=1
+srun convert4qmc -orbitals ../scf/scf.h5 -prefix c4q -nojastrow

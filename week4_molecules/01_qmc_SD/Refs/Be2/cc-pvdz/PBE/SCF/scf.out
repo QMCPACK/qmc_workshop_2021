@@ -1,0 +1,259 @@
+#INFO: **** input file is /home/abenali/Work/WorkShop/qmcpack_workshop_2021/qmc_workshop_2021/week4_molecules/Be2/01_qmc_SD/runs/Be2/cc-pvdz/PBE/SCF/scf.py ****
+
+#! /usr/bin/env python3
+
+import numpy as np
+from numpy import array
+
+### generated pyscfimport text ###
+from pyscf import df, scf, dft
+### end generated pyscfimport text ###
+
+
+
+
+
+### generated system text ###
+from pyscf import gto as gto_loc
+mol = gto_loc.Mole()
+mol.verbose  = 5
+mol.atom     = '''
+               Be   0.00000000   0.00000000   0.00000000
+               Be   4.63663771   0.00000000   0.00000000
+               '''
+mol.basis    = 'cc-pvdz'
+mol.unit     = 'B'
+mol.charge   = 0
+mol.spin     = 0
+mol.symmetry = True
+mol.build()
+### end generated system text ###
+
+
+
+
+### generated calculation text ###
+mf = scf.ROKS(mol).density_fit()
+mf.max_cycle=200
+mf.level_shift=0.0
+mf.xc          = 'PBE'
+mf.tol         = '1e-10'
+e_scf = mf.kernel()
+### end generated calculation text ###
+
+
+
+### generated conversion text ###
+from PyscfToQmcpack import savetoqmcpack
+savetoqmcpack(mol,mf,'scf')
+### end generated conversion text ###
+
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='abenali', release='5.11.0-38-generic', version='#42~20.04.1-Ubuntu SMP Tue Sep 28 20:41:07 UTC 2021', machine='x86_64', processor='x86_64')  Threads 1
+Python 3.7.11 (default, Sep  9 2021, 02:06:38) 
+[GCC 9.3.0]
+numpy 1.20.3  scipy 1.6.2
+Date: Thu Oct 21 22:45:20 2021
+PySCF version 2.0.0a
+PySCF path  /home/abenali/Work/src/pyscf
+GIT HEAD (branch master) 3e8ba375fd4229f000289589fd02193633380853
+
+[CONFIG] conf_file None
+[INPUT] verbose = 5
+[INPUT] max_memory = 4000 
+[INPUT] num. atoms = 2
+[INPUT] num. electrons = 8
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry True subgroup None
+[INPUT] Mole.unit = B
+[INPUT]  1 Be     0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr
+[INPUT]  2 Be     2.453603011424   0.000000000000   0.000000000000 AA    4.636637710000   0.000000000000   0.000000000000 Bohr
+[INPUT] ---------------- BASIS SET ---------------- 
+[INPUT] l, kappa, [nprim/nctr], expnt,             c_1 c_2 ...
+[INPUT] Be
+[INPUT] 0    0    [8    /2   ]  2940              0.00068 -0.000123
+                                441.2             0.005236 -0.000966
+                                100.5             0.026606 -0.004831
+                                28.43             0.099993 -0.019314
+                                9.169             0.269702 -0.05328
+                                3.196             0.451469 -0.120723
+                                1.159             0.295074 -0.133435
+                                0.1811            0.012587 0.530767
+[INPUT] 0    0    [1    /1   ]  0.0589               1
+[INPUT] 1    0    [3    /1   ]  3.619             0.029111
+                                0.711             0.169365
+                                0.1951            0.513458
+[INPUT] 1    0    [1    /1   ]  0.06018              1
+[INPUT] 2    0    [1    /1   ]  0.238                1
+
+nuclear repulsion = 3.45077640323121
+point group symmetry = Dooh
+num. orbitals of irrep A1g = 6
+num. orbitals of irrep E1gx = 3
+num. orbitals of irrep E1gy = 3
+num. orbitals of irrep A1u = 6
+num. orbitals of irrep E1uy = 3
+num. orbitals of irrep E1ux = 3
+num. orbitals of irrep E2gx = 1
+num. orbitals of irrep E2gy = 1
+num. orbitals of irrep E2uy = 1
+num. orbitals of irrep E2ux = 1
+number of shells = 10
+number of NR pGTOs = 52
+number of NR cGTOs = 28
+basis = cc-pvdz
+ecp = {}
+CPU time:         0.39
+
+
+******** <class 'pyscf.df.df_jk.density_fit.<locals>.DFHF'> ********
+method = DFHF-SymAdaptedROKS-SymAdaptedROHF-ROHF-RHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0.0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 200
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /home/abenali/Work/WorkShop/qmcpack_workshop_2021/qmc_workshop_2021/week4_molecules/Be2/01_qmc_SD/runs/Be2/cc-pvdz/PBE/SCF/tmpsjalkscl
+max_memory 4000 MB (current use 112 MB)
+num. doubly occ = 4  num. singly occ = 0
+XC library pyscf.dft.libxc version 5.1.5
+    S. Lehtola, C. Steigemann, M. J. Oliveira, and M. A. Marques, SoftwareX 7, 1 (2018)
+XC functionals = PBE
+    J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 78, 1396 (1997)
+    J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 77, 3865 (1996)
+    J. P. Perdew, K. Burke, and M. Ernzerhof, Phys. Rev. Lett. 78, 1396 (1997)
+radial grids: 
+    Treutler-Ahlrichs [JCP 102, 346 (1995); DOI:10.1063/1.469408] (M4) radial grids
+    
+becke partition: Becke, JCP 88, 2547 (1988); DOI:10.1063/1.454033
+pruning grids: <function nwchem_prune at 0x7f74724ded40>
+grids dens level: 3
+symmetrized grids: True
+atomic radii adjust function: <function treutler_atomic_radii_adjust at 0x7f74724e7200>
+small_rho_cutoff = 1e-07
+Freeze 0 electrons in irreps []
+    8 free electrons in irreps A1g E1gx E1gy A1u E1uy E1ux E2gx E2gy E2uy E2ux
+Set gradient conv threshold to 3.16228e-05
+atom Be rad-grids = 75, ang-grids = [ 50  50  50  50  50  50  50  50  50  50  50  50  50  50  50  50  50  50
+  50  50  50  50  50  50  50  50  86  86  86  86  86  86  86  86  86  86
+  86 266 266 266 266 266 266 266 266 302 302 302 302 302 302 302 302 302
+ 302 302 302 302 302 302 302 302 302 302 302 302 266 266 266 266 266 266
+ 266 266 266]
+tot grids = 26220
+Drop grids 808
+    CPU time for setting up grids      0.02 sec, wall time      0.04 sec
+nelec by numeric integration = [3.99970046 3.99970046]
+    CPU time for vxc      0.10 sec, wall time      0.22 sec
+Even tempered Gaussians are generated as DF auxbasis for  Be
+  ETB auxbasis for Be  [[0, [482.5088, 1]], [0, [241.2544, 1]], [0, [120.6272, 1]], [0, [60.3136, 1]], [0, [30.1568, 1]], [0, [15.0784, 1]], [0, [7.5392, 1]], [0, [3.7696, 1]], [0, [1.8848, 1]], [0, [0.9424, 1]], [0, [0.4712, 1]], [0, [0.2356, 1]], [0, [0.1178, 1]], [1, [60.96543764094538, 1]], [1, [30.48271882047269, 1]], [1, [15.241359410236345, 1]], [1, [7.620679705118173, 1]], [1, [3.8103398525590864, 1]], [1, [1.9051699262795432, 1]], [1, [0.9525849631397716, 1]], [1, [0.4762924815698858, 1]], [1, [0.2381462407849429, 1]], [1, [0.11907312039247145, 1]], [2, [3.85152, 1]], [2, [1.92576, 1]], [2, [0.96288, 1]], [2, [0.48144, 1]], [2, [0.24072, 1]], [2, [0.12036, 1]]]
+num shells = 58, num cGTOs = 146
+    CPU time for df-vj      0.02 sec, wall time      0.05 sec
+E1 = -45.154758919674435  Ecoul = 17.907493582256524  Exc = -5.512504831783062
+init E= -29.3089937659698
+cond(S) = 276.0348023644992
+    CPU time for initialize scf      0.16 sec, wall time      0.34 sec
+HOMO (A1u) = -0.163530374692461  LUMO (E1ux) = -0.102260786055939
+double occ irrep_nelec = [2, 0, 0, 2, 0, 0, 0, 0, 0, 0]
+single occ irrep_nelec = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  Roothaan mo_energy =
+[-3.87443625 -0.26311778 -0.09908755  0.16001121  0.17464325  0.58064459
+ -0.03047332  0.19794206  0.64927077 -0.03047332  0.19794206  0.64927077
+ -3.87449854 -0.16353037  0.06597523  0.18938292  0.31803946  0.76980896
+ -0.10226079  0.16930466  0.37381215 -0.10226079  0.16930466  0.37381215
+  0.40647473  0.40647473  0.4912805   0.49128059]
+nelec by numeric integration = [4.00000022 4.00000022]
+    CPU time for vxc      0.07 sec, wall time      0.19 sec
+    CPU time for df-vj      0.01 sec, wall time      0.04 sec
+E1 = -45.05024488574031  Ecoul = 17.815930158876252  Exc = -5.487030819100437
+cycle= 1 E= -29.2705691427333  delta_E= 0.0384  |g|= 0.00791  |ddm|= 0.638
+    CPU time for cycle= 1      0.09 sec, wall time      0.24 sec
+HOMO (A1u) = -0.167740375374602  LUMO (E1ux) = -0.10490897084077
+double occ irrep_nelec = [2, 0, 0, 2, 0, 0, 0, 0, 0, 0]
+single occ irrep_nelec = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  Roothaan mo_energy =
+[-3.89277289 -0.2643114  -0.10253648  0.15787394  0.17170322  0.5791717
+ -0.03440406  0.19412024  0.6471243  -0.03440406  0.19412024  0.6471243
+ -3.89282376 -0.16774038  0.06392682  0.18629534  0.31562013  0.76827924
+ -0.10490897  0.16612397  0.3703617  -0.10490897  0.16612397  0.3703617
+  0.40388405  0.40388397  0.4884306   0.48843075]
+nelec by numeric integration = [4.00000022 4.00000022]
+    CPU time for vxc      0.07 sec, wall time      0.19 sec
+    CPU time for df-vj      0.01 sec, wall time      0.03 sec
+E1 = -45.03359291448184  Ecoul = 17.797867047727227  Exc = -5.485630946627992
+cycle= 2 E= -29.2705804101514  delta_E= -1.13e-05  |g|= 0.00502  |ddm|= 0.0184
+    CPU time for cycle= 2      0.09 sec, wall time      0.26 sec
+HOMO (A1u) = -0.168057371104402  LUMO (E1ux) = -0.105869931457158
+double occ irrep_nelec = [2, 0, 0, 2, 0, 0, 0, 0, 0, 0]
+single occ irrep_nelec = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  Roothaan mo_energy =
+[-3.89408426 -0.26598004 -0.10312266  0.1571646   0.17126     0.57824729
+ -0.03500088  0.19356187  0.64638111 -0.03500088  0.19356187  0.64638111
+ -3.89413646 -0.16805737  0.06336655  0.18588794  0.31481215  0.76737902
+ -0.10586993  0.16539501  0.36938087 -0.10586993  0.16539501  0.36938087
+  0.40295324  0.40295317  0.48763049  0.48763064]
+nelec by numeric integration = [4.00000022 4.00000022]
+    CPU time for vxc      0.07 sec, wall time      0.23 sec
+    CPU time for df-vj      0.01 sec, wall time      0.03 sec
+E1 = -45.04332363582523  Ecoul = 17.808703672628457  Exc = -5.486763632202527
+cycle= 3 E= -29.2706071921681  delta_E= -2.68e-05  |g|= 0.000153  |ddm|= 0.0116
+    CPU time for cycle= 3      0.09 sec, wall time      0.27 sec
+HOMO (A1u) = -0.167963702452335  LUMO (E1ux) = -0.105764946849551
+double occ irrep_nelec = [2, 0, 0, 2, 0, 0, 0, 0, 0, 0]
+single occ irrep_nelec = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  Roothaan mo_energy =
+[-3.89372453 -0.26585009 -0.10302147  0.15725477  0.17134469  0.57835277
+ -0.03491413  0.19365425  0.64648828 -0.03491413  0.19365425  0.64648828
+ -3.89377682 -0.1679637   0.06346414  0.18599252  0.31489604  0.76749072
+ -0.10576495  0.16549553  0.36948464 -0.10576495  0.16549553  0.36948464
+  0.40304386  0.40304378  0.48771246  0.48771261]
+nelec by numeric integration = [4.00000022 4.00000022]
+    CPU time for vxc      0.07 sec, wall time      0.20 sec
+    CPU time for df-vj      0.01 sec, wall time      0.06 sec
+E1 = -45.0428733101794  Ecoul = 17.808175891791077  Exc = -5.48668619908914
+cycle= 4 E= -29.2706072142463  delta_E= -2.21e-08  |g|= 1.93e-05  |ddm|= 0.00045
+    CPU time for cycle= 4      0.09 sec, wall time      0.28 sec
+HOMO (A1u) = -0.167979214270818  LUMO (E1ux) = -0.105779385290613
+double occ irrep_nelec = [2, 0, 0, 2, 0, 0, 0, 0, 0, 0]
+single occ irrep_nelec = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  Roothaan mo_energy =
+[-3.8937651  -0.26586779 -0.10303785  0.15724259  0.17133318  0.57833712
+ -0.0349289   0.19364153  0.64647357 -0.0349289   0.19364153  0.64647357
+ -3.89381738 -0.16797921  0.06345196  0.18597687  0.3148841   0.76747428
+ -0.10577939  0.16548329  0.36946872 -0.10577939  0.16548329  0.36946872
+  0.40302886  0.40302878  0.48769733  0.48769748]
+nelec by numeric integration = [4.00000022 4.00000022]
+    CPU time for vxc      0.06 sec, wall time      0.18 sec
+    CPU time for df-vj      0.01 sec, wall time      0.03 sec
+E1 = -45.04293041207436  Ecoul = 17.808243229935723  Exc = -5.486696435708502
+cycle= 5 E= -29.2706072146159  delta_E= -3.7e-10  |g|= 8.97e-07  |ddm|= 5.55e-05
+    CPU time for cycle= 5      0.08 sec, wall time      0.23 sec
+HOMO (A1u) = -0.167978192948657  LUMO (E1ux) = -0.10577858710811
+double occ irrep_nelec = [2, 0, 0, 2, 0, 0, 0, 0, 0, 0]
+single occ irrep_nelec = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  Roothaan mo_energy =
+[-3.89376292 -0.26586695 -0.10303681  0.15724331  0.17133392  0.57833805
+ -0.03492805  0.19364226  0.6464745  -0.03492805  0.19364226  0.6464745
+ -3.8938152  -0.16797819  0.06345276  0.18597792  0.31488469  0.76747528
+ -0.10577859  0.16548398  0.36946962 -0.10577859  0.16548398  0.36946962
+  0.40302967  0.4030296   0.48769815  0.48769831]
+nelec by numeric integration = [4.00000022 4.00000022]
+    CPU time for vxc      0.07 sec, wall time      0.20 sec
+    CPU time for df-vj      0.01 sec, wall time      0.04 sec
+E1 = -45.04292900263745  Ecoul = 17.808241407705538  Exc = -5.4866960229159005
+Extra cycle  E= -29.2706072146166  delta_E= -6.75e-13  |g|= 2.57e-07  |ddm|= 4.36e-06
+    CPU time for scf_cycle      0.69 sec, wall time      1.89 sec
+    CPU time for SCF      0.69 sec, wall time      1.89 sec
+converged SCF energy = -29.2706072146166
+Using Python 3.x
+Wavefunction successfully saved to QMCPACK HDF5 Format
+Use: "convert4qmc -pyscf  scf.h5" to generate QMCPACK input files

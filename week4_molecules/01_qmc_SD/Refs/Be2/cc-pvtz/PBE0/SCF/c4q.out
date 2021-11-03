@@ -1,0 +1,23 @@
+Index of ion charge 0
+Index of valence charge 1
+Using c4q to name output files
+Converting Wavefunction from the PySCF Code
+Periodic Boundary Conditions: no
+usingECP: no
+Multideterminants: no
+NUMBER OF AOs: 60
+Size of Basis Set: 60
+NUMBER OF MOs: 60
+Unit in Bohr=1
+Number of alpha electrons: 4
+Number of beta electrons: 4
+Number of electrons: 8
+SPIN MULTIPLICITY: 1
+NUMBER OF ATOMS: 2
+ QMCGaussianParserBase::dump 
+Number of alpha electrons 4
+Number of beta electrons 4
+Adding Two-Body and One-Body jastrows with rcut="10" and size="10"
+Adding Three-Body jastrows with rcut="5"
+ Generating Standard Input file containing VMC, standard optmization, and DMC blocks.
+ Modify according to the accuracy you would like to achieve. 

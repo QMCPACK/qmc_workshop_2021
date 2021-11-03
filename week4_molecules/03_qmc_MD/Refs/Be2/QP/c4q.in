@@ -1,0 +1,1 @@
+convert4qmc -prefix c4q -addCusp -orbitals QP.h5 -multidet QP.h5

@@ -1,0 +1,30 @@
+Hybridrep tests:
+
+1.) Run the baseline case with a large meshfactor to ensure converged energy
+2.) Scan effect of lmax, meshfactor, spline cutoff on energy by copying and editing "tw0-hybrid-lmax2-mf0.5".
+
+tw0-base-mf2 results:
+                LocalEnergy               Variance           ratio 
+series 0  -45.033245 +/- 0.005408   1.392544 +/- 0.016996   0.0309 
+Memory footprint by rank 0 on node 0       :     682 MiB
+
+
+tw0-hybrid-lmax2-mf0.5 results:
+                LocalEnergy               Variance           ratio 
+series 0  -44.359268 +/- 0.012236   8.311507 +/- 0.122624   0.1874 
+Memory footprint by rank 0 on node 0       :     571 MiB
+
+tw0-hybrid-lmax4-mf0.5 results:
+                LocalEnergy               Variance           ratio 
+series 0  -45.026689 +/- 0.005552   1.749452 +/- 0.049389   0.0389 
+Memory footprint by rank 0 on node 0       :     571 MiB
+
+tw0-hybrid-lmax6-mf0.5 results:
+                LocalEnergy               Variance           ratio 
+series 0  -45.024237 +/- 0.005591   1.458256 +/- 0.031316   0.0324 
+Memory footprint by rank 0 on node 0       :     571 MiB
+
+The hybridrep calculations with lmax = 6 are statistically identical
+to the calculation on a rectilinear mesh with larger meshfactor. But
+the hybridrep wavefunction requires ~20% less memory.
+

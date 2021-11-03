@@ -1,0 +1,32 @@
+/global/cscratch1/sd/aannabe/docs/qmc_workshop_2021/Sc_ccECP/runs/c4q
+Index of ion charge 0
+Index of valence charge 1
+Using c4q to name output files
+Converting Wavefunction from the PySCF Code
+Periodic Boundary Conditions: no
+usingECP: yes
+Multideterminants: no
+NUMBER OF AOs: 63
+Size of Basis Set: 63
+NUMBER OF MOs: 63
+Unit in Bohr=1
+Number of alpha electrons: 6
+Number of beta electrons: 5
+Number of electrons: 11
+SPIN MULTIPLICITY: 2
+NUMBER OF ATOMS: 1
+WARNING eigenval_0 doesn't exist in h5 file. Treat all values zero.
+ QMCGaussianParserBase::dump 
+Number of alpha electrons 6
+Number of beta electrons 5
+ Generating Standard Input file containing VMC, standard optmization, and DMC blocks.
+ Modify according to the accuracy you would like to achieve. 
+Hamiltonian using ECP for Electron Ion=1
+ QMCGaussianParserBase::dump 
+Number of alpha electrons 6
+Number of beta electrons 5
+Adding Two-Body and One-Body jastrows with rcut="10" and size="10"
+Adding Three-Body jastrows with rcut="5"
+ Generating Standard Input file containing VMC, standard optmization, and DMC blocks.
+ Modify according to the accuracy you would like to achieve. 
+Hamiltonian using ECP for Electron Ion=1

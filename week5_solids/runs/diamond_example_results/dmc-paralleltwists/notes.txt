@@ -1,0 +1,5 @@
+This is a typical setup to run multiple twists in parallel.
+Not recommended for laptops!
+TO run: /path/to/qmcpack dmc.in > dmc.out
+(Observe that the file "dmc.in" is just a list of input files for separate twists)
+
