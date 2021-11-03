@@ -36,7 +36,7 @@ mol.build()
 #~~~Run HF on molecule~~~~
 mf = scf.ROHF(mol)
 mf.irrep_nelec = {
-'Ag' : (3,2),   # s    
+'Ag' : (3,2),   # s, dz^2, dx^2-y^2
 'B3u': (1,1),   # x    1
 'B1u': (1,1),   # z    0
 'B2u': (1,1),   # y   -1
