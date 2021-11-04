@@ -65,7 +65,7 @@ orbdeps = [(c4q,'particles'), # pyscf changes particle positions
 optJ2 = generate_qmcpack(
     identifier      = 'opt',
     path            = 'H2O/optJ2',
-    job             = job(cores=2),
+    job             = job(cores=cores),
     system          = system,
     pseudos         = 'ccecp',
     J2              = True,
@@ -80,39 +80,29 @@ optJ2 = generate_qmcpack(
     )
 
 
-# run VMC with HF wavefunction
+# run DMC with Slater-Jastrow wavefunction
 qmc = generate_qmcpack(
     identifier   = 'dmc',
     path         = 'H2O/dmc_J2',
-    job          = job(cores=4),
+    job          = job(cores=cores),
     system       = system,
     pseudos      = 'ccecp',
     jastrows     = [],
     estimators = [density(delta=(0.02,0.02,0.02),x_min=0,x_max=8,y_min=0,y_max=8,z_min=0,z_max=8)], # Grid spacing in bohr
-    #qmc          = 'vmc',             # vmc run
     seed         = 42,
-    #warmupsteps  = 0,
-    #blocks       = 200,
-    #steps        =   3,
-    #timestep     = 0.1,
-    calculations   = [
-        vmc(
-            warmupsteps         =           0,
-            blocks              =         200,
-            steps               =           3,
-            substeps            =          15,
-            timestep            =         0.1,
-            samplesperthread    =         250, 
-            ),
-        dmc(
-            warmupsteps         =          30,
-            blocks              =         300,
-            steps               =          10,
-            timestep            =        0.02,
-            nonlocalmoves       =        'v1',
-            reconfiguration     =       False,
-            ),
-    ],
+    qmc          = 'dmc',             # dmc run
+    vmc_samples   = 1024,     # DMC walker population sampled from VMC
+    vmc_blocks    = 200,      
+    vmc_steps     = 20,
+    vmc_timestep  = 0.3,
+    eq_dmc        = True,     # Add DMC equilibration
+    eq_blocks     = 30,       # Use a small number of blocks
+    eq_steps      = 10,      
+    eq_timestep   = 0.02,     # Use a larger timestep
+    blocks        = 1000,     # Large number of blocks for production
+    steps         = 10,       # 10 steps/block averages out some autocorr time
+    timestep      = 0.01,     # Smaller production timestep 
+    nonlocalmoves = True,     # Use T-moves scheme w/ non-local pseudopotentials
     dependencies = orbdeps+[(optJ2,'jastrow')],
     )
 
