@@ -119,8 +119,8 @@ optJ12 = generate_qmcpack(
     job            = job(nodes=8, queue='debug', hours=0.5, constraint='knl', presub=my_presub),
     system         = system,
     J2             = True,         # 2-body B-spline Jastrow
-    J1_rcut        = 12.0,          # 4 Bohr cutoff for J1
-    J2_rcut        = 12.0,          # 7 Bohr cutoff for J2
+    J1_rcut        = 12.0,         # Bohr cutoff for J1
+    J2_rcut        = 12.0,         # Bohr cutoff for J2
     pseudos        = ['Sc.ccECP.xml'],
     calculations   = [
                 loop(max=5, qmc=linopt1),
