@@ -1,8 +1,21 @@
 H2O molecule: VMC with QMCPACK and statistical analysis
 =======================================================
 
-qmca -q e -t --sac runs/H2O/dmc_J2/dmc.s00?.scalar.dat
-qdens -f xsf -e 10 -r 2 -i runs/H2O/dmc_J2/dmc.in.xml --noplot
+qmca -q e -t --sac dmc.s000.scalar.dat
+qdens -f xsf -e 10 -r 1 -i dmc.in.xml --noplot dmc.s000.stat.h5
+qmca -q e -t --sac dmc.s002.scalar.dat
+qdens -f xsf -e 25 -r 3 -i dmc.in.xml --noplot dmc.s002.stat.h5
+
+$ ll *Density*
+-rw-rw-r-- 1 qmcuser qmcuser 1890877 Nov  4 14:32 dmc.s000.Density_q+err.xsf
+-rw-rw-r-- 1 qmcuser qmcuser 1890877 Nov  4 14:32 dmc.s000.Density_q-err.xsf
+-rw-rw-r-- 1 qmcuser qmcuser 1890877 Nov  4 14:32 dmc.s000.Density_q.xsf
+-rw-rw-r-- 1 qmcuser qmcuser 1890877 Nov  4 14:32 dmc.s002.Density_q+err.xsf
+-rw-rw-r-- 1 qmcuser qmcuser 1890877 Nov  4 14:32 dmc.s002.Density_q-err.xsf
+-rw-rw-r-- 1 qmcuser qmcuser 1890877 Nov  4 14:32 dmc.s002.Density_q.xsf
+
+$ VESTA
+
 
 In this example, you will calculate the the Hartree-Fock (HF) estimate of 
 the ground state energy of a simple diatomic molecule: LiH.  The HF energy 

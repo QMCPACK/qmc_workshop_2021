@@ -27,7 +27,7 @@ ppset(
     )
 
 system = generate_physical_system(
-    structure = 'H2O.xyz',  # LiH atomic structure
+    structure = 'H2O.xyz',  # H2O atomic structure
     H         = 1,          # H pseudo Zeff
     O         = 6,          # O pseudo Zeff
     )
@@ -90,17 +90,17 @@ qmc = generate_qmcpack(
     jastrows     = [],
     estimators = [density(delta=(0.02,0.02,0.02),x_min=0,x_max=8,y_min=0,y_max=8,z_min=0,z_max=8)], # Grid spacing in bohr
     seed         = 42,
-    qmc          = 'dmc',             # dmc run
+    qmc          = 'dmc',     # DMC run
     vmc_samples   = 1024,     # DMC walker population sampled from VMC
-    vmc_blocks    = 200,      
-    vmc_steps     = 20,
+    vmc_blocks    = 150,      
+    vmc_steps     = 25,
     vmc_timestep  = 0.3,
     eq_dmc        = True,     # Add DMC equilibration
     eq_blocks     = 30,       # Use a small number of blocks
     eq_steps      = 10,      
     eq_timestep   = 0.02,     # Use a larger timestep
-    blocks        = 1000,     # Large number of blocks for production
-    steps         = 10,       # 10 steps/block averages out some autocorr time
+    blocks        = 500,     # Large number of blocks for production
+    steps         = 25,       # 10 steps/block averages out some autocorr time
     timestep      = 0.01,     # Smaller production timestep 
     nonlocalmoves = True,     # Use T-moves scheme w/ non-local pseudopotentials
     dependencies = orbdeps+[(optJ2,'jastrow')],
