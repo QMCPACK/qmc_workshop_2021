@@ -1,11 +1,20 @@
 #! /usr/bin/env python3
 
+from nexus import settings,job,run_project,obj
 from structure import read_structure, read_cif
 from nexus import generate_physical_system
+from nexus import generate_pwscf
 
 # Obtain the core count of the local machine (lab only)
 import os
 cores = os.cpu_count()
+
+settings(
+    pseudo_dir = './pseudos',
+    results    = '',
+    sleep      = 3,
+    machine    = 'ws'+str(cores),
+    )
 
 # Paths to executables.  *** EDIT ME ***
 pwx_bin='pw.x'
@@ -21,9 +30,8 @@ if not os.path.exists(xsf_file):
     # This is a 6-atom structure
     s = read_structure(cif_file,format='cif')
     s.write(xsf_file)
-    if not os.path.exists(pos_file):
-        s.write(pos_file)
-    #end if
+else:
+    s = read_structure(xsf_file,format='xsf')
 #end if
 ####################################################################
 ####################################################################
@@ -48,6 +56,7 @@ vo2_fm = generate_physical_system(
 ####################################################################
 # Define the DFT calculation using Quantum Espresso (pwscf)        #
 ####################################################################
+kgrid = s.kgrid_from_kspacing(0.7)
 scf = generate_pwscf(
     identifier   = 'scf',                      # In/out file prefix
     path         = 'vo2_fm/scf',               # Run directory
@@ -57,12 +66,21 @@ scf = generate_pwscf(
     calculation  = 'scf',                      # SCF calculation
     input_dft    = 'pbe',                      # PBE functional
     verbosity    = 'high',                     # Show eigenvalues and occupations
+    nspin        = 2,
     ecutwfc      = 200,                        # PW energy cutoff (Ry)
+    occupations  = 'smearing',
+    smearing     = 'fd',
+    bandfac      = 1.2,
+    degauss      = 0.02,
     system       = vo2_fm,                     # System to calculate
     pseudos      = ['O.ccECP.upf',
                     'V.ccECP.upf'],            # Pseudopotential stuff
-    starting_magnetization = {'V' : 1.0},      # Starting Magnetization
-    kgrid        = (4,4,4),                    # Dense k-point grid!
+    tot_magnetization = 2,                     # Total Magnetization
+    kgrid        = kgrid,                      # Dense k-point grid!
     kshift       = (0,0,0),                    # k-point grid shift
 )
+
+run_project()
+
+
 
