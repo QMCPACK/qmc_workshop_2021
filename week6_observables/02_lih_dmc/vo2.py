@@ -73,8 +73,8 @@ scf = generate_pwscf(
     bandfac      = 1.2,
     degauss      = 0.02,
     system       = vo2_fm,                     # System to calculate
-    pseudos      = ['O.ccECP.upf',
-                    'V.ccECP.upf'],            # Pseudopotential stuff
+    pseudos      = ['O.opt.upf',
+                    'V.opt.upf'],            # Pseudopotential stuff
     tot_magnetization = 2,                     # Total Magnetization
     kgrid        = kgrid,                      # Dense k-point grid!
     kshift       = (0,0,0),                    # k-point grid shift
