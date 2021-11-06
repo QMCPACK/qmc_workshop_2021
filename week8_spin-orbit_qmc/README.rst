@@ -1,5 +1,6 @@
+================================================
 Bi ground state multiplet with DIRAC and QMCPACK
-====================================================================
+================================================
 
 In this example, we give an example of using DIRAC to calculate 
 spin-orbit splittings of the 6s\ :sup:`2`\ 6p\ :sup:`3` occupations of the Bi atom. 
@@ -10,6 +11,22 @@ In the abscence of spin-orbit coupling, the various J states averaged to give ju
 
 .. image:: figs/Bi_states.png
   :width: 85%
+  
+.. contents::
 
 Example 1: Spin-orbit averaged states of Bi with DIRAC
-------------------------------------------------------
+======================================================
+
+To set up a DIRAC calculation, there are two input files needs, the ``*.inp`` file which specifies the type of calculation to be done, and the ``*.mol`` file which
+specifies the geomerty, basis sets, effective core potentials (ECPs), etc.
+
+For a thorough decription of DIRAC input/out see `DIRAC <http://www.diracprogram.org/doc/release-21/>`_
+
+*.mol file
+----------
+
+*.inp file
+----------
+
+Example 2: Spin-Orbit split states of Bi with DIRAC
+===================================================
