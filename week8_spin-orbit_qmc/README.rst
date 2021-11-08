@@ -479,18 +479,19 @@ After running the no-jastrow VMC for each of these, we should find something sim
 
 While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions. To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include jastrow optimization and VMC/DMC calculations. For each state, we do
 ::
-  |-> convert4qmc -dirac cosci_dirac.out -TargetState 0 -prefix state_0
-  |-> mpirun -np N qmcpack-complex state_0.qmc.in-wfj.xml | tee state_0.qmc.in-wfj.out
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 0 -prefix qmc_state_0
+  |-> mpirun -np N qmcpack-complex qmc_state_0.qmc.in-wfj.xml | tee qmc_state_0.qmc.in-wfj.out
 
-  |-> convert4qmc -dirac cosci_dirac.out -TargetState 1 -prefix state_1
-  |-> mpirun -np N qmcpack-complex state_1.qmc.in-wfj.xml | tee state_1.qmc.in-wfj.out
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 1 -prefix qmc_state_1
+  |-> mpirun -np N qmcpack-complex qmc_state_1.qmc.in-wfj.xml | tee qmc_state_1.qmc.in-wfj.out
 
-  |-> convert4qmc -dirac cosci_dirac.out -TargetState 2 -prefix state_2
-  |-> mpirun -np N qmcpack-complex state_2.qmc.in-wfj.xml | tee state_2.qmc.in-wfj.out
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 2 -prefix qmc_state_2
+  |-> mpirun -np N qmcpack-complex qmc_state_2.qmc.in-wfj.xml | tee qmc_state_2.qmc.in-wfj.out
 
-  |-> convert4qmc -dirac cosci_dirac.out -TargetState 3 -prefix state_3
-  |-> mpirun -np N qmcpack-complex state_3.qmc.in-wfj.xml | tee state_3.qmc.in-wfj.out
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 3 -prefix qmc_state_3
+  |-> mpirun -np N qmcpack-complex qmc_state_3.qmc.in-wfj.xml | tee qmc_state_3.qmc.in-wfj.out
 
-  |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix state_4
-  |-> mpirun -np N qmcpack-complex state_4.qmc.in-wfj.xml | tee state_4.qmc.in-wfj.out
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix qmc_state_4
+  |-> mpirun -np N qmcpack-complex qmc_state_4.qmc.in-wfj.xml | tee qmc_state_4.qmc.in-wfj.out
   
+To make these calculations a bit faster, I will modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improvess the results from COCSI**)
