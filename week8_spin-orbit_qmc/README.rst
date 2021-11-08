@@ -148,11 +148,54 @@ We specifiy that we want to do an SCF calulation, which will perform an *average
 .. image:: figs/aoc.png
   :width: 25%
   
-which will set up all the possible determinants for the open-shell occupations specified (more on this later). The SCF procedure finds the spinors which minimizes this energy. The individiual states can be obtained by the ``.RESOLVE`` keyword, which diagonalizes the states in the determinant basis, which will result in small CI expansions for the various states
+which will set up all the possible determinants for the open-shell occupations specified (more on this later). The SCF procedure finds the spinors which minimizes this energy. The individiual states can be obtained by the ``.RESOLVE`` keyword, which diagonalizes the states in the determinant basis, which will result in small CI expansions for the various states.
 
 .. image:: figs/ci.png
   :width: 25%
   
+In the ``*SCF`` section, we need to actually specify the occupations we are desired in studying. As mentioned above, for Bi we have the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. In DIRAC, we have to specify the occupations by the symmetry of the spinors (gerade/even or ungerade/odd). Note that s,d,g, etc are all gerade and p,f,h, etc are all ungerade symmetry. We want to specify the 6s\ :sup:`2` as closed, so we will have 2 electrons closed in the gerade channel and 0 closed in the ungerade channel, hence
+::
+  .CLOSED
+  2 0
+  
+For the open shells, we have 3 electrons in the p states. We note that there are 6 total occupations for the p states (in the non-spin-orbit case we have p\ :sub:`x`\  , p\ :sub:`y`\ , p\ :sub:`z` each with up and down options. For a spin-orbit case, this would be the j=1/2 (degeneray 2) and j=3/2 (degeneracy 4). Both end up wth 6 total possible states). We want to fix the electrons to be p electrons only, and we do not want to distribute these electrons into any gerade spinors. 
+Therefore, we specify
+::
+  .OPEN SHELL
+  1
+  3/0,6
+  
+We only have one active space in this case, however we could increase this and add multiple occupation lines. Additinoally, we could do a larger scale COSCI calculation where we correlate the s electrons as well with the following input
+::
+  .CLOSED
+  0 0
+  .OPEN SHELL
+  1
+  5/2,6
+  
+For simplicity, we will work with the first input
+
+Lastly, an important part of the input is the ``**ANALYZE`` module, where we specify some additional printing to the output file. Some of this is **required** for conversion to QMCPACK.
+::
+  **ANALYZE
+  .PRIVEC
+  .MULPOP
+  *PRIVEC
+  .AOLAB
+  .VECPRI
+  1..oo
+  1..oo
+  .PRINT
+  1
+  *MULPOP
+  .AOLAB
+  .VECPOP
+  1..oo
+  1..oo
+  .PRINT
+  1
+  
+The ``.PRIVEC`` specifies that we want to print the obtained spinors. **THIS IS REQUIRED FOR CONVERSION TO QMCPACK**, otherwise we cannot read the spinor coefficients. In the ``*PRIVEC``, we indiccate that we want to print the spinors (eigenvectors) in the atomic orbital basis (hence, the ``.AOLAB``). The ``.VECPRI`` tells us to print to the output file all of the spinors for each symmetry (gerade, then ungerade). The ``1..oo`` prints all the spinors in that symmetry channel. If we only want to print the first 10 for example, we could just write ``1..10``. The ``.MULPOP`` command is not required, but it is useful to see the mulliken population analysis of the spinors. 
 
   
 
