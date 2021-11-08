@@ -336,10 +336,161 @@ Notice that the total energy is different than the spin-averaged...the new spin-
     4     0.1142162781     -1.665945885253       -5.186731495648 (   2 * )
     5     0.1627542231     -1.617407940163       -5.138193550557 (   4 * )
     
-Note that the total energies of the invidual states average to give the average of configurations energy, e.g. ``1/20*(4*(-5.3009) + 4(*-5.2442) + 6*(-5.2227)+2*(-5.1867) + 4*(-5.1381)) = -5.22216 Ha``. Also, now the states are in the same order as the experimental spectrum show at the top of this page, namely :sup:`4`\ S\ :sub:`3/2` is the ground state, followed by :sup:`2`\ D\ :sub:`3/2`\ , :sup:`2`\ D\ :sub:`5/2`\ , :sup:`2`\ P\ :sub:`1/2`\ , :sup:`2`\ P\ :sub:`3/2`.
+Note that the total energies of the invidual states average to give the average of configurations energy, e.g. ``1/20*(4*(-5.3009) + 4(*-5.2442) + 6*(-5.2227) + 2*(-5.1867) + 4*(-5.1381)) = -5.22216 Ha``. Also, now the states are in the same order as the experimental spectrum show at the top of this page, namely :sup:`4`\ S\ :sub:`3/2` is the ground state, followed by :sup:`2`\ D\ :sub:`3/2`\ , :sup:`2`\ D\ :sub:`5/2`\ , :sup:`2`\ P\ :sub:`1/2`\ , :sup:`2`\ P\ :sub:`3/2`.
 
 At the COSCI level of theory, the energy differences come out to 1.54266, 2.12904, 3.1079, and 4.428761 eV, which corresponds to roughly  -0.1266, -0.2150, -0.4219 and -0.31676 eV respectively. Now, lets see if we can improve the agreement with experiment by using the COSCI wave functions as trial wave functions in QMCPACK
 
 Conversion to QMCPCACK using convert4qmc
 ----------------------------------------
 
+Here we are going to discuss converting the DIRAC output into a QMCPACK hdf5 format and xml input files. Note that to run with spin-orbit, the pseudopotential file must include spin-orbit terms. In order to obtain a QMCPACK pesudopotential file with SOC terms, please contact the developers. 
+
+To generate the hdf5 and QMCPACK input files, this can be accomplished using the ``convert4qmc`` executable. Running ``convert4qmc`` without any arguments provides the options for the code. 
+::
+  |-> convert4qmc
+  Rank =    0  Free Memory = 78555 MB
+  Usage: convert [-gaussian|-gamess|-orbitals|-dirac|-rmg] filename 
+  [-nojastrow -hdf5 -prefix title -addCusp -production -NbImages NimageX NimageY NimageZ]
+  [-psi_tag psi0 -ion_tag ion0 -gridtype log|log0|linear -first ri -last rf]
+  [-size npts -multidet multidet.h5 -ci file.out -threshold cimin -TargetState state_number -NaturalOrbitals NumToRead -optDetCoeffs]
+  Defaults : -gridtype log -first 1e-6 -last 100 -size 1001 -ci required -threshold 0.01 -TargetState 0 -prefix sample
+  When the input format is missing, the  extension of filename is used to determine the format 
+  *.Fchk -> gaussian; *.out -> gamess; *.h5 -> HDF5
+
+All we need to do is run the converter on the DIRAC output file and it will generate the hdf5 file and corresponding QMCPACK xml inputs. If the converter detects only an SCF calculation (DFT or just average-of-configurations HF) it will generate a single determinant wave function. If the converter detects a COSCI calculation, it will generate the corresponding CI wave function for the targeted state. For example:
+::
+  |-> convert4qmc -dirac cosci_Bi.out
+  Rank =    0  Free Memory = 78550 MB                                     
+  Index of ion charge 0                             
+  Index of valence charge 1    
+  Using cosci_Bi to name output files
+  Found 1 unique species              
+  Found 1 total number of atoms      
+                              
+  Reading spinor info          
+  ========================================================================
+  Found 2 fermion irreps.      
+    irrep E1g with 58 spinors and 123 AO coefficients.
+    irrep E1u with 50 spinors and 123 AO coefficients.
+  Found coefficients for E1g        
+  Generated kramers pair with irrep E2g
+  Found coefficients for E1u    
+  Generated kramers pair with irrep E2u
+  Now we have the following spinors     
+    irrep E1g with 58 spinors and 123 AO coefficients.
+    irrep E2g with 58 spinors and 123 AO coefficients.
+    irrep E1u with 50 spinors and 123 AO coefficients.
+    irrep E2u with 50 spinors and 123 AO coefficients.
+                                  
+  Parsing wave function info    
+  ========================================================================
+  Found Complete Open-Shell CI (COSCI) wave function
+                              
+  Orbital Info                  
+  ------------------------------------
+  irrep: E1g                         
+    closed  : 1                 
+    active  : 0                          
+    virtual : 57                                                                                                                                                  
+    total   : 58               
+  irrep: E1u                   
+    closed  : 0                
+    active  : 3                     
+    virtual : 47                                                    
+    total   : 50                          
+                                                                                                                                                                
+  Sorting spinors into DIRAC COSCI order  
+  
+  COSCI State Info
+  ------------------------------------
+  Found 6 representations
+  Representation: 1u with 5 states
+    state#     Energies and Ndets:
+      0 -5.300947770000e+00 5
+      1 -5.244255750000e+00 4
+      2 -5.222705800000e+00 3
+      3 -5.186731500000e+00 2
+      4 -5.138193550000e+00 5
+  Representation: -1u with 5 states
+    state#     Energies and Ndets:
+      5 -5.300947770000e+00 5
+      6 -5.244255750000e+00 4
+      7 -5.222705800000e+00 3
+      8 -5.186731500000e+00 2
+      9 -5.138193550000e+00 5
+  Representation: 3u with 4 states
+    state#     Energies and Ndets:
+      10 -5.300947770000e+00 4
+      11 -5.244255750000e+00 3
+      12 -5.222705800000e+00 2
+      13 -5.138193550000e+00 4
+  Representation: -3u with 4 states
+    state#     Energies and Ndets:
+      14 -5.300947770000e+00 4
+      15 -5.244255750000e+00 3
+      16 -5.222705800000e+00 2
+      17 -5.138193550000e+00 4
+  Representation: 5u with 1 states
+    state#     Energies and Ndets:
+      18 -5.222705800000e+00 1
+  Representation: -5u with 1 states
+    state#     Energies and Ndets:
+      19 -5.222705800000e+00 1
+  Saving wave function for target state 0
+  note: if you want another state run with -TargetState #_of_desired_state shown above                                                                                 
+
+  QMCGaussianParserBase::dump
+  Adding Two-Body and One-Body jastrows with rcut="10" and size="10"
+  Adding Three-Body jastrows with rcut="5"
+  Generating Standard Input file containing VMC, standard optmization, and DMC blocks.                        
+  Modify according to the accuracy you would like to achieve.
+  Hamiltonian using ECP for Electron Ion=1
+                                        
+
+This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneraciess described in the previous section. We can select whichever state we want to calculate with the ``--TargetState #`` flag. 
+
+First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy ofthe various wavefunctions, with no jastrow. If we look at the 5 states in *Representation 1u*, we see the 5 distinct energies found from the COSCI calculation. 
+
+I will generate different inputs for these states, and run qmcpack on the generated files as 
+::
+  |-> convert4qmc -dirac cosci_dirac.out -nojastrow -TargetState 0 -prefix state_0
+  |-> mpirun -np N qmcpack-complex state_0.qmc.in-wfnoj.xml | tee state_0.qmc.in-wfnoj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -nojastrow -TargetState 1 -prefix state_1
+  |-> mpirun -np N qmcpack-complex state_1.qmc.in-wfnoj.xml | tee state_1.qmc.in-wfnoj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -nojastrow -TargetState 2 -prefix state_2
+  |-> mpirun -np N qmcpack-complex state_2.qmc.in-wfnoj.xml | tee state_2.qmc.in-wfnoj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -nojastrow -TargetState 3 -prefix state_3
+  |-> mpirun -np N qmcpack-complex state_3.qmc.in-wfnoj.xml | tee state_3.qmc.in-wfnoj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -nojastrow -TargetState 4 -prefix state_4
+  |-> mpirun -np N qmcpack-complex state_4.qmc.in-wfnoj.xml | tee state_4.qmc.in-wfnoj.out
+  
+After running the no-jastrow VMC for each of these, we should find something similar to the energies here:
+::
+  |-> qmca -q ev state*.s000.scalar.dat
+  state_0  series 0  -5.298979 +/- 0.003575   0.258737 +/- 0.013551   0.0488 
+  state_1  series 0  -5.240950 +/- 0.005215   0.360711 +/- 0.083699   0.0688 
+  state_2  series 0  -5.221590 +/- 0.002897   0.290984 +/- 0.021331   0.0557 
+  state_3  series 0  -5.188029 +/- 0.003165   0.282325 +/- 0.010537   0.0544 
+  state_4  series 0  -5.139926 +/- 0.002713   0.281456 +/- 0.013977   0.0548
+
+While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions. To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include jastrow optimization and VMC/DMC calculations. For each state, we do
+::
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 0 -prefix state_0
+  |-> mpirun -np N qmcpack-complex state_0.qmc.in-wfj.xml | tee state_0.qmc.in-wfj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 1 -prefix state_1
+  |-> mpirun -np N qmcpack-complex state_1.qmc.in-wfj.xml | tee state_1.qmc.in-wfj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 2 -prefix state_2
+  |-> mpirun -np N qmcpack-complex state_2.qmc.in-wfj.xml | tee state_2.qmc.in-wfj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 3 -prefix state_3
+  |-> mpirun -np N qmcpack-complex state_3.qmc.in-wfj.xml | tee state_3.qmc.in-wfj.out
+
+  |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix state_4
+  |-> mpirun -np N qmcpack-complex state_4.qmc.in-wfj.xml | tee state_4.qmc.in-wfj.out
+  
