@@ -145,7 +145,16 @@ The actual calculation is specified by the ``**WAVE FUNCTION`` module
   
 We specifiy that we want to do an SCF calulation, which will perform an *average of configurations* SCF calculation. 
 
+.. image:: figs/aoc.png
+  :width: 25%
+  
+which will set up all the possible determinants for the open-shell occupations specified (more on this later). The SCF procedure finds the spinors which minimizes this energy. The individiual states can be obtained by the ``.RESOLVE`` keyword, which diagonalizes the states in the determinant basis, which will result in small CI expansions for the various states
 
+.. image:: figs/ci.png
+  :width: 25%
+  
+
+  
 
 Example 2: Spin-Orbit split states of Bi with DIRAC
 ===================================================
