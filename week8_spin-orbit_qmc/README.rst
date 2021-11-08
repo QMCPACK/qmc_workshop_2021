@@ -173,7 +173,9 @@ We only have one active space in this case, however we could increase this and a
   1
   5/2,6
   
-For simplicity, we will work with the first input
+For simplicity, we will work with the first input. 
+
+Note that since we have 6 possible spinors for the p elecrons, and we only occupy with 3 electrons, we will have 6choose3 = 20 possible determinants/COSCI states after calling ``.RESOLVE``
 
 Lastly, an important part of the input is the ``**ANALYZE`` module, where we specify some additional printing to the output file. Some of this is **required** for conversion to QMCPACK.
 ::
@@ -197,7 +199,79 @@ Lastly, an important part of the input is the ``**ANALYZE`` module, where we spe
   
 The ``.PRIVEC`` specifies that we want to print the obtained spinors. **THIS IS REQUIRED FOR CONVERSION TO QMCPACK**, otherwise we cannot read the spinor coefficients. In the ``*PRIVEC``, we indiccate that we want to print the spinors (eigenvectors) in the atomic orbital basis (hence, the ``.AOLAB``). The ``.VECPRI`` tells us to print to the output file all of the spinors for each symmetry (gerade, then ungerade). The ``1..oo`` prints all the spinors in that symmetry channel. If we only want to print the first 10 for example, we could just write ``1..10``. The ``.MULPOP`` command is not required, but it is useful to see the mulliken population analysis of the spinors. 
 
-  
+Running DIRAC and understanding the output
+------------------------------------------
+
+Running DIRAC is straightforward. Assuming the ``pam-dirac`` script is in your path, you can simply run 
+::
+  pam-dirac --inp="cosci.inp" --mol="Bi.mol"
+
+Assuming this is successful, we will be able to see the output in the ``cosci_Bi.out`` file.
+
+To see the results of the average of configurations calculations, we can look for the total energy
+::
+                                   TOTAL ENERGY
+                                   ------------
+
+   Electronic energy                        :    -5.2141207112141519
+
+   Other contributions to the total energy
+   Nuclear repulsion energy                 :     0.0000000000000000
+
+   Sum of all contributions to the energy
+   Total energy                             :    -5.2141207112141519
+
+The energy of *E* = -5.21412 Ha, this is the energy obtained from the E\ :sub:`AOC` expression above.
+
+In order to connvert to QMCPACK, we need to make sure the eigenvectors (spinors) were actually printed. 
+::
+    **************************************************************************
+    ****************************** Vector print ******************************
+    **************************************************************************
+
+
+
+    Coefficients from DFCOEF
+    ------------------------
+
+
+
+                                Fermion ircop E1g
+                                -----------------
+
+
+  * Electronic eigenvalue no.  1: -0.6809061437841
+  ====================================================
+       1  L Bi  1 s             0.0000118634        0.0000000000        0.0000000000        0.0000000000
+       2  L Bi  1 s            -0.0002764816        0.0000000000        0.0000000000        0.0000000000
+       3  L Bi  1 s             0.0078341692        0.0000000000        0.0000000000        0.0000000000
+       4  L Bi  1 s            -0.0357656369        0.0000000000        0.0000000000        0.0000000000
+       5  L Bi  1 s             0.0729896399        0.0000000000        0.0000000000        0.0000000000
+       6  L Bi  1 s            -0.0698826077        0.0000000000        0.0000000000        0.0000000000
+       ...
+       
+The columns correspond to the real and imaginary parts of the up and down components of the total spinor. The qmcpack converter understands how to handle this. 
+
+Next we want to check if the open-shell states are resolved into the various small CI expansions (COSCI calculation)
+::
+    *************************************************************************
+    ******************** Resolution of open-shell states ********************
+    *************************************************************************
+      
+Assuming we find this, we can search for the results. 
+::
+ Energy eigenvalues in atomic units
+
+ Level   Rel eigenvalue     Abs eigenvalue      Total Energy    Degeneracy
+
+    1     0.0000000000     -1.750400036742       -5.271133025983 (   4 * )
+    2     0.0570123148     -1.693387721973       -5.214120711214 (  10 * )
+    3     0.0950205246     -1.655379512127       -5.176112501368 (   6 * )
+
+First thing to note, the individually resolved energies all average to the SCF energy we found above, i.e.  ``(1/20  * (4 * -5.271133 + 10 * -5.214120 + 6 * -5.176112)) = -5.214120 Ha``. Next we can identify the states as the states shown in the first image. From the experimental spetrum, we only have the :sup:`4`\ S\ :sub:`3/2` state which *isn't* j-averaged, so the degeneracy of this state is 4. Note there are both :sup:`2`\ D\ :sub:`3/2` and :sup`2`\ D\ :sub:`5/2` states which get averaged in the absence of spin-orbit, so there are 4+6=10 total degenerate states. Lastly, the :sup:`2`\ P\ :sub:`3/2` and :sup:`2`\ P\ :sub:`1/2` states, which get averaged in the absence of spin-orbit, so there are 4+2 = 6 total states. Therefore, we have reproduced the ordering of the j-averaged experimental spectrum when we neglect SOC. We also note the splittings of 0.057012 Ha and 0.095020 Ha correspond to 1.55137 eV and 2.585625 eV respetively. Compared to the experimental j-averaged spectrum, we have errors of roughly 0.163 eV and 1.050 eV respectively. 
+
+This simple COSCI treatment can be signifiantly improved with QMC for the j-averaged states. However, we will now focus on the SOC calculations and perform QMC calcualtions on the SOC calculations. 
+
 
 Example 2: Spin-Orbit split states of Bi with DIRAC
 ===================================================
