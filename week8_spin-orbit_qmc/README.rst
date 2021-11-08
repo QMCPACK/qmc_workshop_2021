@@ -275,3 +275,71 @@ This simple COSCI treatment can be signifiantly improved with QMC for the j-aver
 
 Example 2: Spin-Orbit split states of Bi with DIRAC
 ===================================================
+In this example, we now include SOC and will perform the necessary QMC calculations to resolve some of the excited states. 
+
+SCF calculation
+---------------
+Conviently, the only necessary change to include spin-orbit is to include the actual spin-orbit terms in the ECP. 
+::
+  ECP 78 5 3
+  3
+  1 40.00000 5.0
+  3 38.50000 200.0
+  2 40.00000 -74.796
+  2
+  2  1.994153  35.755622
+  2  0.240286  -0.404113
+  4
+  2  0.896039  2.688441
+  2  0.875463  5.715603
+  2  0.262580  -0.171255
+  2  0.232846  -0.150845
+  2
+  2  0.779775  4.060445
+  2  0.739216  5.980282 
+  2
+  2  0.987519  -2.646547
+  2  0.959907  -3.373825
+  4                       
+  2  0.896039  -5.376883
+  2  0.875463  5.715603
+  2  0.262580  0.342510
+  2  0.232846  -0.150845
+  2
+  2  0.779775  -4.060445
+  2  0.739216  3.986855
+  2
+  2  0.987519  1.764365
+  2  0.959907  -1.686912
+  FINISH
+
+In the ``ECP`` line, the last number corresponds to the number of spin-orbit angular momentum channels, starting from l=1 or p. This is because spin-orbit doesn't apply to s states, (note SOC goes as l.s, and for l=0 states the contribution is zero). So in this case, we have 3 SOC channels for p, d, and f. 
+
+Similar to the spin-averaged case, we can look for the energy from the average-of-configurations calculation. 
+::
+                                   TOTAL ENERGY
+                                   ------------
+
+   Electronic energy                        :    -5.2221643043234707
+
+   Other contributions to the total energy
+   Nuclear repulsion energy                 :     0.0000000000000000
+
+   Sum of all contributions to the energy
+   Total energy                             :    -5.2221643043234707
+   
+Notice that the total energy is different than the spin-averaged...the new spin-orbit contribution to the Hamiltonian lowers the energy. We can now look at the COSCI states
+::
+    1     0.0000000000     -1.780162163308       -5.300947773703 (   4 * )
+    2     0.0566920241     -1.723470139197       -5.244255749591 (   4 * )
+    3     0.0782419737     -1.701920189567       -5.222705799962 (   6 * )
+    4     0.1142162781     -1.665945885253       -5.186731495648 (   2 * )
+    5     0.1627542231     -1.617407940163       -5.138193550557 (   4 * )
+    
+Note that the total energies of the invidual states average to give the average of configurations energy, e.g. ``1/20*(4*(-5.3009) + 4(*-5.2442) + 6*(-5.2227)+2*(-5.1867) + 4*(-5.1381)) = -5.22216 Ha``. Also, now the states are in the same order as the experimental spectrum show at the top of this page, namely :sup:`4`\ S\ :sub:`3/2` is the ground state, followed by :sup:`2`\ D\ :sub:`3/2`\ , :sup:`2`\ D\ :sub:`5/2`\ , :sup:`2`\ P\ :sub:`1/2`\ , :sup:`2`\ P\ :sub:`3/2`.
+
+At the COSCI level of theory, the energy differences come out to 1.54266, 2.12904, 3.1079, and 4.428761 eV, which corresponds to roughly  -0.1266, -0.2150, -0.4219 and -0.31676 eV respectively. Now, lets see if we can improve the agreement with experiment by using the COSCI wave functions as trial wave functions in QMCPACK
+
+Conversion to QMCPCACK using convert4qmc
+----------------------------------------
+
