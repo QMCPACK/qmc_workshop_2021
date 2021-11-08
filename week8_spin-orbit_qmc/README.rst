@@ -108,11 +108,44 @@ Lastly, for each atomic species we need to provide an ECP specification. A detai
   FINISH
  
 Here ``ECP 78 5 0`` indicates that this ECP removes 78 core electrons, and have 5 channels (1 local and 4 nonlocal) and 0 spin-orbit channels. For spin-averaged calculations, we do not include the spin-orbit terms (we will add them later). You provide the local channel first, then each subsequent channel in order of increasing angular momentum (i.e. local, s, p, d, f in this case). For each channel, we specify the number of radial gaussian and then the gaussian parameters (n, a, c) where the gaussian is of the form c*r\ :sup:`n-2`\ *exp(-a*r\ :sup:`2`\ ). 
+Lastly, after specifying all the basis sets and ECPs for the various atoms, we must conclude the file with ``FINISH``.
 
 For this example, I am using a Stuttgart ECP (can be found `here <http://www.tc.uni-koeln.de/PP/clickpse.en.html>`_) and the corresponding basis set (uncontracted). Note that for Stuttgart ECPs, the potentials are divergent. I have modified the local channel myself to *smooth* the potential which helps with the efficiency of the subsesquent QMC. I will not be covering how to smooth a potential without changing  its propertiess. If you need help with potential, reach out to the QMCPACK developers.
 
 *.inp file
 ----------
+
+Here I will outline some of the critical parameters for the *.inp file to perform a complete open-shell confiuration interaction (COSCI). To understand the different input options, it is best to read through the various tutorials on the DIRAC page. 
+::
+  **DIRAC
+  .WAVE FUNCTION
+  .ANALYZE
+  **HAMILTONIAN
+  .ECP
+  **INTEGRALS
+  *READIN
+  .UNCONTRACT
+  
+This indicates that we want to use the ``WAVE FUNCTION`` and ``ANALYZE`` modules which allows us to calculate wave functions and perform some analysis on the states and spinors. 
+We specify that we are using ECPs in the ``HAMILTONIAN``. Additionally, I also specify that I want to use uncontracted basis sets (this will override whatever is specified in the *.mol file. In this case, this keyword is redundant since I already specified an uncontracted basis in the *.mol file). 
+
+The actual calculation is specified by the ``**WAVE FUNCTION`` module
+::
+  **WAVE FUNCTION
+  .SCF
+  .RESOLVE
+  *SCF
+  .CLOSED SHELL
+  2 0
+  .OPEN SHELL
+  1
+  3/0,6
+  .EVCCNV
+  1.0d-05
+  
+We specifiy that we want to do an SCF calulation, which will perform an *average of configurations* SCF calculation. 
+
+
 
 Example 2: Spin-Orbit split states of Bi with DIRAC
 ===================================================
