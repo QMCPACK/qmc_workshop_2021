@@ -38,7 +38,7 @@ Here we will breakdown the *.mol file step by step. A detailed desrciption of th
   
 Here, the first ``INTGRL`` is required, and the next two lines are simply comments. 
 The ``C   1`` specifies that we want cartesian spherical basis sets and only 1 type of atomic species. For something like H\ :sub:`2`\ O, we would put 2 since there are two unique species. 
-After that, for each diffent species we list the atomic number and how many of that element we want. 
+After that, for each different species we list the atomic number and how many of that element we want. 
 In this case, we are keeping things simple and only doing an atom at the origin.
 ::
   LARGE EXPLICIT  4    1    1    1    1            
