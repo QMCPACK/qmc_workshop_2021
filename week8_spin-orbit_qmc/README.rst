@@ -2,7 +2,7 @@
 Bi ground state multiplet with DIRAC and QMCPACK
 ================================================
 
-In this tutorial, we give an example of using DIRAC to calculate 
+In this tutorial, we give an example of using DIRAC to calculate the 
 spin-orbit splittings of the 6s\ :sup:`2`\ 6p\ :sup:`3` occupations of the Bi atom. 
 We can find the experimental splittings from the `NIST Atomic Spectra Database <https://physics.nist.gov/cgi-bin/ASD/energy1.pl?de=0&spectrum=Bi+I&submit=Retrieve+Data&units=1&format=0&output=0&page_size=15&multiplet_ordered=0&average_out=1&conf_out=on&term_out=on&level_out=on&unc_out=1&j_out=on&lande_out=on&perc_out=on&biblio=on&temp=>`_
 
@@ -10,7 +10,10 @@ For the first few states on the NIST page, we notice there are a number of term 
 In the abscence of spin-orbit coupling, the various J states averaged to give just :sup:`4`\ S, :sup:`2`\ D, and :sup:`2`\ P, whereas with SOC we obtain the J states are split and we obtain the various splittings, illustrated below.
 
 .. image:: figs/Bi_states.png
-  :width: 85%
+  :align: center
+  :width: 60%
+  
+**Note:** Unfortunately, Nexus doesn't currently interface to DIRAC so we have to do things the old fashioned way!
   
 .. contents::
 
@@ -146,12 +149,14 @@ The actual calculation is specified by the ``**WAVE FUNCTION`` module
 We specifiy that we want to do an SCF calulation, which will perform an *average of configurations* SCF calculation. 
 
 .. image:: figs/aoc.png
+  :align: center
   :width: 25%
   
 which will set up all the possible determinants for the open-shell occupations specified (more on this later). The SCF procedure finds the spinors which minimizes this energy. The individiual states can be obtained by the ``.RESOLVE`` keyword, which diagonalizes the states in the determinant basis, which will result in small CI expansions for the various states.
 
 .. image:: figs/ci.png
-  :width: 25%
+  :align: center
+  :width: 15%
   
 In the ``*SCF`` section, we need to actually specify the occupations we are desired in studying. As mentioned above, for Bi we have the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. In DIRAC, we have to specify the occupations by the symmetry of the spinors (gerade/even or ungerade/odd). Note that s,d,g, etc are all gerade and p,f,h, etc are all ungerade symmetry. We want to specify the 6s\ :sup:`2` as closed, so we will have 2 electrons closed in the gerade channel and 0 closed in the ungerade channel, hence
 ::
@@ -268,7 +273,7 @@ Assuming we find this, we can search for the results.
     2     0.0570123148     -1.693387721973       -5.214120711214 (  10 * )
     3     0.0950205246     -1.655379512127       -5.176112501368 (   6 * )
 
-First thing to note, the individually resolved energies all average to the SCF energy we found above, i.e.  ``(1/20  * (4 * -5.271133 + 10 * -5.214120 + 6 * -5.176112)) = -5.214120 Ha``. Next we can identify the states as the states shown in the first image. From the experimental spetrum, we only have the :sup:`4`\ S\ :sub:`3/2` state which *isn't* j-averaged, so the degeneracy of this state is 4. Note there are both :sup:`2`\ D\ :sub:`3/2` and :sup`2`\ D\ :sub:`5/2` states which get averaged in the absence of spin-orbit, so there are 4+6=10 total degenerate states. Lastly, the :sup:`2`\ P\ :sub:`3/2` and :sup:`2`\ P\ :sub:`1/2` states, which get averaged in the absence of spin-orbit, so there are 4+2 = 6 total states. Therefore, we have reproduced the ordering of the j-averaged experimental spectrum when we neglect SOC. We also note the splittings of 0.057012 Ha and 0.095020 Ha correspond to 1.55137 eV and 2.585625 eV respetively. Compared to the experimental j-averaged spectrum, we have errors of roughly 0.163 eV and 1.050 eV respectively. 
+First thing to note, the individually resolved energies all average to the SCF energy we found above, i.e.  ``(1/20  * (4 * -5.271133 + 10 * -5.214120 + 6 * -5.176112)) = -5.214120 Ha``. Next we can identify the states as the states shown in the first image. From the experimental spetrum, we only have the :sup:`4`\ S\ :sub:`3/2` state which *isn't* j-averaged, so the degeneracy of this state is 4. Note there are both :sup:`2`\ D\ :sub:`3/2` and :sup:`2`\ D\ :sub:`5/2` states which get averaged in the absence of spin-orbit, so there are 4+6=10 total degenerate states. Lastly, the :sup:`2`\ P\ :sub:`3/2` and :sup:`2`\ P\ :sub:`1/2` states, which get averaged in the absence of spin-orbit, so there are 4+2 = 6 total states. Therefore, we have reproduced the ordering of the j-averaged experimental spectrum when we neglect SOC. We also note the splittings of 0.057012 Ha and 0.095020 Ha correspond to 1.55137 eV and 2.585625 eV respetively. Compared to the experimental j-averaged spectrum, we have errors of roughly 0.163 eV and 1.050 eV respectively. 
 
 This simple COSCI treatment can be signifiantly improved with QMC for the j-averaged states. However, we will now focus on the SOC calculations and perform QMC calcualtions on the SOC calculations. 
 
@@ -447,7 +452,7 @@ All we need to do is run the converter on the DIRAC output file and it will gene
   Hamiltonian using ECP for Electron Ion=1
                                         
 
-This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneraciess described in the previous section. We can select whichever state we want to calculate with the ``--TargetState #`` flag. 
+This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneraciess described in the previous section. We can select whichever state we want to calculate with the ``-TargetState #`` flag. 
 
 First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy ofthe various wavefunctions, with no jastrow. If we look at the 5 states in *Representation 1u*, we see the 5 distinct energies found from the COSCI calculation. 
 
