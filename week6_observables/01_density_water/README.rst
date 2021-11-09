@@ -2,7 +2,7 @@ H2O molecule: Calculating the Density with VMC and DMC
 =======================================================
 
 In this example you will calculate the H2O molecule's charge density with QMCPACK.
-Inside this directory, you will find the structure of the molecule in .xyz format (H2O.xyz),
+Inside this directory, you will find the structure of the molecule in .xyz format (``H2O.xyz``),
 the relevant ccECP pseudopotentials inside the directory ``pseudopotentials``, the PySCF
 template file ``scf_template.py``, and the Nexus work flow script ``h2o_workflow.py``.
 
