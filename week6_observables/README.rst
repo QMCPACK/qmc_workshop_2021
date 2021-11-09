@@ -15,7 +15,3 @@ the 2001 Rev. Mod. Phys. by Foulkes et al. is essential reading:
 
 * https://doi.org/10.1103/RevModPhys.73.33
 
-This lab uses the ``qmca`` and ``qmc-fit`` tools for statistical data analysis.  See their respective documentation for more details:
-
-* qmca: https://qmcpack.readthedocs.io/en/develop/analyzing.html#qmca
-* qmc-fit: https://qmcpack.readthedocs.io/en/develop/analyzing.html#qmcfit
