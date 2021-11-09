@@ -15,7 +15,7 @@ cores = os.cpu_count()
 
 
 settings(
-    pseudo_dir = '../pseudopotentials',
+    pseudo_dir = './pseudopotentials',
     results    = '',
     sleep      = 3,
     machine    = 'ws'+str(cores),
