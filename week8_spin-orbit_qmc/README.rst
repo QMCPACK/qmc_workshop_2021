@@ -1,6 +1,6 @@
-================================================
-Bi ground state multiplet with DIRAC and QMCPACK
-================================================
+=====================================================
+Bismuth ground state multiplet with DIRAC and QMCPACK
+=====================================================
 
 In this tutorial, we give an example of using DIRAC to calculate the 
 spin-orbit splittings of the 6s\ :sup:`2`\ 6p\ :sup:`3` occupations of the Bi atom. 
