@@ -2,7 +2,7 @@
 Bi ground state multiplet with DIRAC and QMCPACK
 ================================================
 
-In this example, we give an example of using DIRAC to calculate 
+In this tutorial, we give an example of using DIRAC to calculate 
 spin-orbit splittings of the 6s\ :sup:`2`\ 6p\ :sup:`3` occupations of the Bi atom. 
 We can find the experimental splittings from the `NIST Atomic Spectra Database <https://physics.nist.gov/cgi-bin/ASD/energy1.pl?de=0&spectrum=Bi+I&submit=Retrieve+Data&units=1&format=0&output=0&page_size=15&multiplet_ordered=0&average_out=1&conf_out=on&term_out=on&level_out=on&unc_out=1&j_out=on&lande_out=on&perc_out=on&biblio=on&temp=>`_
 
@@ -20,7 +20,7 @@ Example 1: Spin-orbit averaged states of Bi with DIRAC
 To set up a DIRAC calculation, there are two input files needs, the ``*.inp`` file which specifies the type of calculation to be done, and the ``*.mol`` file which
 specifies the geomerty, basis sets, effective core potentials (ECPs), etc.
 
-For a thorough decription of DIRAC input/out see `DIRAC <http://www.diracprogram.org/doc/release-21/>`_
+For a thorough decription of DIRAC input/output see `DIRAC <http://www.diracprogram.org/doc/release-21/>`_
 
 *.mol file
 ----------
@@ -34,7 +34,7 @@ Here we will breakdown the *.mol file step by step. A detailed desrciption of th
   Bi     0.000000           0.00000000        0.00000000
   
 Here, the first ``INTGRL`` is required, and the next two lines are simply comments. 
-The ``C   1`` specifies that we want cartesian spherical basis sets and only 1 atom.
+The ``C   1`` specifies that we want cartesian spherical basis sets and only 1 type of atomic species. For something like H\ :sub:`2`\ O, we would put 2 since there are two unique species. 
 After that, for each diffent species we list the atomic number and how many of that element we want. 
 In this case, we are keeping things simple and only doing an atom at the origin.
 ::
@@ -82,7 +82,7 @@ In this case, we are keeping things simple and only doing an atom at the origin.
 
 Under each atomic species type, we have to provide a basis set. The ``LARGE EXPLICIT  4    1    1    1    1`` tells us that we are specifying the basis for the large components of the spinors (note that for ECP calculations, we only have the large components. In all-electron calculations, DIRAC can automatically generate an eve-tempered basis for the small components based on the basis provided for the large components. So it is often sufficient to proivide only a LARGE basis. The ``EXPLICIT`` simply means that we are explicitly typing a basis. The ``4`` tells us that we will have 4 different angular momentum basis sets ``s,p,d,f`` in this case. The subsequent ``1`` means that we are writing one set of exponents and coefficients for each shell. 
 
-For each individual angular momentum basis, the expansion starts as ``f   N  0`` and tells us the number of exponents to read, and the 0 means that we will be using an uncontracted basis. For an uncontracted basis, we do not need the coefficients. These can be provided as additional columns if desired (see the link above). 
+For each individual angular momentum basis, the expansion starts as ``f   N  0`` and tells us the number of exponents to read, and the 0 means that we will be using an uncontracted basis. For an uncontracted basis, we do not need the coefficients. These can be provided as additional columns if desired (see the *.mol link above to see an example of input for a conntracted basis or using the internal basis set library provided with DIRAC). 
 
 Lastly, for each atomic species we need to provide an ECP specification. A detailed description of the input can be found `here <http://www.diracprogram.org/doc/release-21/molecule_and_basis/molecule_with_ecp.html>`_ 
 ::
@@ -107,15 +107,15 @@ Lastly, for each atomic species we need to provide an ECP specification. A detai
   2  0.959907  -3.373825
   FINISH
  
-Here ``ECP 78 5 0`` indicates that this ECP removes 78 core electrons, and have 5 channels (1 local and 4 nonlocal) and 0 spin-orbit channels. For spin-averaged calculations, we do not include the spin-orbit terms (we will add them later). You provide the local channel first, then each subsequent channel in order of increasing angular momentum (i.e. local, s, p, d, f in this case). For each channel, we specify the number of radial gaussian and then the gaussian parameters (n, a, c) where the gaussian is of the form c*r\ :sup:`n-2`\ *exp(-a*r\ :sup:`2`\ ). 
+Here ``ECP 78 5 0`` indicates that this ECP removes 78 core electrons, and has 5 channels (1 local and 4 nonlocal) and 0 spin-orbit channels. For spin-averaged calculations, we do not include the spin-orbit terms (we will add them in the next example). You provide the local channel first, then each subsequent channel in order of increasing angular momentum (i.e. local, s, p, d, f in this case). For each channel, we specify the number of radial gaussian and then the gaussian parameters (n, a, c) where the radial gaussian is of the form c*r\ :sup:`n-2`\ *exp(-a*r\ :sup:`2`\ ). 
 Lastly, after specifying all the basis sets and ECPs for the various atoms, we must conclude the file with ``FINISH``.
 
-For this example, I am using a Stuttgart ECP (can be found `here <http://www.tc.uni-koeln.de/PP/clickpse.en.html>`_) and the corresponding basis set (uncontracted). Note that for Stuttgart ECPs, the potentials are divergent. I have modified the local channel myself to *smooth* the potential which helps with the efficiency of the subsesquent QMC. I will not be covering how to smooth a potential without changing  its propertiess. If you need help with potential, reach out to the QMCPACK developers.
+For this example, I am using a Stuttgart ECP (can be found `here <http://www.tc.uni-koeln.de/PP/clickpse.en.html>`_) and the corresponding basis set (uncontracted). Note that for Stuttgart ECPs, the potentials are divergent. I have modified the local channel myself to *smooth* the potential which helps with the efficiency of the subsesquent QMC. I will not be covering how to smooth a potential without changing its properties. If you need help with obtaining pseudopotentials, please reach out to the QMCPACK developers.
 
 *.inp file
 ----------
 
-Here I will outline some of the critical parameters for the *.inp file to perform a complete open-shell confiuration interaction (COSCI). To understand the different input options, it is best to read through the various tutorials on the DIRAC page. 
+Here I will outline some of the critical parameters for the *.inp file to perform a complete open-shell configuration interaction (COSCI). To understand the different input options, it is best to read through the various tutorials on the DIRAC page. 
 ::
   **DIRAC
   .WAVE FUNCTION
