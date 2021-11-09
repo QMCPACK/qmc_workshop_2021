@@ -499,4 +499,4 @@ While these are relatively short calculations, we obtain the same energies (with
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix qmc_state_4
   |-> mpirun -np N qmcpack-complex qmc_state_4.qmc.in-wfj.xml | tee qmc_state_4.qmc.in-wfj.out
   
-To make these calculations a bit faster, I will modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improvess the results from COCSI**)
+To make these calculations a bit faster, I will modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI**)
