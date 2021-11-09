@@ -278,8 +278,8 @@ First thing to note, the individually resolved energies all average to the SCF e
 This simple COSCI treatment can be signifiantly improved with QMC for the j-averaged states. However, we will now focus on the SOC calculations and perform QMC calcualtions on the SOC calculations. 
 
 
-Example 2: Spin-Orbit split states of Bi with DIRAC
-===================================================
+Example 2: Spin-Orbit split states of Bi with DIRAC and QMCPACK
+===============================================================
 In this example, we now include SOC and will perform the necessary QMC calculations to resolve some of the excited states. 
 
 SCF calculation
