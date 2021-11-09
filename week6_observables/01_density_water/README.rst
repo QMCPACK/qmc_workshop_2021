@@ -54,3 +54,17 @@ perform the extrapolation for you:
 
    > qdens-radial -p -s O -r 1.1 -c --vmc=dmc.s000.Density_q.xsf dmc.s002.Density_q.xsf
 
+For more information about Nexus and QMCPACK, please consult their respective documentation:
+
+* QMCPACK: https://qmcpack.readthedocs.io/en/develop/
+* Nexus: https://nexus-workflows.readthedocs.io/en/latest/
+
+For more information on QMC methods in general (theory and application), 
+the 2001 Rev. Mod. Phys. by Foulkes et al. is essential reading:
+
+* https://doi.org/10.1103/RevModPhys.73.33
+
+This lab uses the ``qmca`` and ``qmc-fit`` tools for statistical data analysis.  See their respective documentation for more details:
+
+* qmca: https://qmcpack.readthedocs.io/en/develop/analyzing.html#qmca
+* qmc-fit: https://qmcpack.readthedocs.io/en/develop/analyzing.html#qmcfit
