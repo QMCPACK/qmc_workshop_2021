@@ -13,6 +13,7 @@ of calculations:
 2. Conversion of PySCF orbital format to QMCPACK HDF5 file (see ``generate_convert4qmc``).
 3. 2-Body Jastrow Optimization of the Salter-Jastrow wave function (see ``generate_qmcpack``).
 4. Sequence of VMC and DMC calculations of H2O's charge density (see ``generate_qmcpack``).
+5. Analysis of charge density using ``qdens`` and ``qdens-radial`` tools.
 
 After the work flow has successfully completed, you will need to convert the density from
 .h5 format to xcrysden (.xsf) format so that it can be easily visualized with a program

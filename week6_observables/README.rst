@@ -1,9 +1,9 @@
 QMC Observables
 ========================================================
 
-In this directory you will find the Week 6 Observables presentation ``Observables.pdf``
+In this directory you will find the Week 6 Observables presentation ``week6_observables.pdf``
 and a QMCPACK lab (inside the directory ``01_density_water``) that walks you through the 
-calculaiton of the extrapolated estimate of the charge density for the H2O molecule.
+calculation of the extrapolated estimate of the charge density for the H2O molecule.
 
 For more information about Nexus and QMCPACK, please consult their respective documentation:
 
