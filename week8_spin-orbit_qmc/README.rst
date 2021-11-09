@@ -20,8 +20,7 @@ In the abscence of spin-orbit coupling, the various J states averaged to give ju
 Example 1: Spin-orbit averaged states of Bi with DIRAC
 ======================================================
 
-To set up a DIRAC calculation, there are two input files needed, the ``*.inp`` file which specifies the type of calculation to be done, and the ``*.mol`` file which
-specifies the geomerty, basis sets, effective core potentials (ECPs), etc.
+To set up a DIRAC calculation, there are two input files needed, the ``*.inp`` file which specifies the type of calculation to be done, and the ``*.mol`` file which specifies the geometry, basis sets, effective core potentials (ECPs), etc.
 
 For a thorough decription of DIRAC input/output see `DIRAC <http://www.diracprogram.org/doc/release-21/>`_
 
