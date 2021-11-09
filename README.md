@@ -24,12 +24,12 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
  * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week4_molecules/week4_molecules.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=2H_FWv8SWkY)
 ## Week 5 / 2 November : Solid-State Calculations
  * Speaker: Joshua Townsend
- * Link to slides. Link to YouTube
+ * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week5_solids/week5_solids.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=tvACybV-2gk)
 ## Week 6 / 9 November : Pseudopotentials in QMC. Observables
  * Speakers: Lubos Mitas, Gani Annaberdiyev, and Chandler Bennett
  * Link to slides. Link to YouTube
-## Week 7 / 16 November : Guest lecture and Research Presentations
- * Speakers: [Claudia Filippi](https://www.utwente.nl/en/tnw/ccp/people/academic-staff/filippi/) and TBD 
+## Week 7 / 16 November : Research Presentations
+ * Speakers: [Prof. Claudia Filippi](https://www.utwente.nl/en/tnw/ccp/people/academic-staff/filippi/), [Prof. Can Ataca](https://physics.umbc.edu/people/faculty/ataca/), [Yueqing Chang](https://physics.illinois.edu/people/directory/profile/yueqing2). 
  ## Week 8 / 23 November : Spin-orbit Calculations. Workshop wrap-up and next steps
  * Speakers: Cody Melton and Paul Kent
  * Link to slides. Link to YouTube
