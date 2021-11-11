@@ -453,7 +453,9 @@ All we need to do is run the converter on the DIRAC output file and it will gene
 
 This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneraciess described in the previous section. We can select whichever state we want to calculate with the ``-TargetState #`` flag. 
 
-First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy ofthe various wavefunctions, with no jastrow. If we look at the 5 states in *Representation 1u*, we see the 5 distinct energies found from the COSCI calculation. 
+We are interested in calculating these states with QMC. First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy ofthe various wavefunctions, with no jastrow. This corresponds to the variational energy of the COSCI wavefunctions, and we are not adding any correlation via a jastrow at first. If the energies agree with what we calculated in DIRAC, then the converter was successful and we have good wave functions. 
+
+If we look at the 5 states in *Representation 1u*, we see the 5 distinct energies found from the COSCI calculation. 
 
 I will generate different inputs for these states, and run qmcpack on the generated files as 
 ::
@@ -471,7 +473,16 @@ I will generate different inputs for these states, and run qmcpack on the genera
 
   |-> convert4qmc -dirac cosci_dirac.out -nojastrow -TargetState 4 -prefix state_4
   |-> mpirun -np N qmcpack-complex state_4.qmc.in-wfnoj.xml | tee state_4.qmc.in-wfnoj.out
-  
+
+The states we are running correspond to the COSCI energies
+::
+    state#     Energies and Ndets:
+      0 -5.300947770000e+00 5
+      1 -5.244255750000e+00 4
+      2 -5.222705800000e+00 3
+      3 -5.186731500000e+00 2
+      4 -5.138193550000e+00 5
+      
 After running the no-jastrow VMC for each of these, we should find something similar to the energies here:
 ::
   |-> qmca -q ev state*.s000.scalar.dat
@@ -481,7 +492,10 @@ After running the no-jastrow VMC for each of these, we should find something sim
   state_3  series 0  -5.188029 +/- 0.003165   0.282325 +/- 0.010537   0.0544 
   state_4  series 0  -5.139926 +/- 0.002713   0.281456 +/- 0.013977   0.0548
 
-While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions. To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include jastrow optimization and VMC/DMC calculations. For each state, we do
+While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions (**note: these are not production quality settings. We are just checking to see if there are any obvious problems.**). 
+
+Now we are interested in calculating the same wavfunctions in VMC and DMC after optimization. The DMC should improve the relative energies between the states and have better agreement with the experimental splittings compared to the simple COSCI calculations. 
+To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include jastrow optimization blocks and VMC/DMC calculations. For each state, we do
 ::
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 0 -prefix qmc_state_0
   |-> mpirun -np N qmcpack-complex qmc_state_0.qmc.in-wfj.xml | tee qmc_state_0.qmc.in-wfj.out
@@ -498,4 +512,4 @@ While these are relatively short calculations, we obtain the same energies (with
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix qmc_state_4
   |-> mpirun -np N qmcpack-complex qmc_state_4.qmc.in-wfj.xml | tee qmc_state_4.qmc.in-wfj.out
   
-To make these calculations a bit faster, I will modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI**)
+To make these calculations a bit faster, I modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI. To get reliable energetics, please run with production settings**)
