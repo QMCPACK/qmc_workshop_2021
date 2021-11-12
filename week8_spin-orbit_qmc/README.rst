@@ -486,11 +486,13 @@ The states we are running correspond to the COSCI energies
 After running the no-jastrow VMC for each of these, we should find something similar to the energies here:
 ::
   |-> qmca -q ev state*.s000.scalar.dat
-  state_0  series 0  -5.304796 +/- 0.002332   0.237402 +/- 0.013278   0.0448 
-  state_1  series 0  -5.240950 +/- 0.005215   0.360711 +/- 0.083699   0.0688 
+                            LocalEnergy               Variance           ratio 
+  state_0  series 0  -5.300973 +/- 0.000387   0.260264 +/- 0.003473   0.0491 
+  state_1  series 0  -5.243824 +/- 0.004710   0.338262 +/- 0.068780   0.0645 
   state_2  series 0  -5.221590 +/- 0.002897   0.290984 +/- 0.021331   0.0557 
   state_3  series 0  -5.188029 +/- 0.003165   0.282325 +/- 0.010537   0.0544 
-  state_4  series 0  -5.139926 +/- 0.002713   0.281456 +/- 0.013977   0.0548
+  state_4  series 0  -5.139926 +/- 0.002713   0.281456 +/- 0.013977   0.0548 
+
 
 While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions (**note: these are not production quality settings. We are just checking to see if there are any obvious problems.**). 
 
