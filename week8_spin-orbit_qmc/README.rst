@@ -513,5 +513,7 @@ To see how QMC can improve these, we can use ``convert4qmc`` to generate new inp
 
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix qmc_state_4
   |-> mpirun -np N qmcpack-complex qmc_state_4.qmc.in-wfj.xml | tee qmc_state_4.qmc.in-wfj.out
-  
-To make these calculations a bit faster, I modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI. To get reliable energetics, please run with production settings**)
+ 
+The inputs from convert4qmc without the "nojastrow" flag will generate an input file that performs an initial VMC, then an initial set of jastrow optimizations with a small number of samples followed up with more optimization loops with more samples. 
+After the wave function optimizations, it performs another VMC calculation to distribute the walkers according to the trial wave function and finishes with a DMC calculation. 
+To make these calculations a bit faster, I modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI. To get reliable energetics, please run with production settings**) and will only compare the energies from state 0 (corresponding to one of the 4 :sup:`4`\ S\ :sub:`3/2` degenerate states) and state 4 (corresponding to one of the 4 :sup:`2`\ P\ :sub:`3/2` degenerate states)
