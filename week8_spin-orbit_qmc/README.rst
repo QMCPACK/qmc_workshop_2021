@@ -517,3 +517,46 @@ To see how QMC can improve these, we can use ``convert4qmc`` to generate new inp
 The inputs from convert4qmc without the "nojastrow" flag will generate an input file that performs an initial VMC, then an initial set of jastrow optimizations with a small number of samples followed up with more optimization loops with more samples. 
 After the wave function optimizations, it performs another VMC calculation to distribute the walkers according to the trial wave function and finishes with a DMC calculation. 
 To make these calculations a bit faster, I modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI. To get reliable energetics, please run with production settings**) and will only compare the energies from state 0 (corresponding to one of the 4 :sup:`4`\ S\ :sub:`3/2` degenerate states) and state 4 (corresponding to one of the 4 :sup:`2`\ P\ :sub:`3/2` degenerate states)
+
+After running qmcpack on both states, you can use qmca to get the energies from the optimizations and subsequent VMC/DMC. Based on the inputs, the DMC is in series 7, so
+::
+  qmc_state_0  series 7 
+    LocalEnergy           =           -5.3885 +/-           0.0012 
+    Variance              =            0.0692 +/-           0.0039 
+    Kinetic               =             1.650 +/-            0.011 
+    LocalPotential        =            -7.038 +/-            0.012 
+    ElecElec              =            2.8951 +/-           0.0014 
+    LocalECP              =          -10.6238 +/-           0.0064 
+    NonLocalECP           =             0.755 +/-            0.012 
+    LocalEnergy_sq        =            29.105 +/-            0.016 
+    SOECP                 =          -0.06416 +/-          0.00069 
+    BlockWeight           =          61427.01 +/-           153.39 
+    BlockCPU              =            211.65 +/-             3.74 
+    AcceptRatio           =          0.993808 +/-         0.000034 
+    Efficiency            =              1.05 +/-             0.00 
+    TotalTime             =          38731.98 +/-             0.00 
+    TotalSamples          =          11241143 +/-                0 
+
+  qmc_state_4  series 7 
+    LocalEnergy           =           -5.2418 +/-           0.0014 
+    Variance              =            0.0846 +/-           0.0062 
+    Kinetic               =            1.5424 +/-           0.0040 
+    LocalPotential        =           -6.7842 +/-           0.0041 
+    ElecElec              =            2.8001 +/-           0.0027 
+    LocalECP              =           -10.239 +/-            0.013 
+    NonLocalECP           =            0.6041 +/-           0.0085 
+    LocalEnergy_sq        =            27.561 +/-            0.017 
+    SOECP                 =           0.05038 +/-          0.00026 
+    BlockWeight           =          61395.66 +/-           170.19 
+    BlockCPU              =            207.30 +/-             3.03 
+    AcceptRatio           =          0.993429 +/-         0.000027 
+    Efficiency            =              0.41 +/-             0.00 
+    TotalTime             =          71103.41 +/-             0.00 
+    TotalSamples          =          21058710 +/-                0
+
+From this, we can calulate the DMC energy difference between the :sup:`4`\ S\ :sub:`3/2` and :sup:`2`\ P\ :sub:`3/2` state as 3.99 +/- 0.05 eV, whereas the COSCI gave 4.428 eV and experiment is 4.112 eV. 
+Clearly, our DMC with spin-orbit is closer to experiment than the COSCI results which is expected since DMC is a more accurate method. 
+
+The DMC results are not using production level settings, so the results can be improved by using better optimizations, more walkers, etc. However, it is important to also remember that the DMC accuracy is also dependent on the quality of the pseudopotential and the trial wave function. We can construct better trial wave functions with larger CI, orbital optimization, etc which should also improve agreement with experiment. However, the overall quality will be limited by the accuracy of the pseudopotential, and better agreement with experiment may only be obtained by using new correlated ECPs or using a smaller core pseudopotential. 
+
+Nonetheless, these examples have demonstrated how to do some initial spin-orbit calculations with QMCPACK using some standard trial wave functions. These examples can be generalized to molecular systems where the workflow is similar. Please feel free to reach out to the QMCPACK developers if you have any questions.
