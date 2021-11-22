@@ -7,7 +7,7 @@ spin-orbit splittings of the 6s\ :sup:`2`\ 6p\ :sup:`3` occupations of the Bi at
 We can find the experimental splittings from the `NIST Atomic Spectra Database <https://physics.nist.gov/cgi-bin/ASD/energy1.pl?de=0&spectrum=Bi+I&submit=Retrieve+Data&units=1&format=0&output=0&page_size=15&multiplet_ordered=0&average_out=1&conf_out=on&term_out=on&level_out=on&unc_out=1&j_out=on&lande_out=on&perc_out=on&biblio=on&temp=>`_
 
 For the first few states on the NIST page, we notice there are a number of term symbols :sup:`2S+1`\ L\ :sub:`J` for the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. 
-In the abscence of spin-orbit coupling, the various J states averaged to give just :sup:`4`\ S, :sup:`2`\ D, and :sup:`2`\ P, whereas with SOC we obtain the J states are split and we obtain the various splittings, illustrated below.
+In the absence of spin-orbit coupling, the various J states averaged to give just :sup:`4`\ S, :sup:`2`\ D, and :sup:`2`\ P. In the presence of spin-orbit, the J states are split and we obtain the atomic states below.
 
 .. image:: figs/Bi_states.png
   :align: center
@@ -82,7 +82,7 @@ In this case, we are keeping things simple and only doing an atom at the origin.
   0.3164
   0.1188
 
-Under each atomic species type, we have to provide a basis set. The ``LARGE EXPLICIT  4    1    1    1    1`` tells us that we are specifying the basis for the large components of the spinors (note that for ECP calculations, we only have the large components. In all-electron calculations, DIRAC can automatically generate a basis set for the small components derived from the basis provided for the large components. So it is often sufficient to proivide only a LARGE basis. The ``EXPLICIT`` simply means that we are explicitly typing a basis. The ``4`` tells us that we will have 4 different angular momentum basis sets ``s,p,d,f`` in this case. The subsequent ``1`` means that we are writing one set of exponents and coefficients for each shell. 
+Under each atomic species type, we have to provide a basis set. The ``LARGE EXPLICIT  4    1    1    1    1`` tells us that we are specifying the basis for the large components of the spinors (note that for ECP calculations, we only have the large components. In all-electron calculations, DIRAC can automatically generate a basis set for the small components derived from the basis provided for the large components, so it is often sufficient to proivide only a LARGE basis). The ``EXPLICIT`` simply means that we are explicitly typing a basis. The ``4`` tells us that we will have 4 different angular momentum basis sets ``s,p,d,f`` in this case. The subsequent ``1`` means that we are writing one set of exponents and coefficients for each shell. 
 
 For each individual angular momentum basis, the expansion starts as ``f   N  0`` and tells us the number of exponents to read, and the 0 means that we will be using an uncontracted basis. For an uncontracted basis, we do not need the coefficients. These can be provided as additional columns if desired (see the *.mol link above to see an example of input for a conntracted basis or using the internal basis set library provided with DIRAC). 
 
@@ -145,7 +145,7 @@ The actual calculation is specified by the ``**WAVE FUNCTION`` module
   .EVCCNV
   1.0d-05
   
-We specifiy that we want to do an SCF calulation, which will perform an *average of configurations* SCF calculation. 
+We specifiy that we want to do an SCF calulation, which will perform an *average of configurations* SCF calculation
 
 .. image:: figs/aoc.png
   :align: center
@@ -157,19 +157,19 @@ which will set up all the possible determinants for the open-shell occupations s
   :align: center
   :width: 15%
   
-In the ``*SCF`` section, we need to actually specify the occupations we are desired in studying. As mentioned above, for Bi we have the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. In DIRAC, we have to specify the occupations by the symmetry of the spinors (gerade/even or ungerade/odd). Note that s,d,g, etc are all gerade and p,f,h, etc are all ungerade symmetry. We want to specify the 6s\ :sup:`2` as closed, so we will have 2 electrons closed in the gerade channel and 0 closed in the ungerade channel, hence
+In the ``*SCF`` section, we need to actually specify the occupations. As mentioned above, for Bi we have the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. In DIRAC, we have to specify the occupations by the symmetry of the spinors (gerade/even or ungerade/odd). Note that s,d,g, etc are all gerade and p,f,h, etc are all ungerade symmetry. We want to specify the 6s\ :sup:`2` as closed, so we will have 2 electrons closed in the gerade channel and 0 closed in the ungerade channel, hence
 ::
   .CLOSED
   2 0
   
-For the open shells, we have 3 electrons in the p states. We note that there are 6 total occupations for the p states (in the non-spin-orbit case we have p\ :sub:`x`\  , p\ :sub:`y`\ , p\ :sub:`z` each with up and down options. For a spin-orbit case, this would be the j=1/2 (degeneray 2) and j=3/2 (degeneracy 4). Both end up wth 6 total possible states). We want to fix the electrons to be p electrons only, and we do not want to distribute these electrons into any gerade spinors. 
+For the open shells, we have 3 electrons in the p states. We note that there are 6 total occupations for the p states (in the non-spin-orbit case we have p\ :sub:`x`\  , p\ :sub:`y`\ , p\ :sub:`z` each with up and down options. For a spin-orbit case, this would be the j=1/2 (degeneracy 2) and j=3/2 (degeneracy 4). Both end up with 6 total possible states). We want to fix the electrons to be p electrons only, and we do not want to distribute these electrons into any gerade spinors. 
 Therefore, we specify
 ::
   .OPEN SHELL
   1
   3/0,6
   
-We only have one active space in this case, however we could increase this and add multiple occupation lines. Additinoally, we could do a larger scale COSCI calculation where we correlate the s electrons as well with the following input
+We only have one active space in this case, however we could increase this and add multiple occupation lines. Additionally, we could do a larger scale COSCI calculation where we correlate the s electrons as well with the following input
 ::
   .CLOSED
   0 0
@@ -201,7 +201,7 @@ Lastly, an important part of the input is the ``**ANALYZE`` module, where we spe
   .PRINT
   1
   
-The ``.PRIVEC`` specifies that we want to print the obtained spinors. **THIS IS REQUIRED FOR CONVERSION TO QMCPACK**, otherwise we cannot read the spinor coefficients. In the ``*PRIVEC``, we indiccate that we want to print the spinors (eigenvectors) in the atomic orbital basis (hence, the ``.AOLAB``). The ``.VECPRI`` tells us to print to the output file all of the spinors for each symmetry (gerade, then ungerade). The ``1..oo`` prints all the spinors in that symmetry channel. If we only want to print the first 10 for example, we could just write ``1..10``. The ``.MULPOP`` command is not required, but it is useful to see the mulliken population analysis of the spinors. 
+The ``.PRIVEC`` specifies that we want to print the obtained spinors. **THIS IS REQUIRED FOR CONVERSION TO QMCPACK**, otherwise we cannot read the spinor coefficients. In the ``*PRIVEC``, we indiccate that we want to print the spinors (eigenvectors) in the atomic orbital basis (hence, the ``.AOLAB``). The ``.VECPRI`` tells us to print to the output file all of the spinors for each symmetry (gerade, then ungerade). The ``1..oo`` prints all the spinors in that symmetry channel. If we only want to print the first 10 for example, we could just write ``1..10``. The ``.MULPOP`` command is not required, but it is useful to see the Mulliken population analysis of the spinors. 
 
 Running DIRAC and understanding the output
 ------------------------------------------
@@ -332,7 +332,7 @@ Similar to the spin-averaged case, we can look for the energy from the average-o
    Sum of all contributions to the energy
    Total energy                             :    -5.2221643043234707
    
-Notice that the total energy is different than the spin-averaged...the new spin-orbit contribution to the Hamiltonian lowers the energy. We can now look at the COSCI states
+Notice that the total averaged energy is different than the spin-averaged total energy; the new spin-orbit contribution to the Hamiltonian lowers the energy. We can now look at the COSCI states
 ::
     1     0.0000000000     -1.780162163308       -5.300947773703 (   4 * )
     2     0.0566920241     -1.723470139197       -5.244255749591 (   4 * )
@@ -451,9 +451,9 @@ All we need to do is run the converter on the DIRAC output file and it will gene
   Hamiltonian using ECP for Electron Ion=1
                                         
 
-This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneraciess described in the previous section. We can select whichever state we want to calculate with the ``-TargetState #`` flag. 
+This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneracies described in the previous section. We can select whichever state we want to calculate with the ``-TargetState #`` flag. 
 
-We are interested in calculating these states with QMC. First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy ofthe various wavefunctions, with no jastrow. This corresponds to the variational energy of the COSCI wavefunctions, and we are not adding any correlation via a jastrow at first. If the energies agree with what we calculated in DIRAC, then the converter was successful and we have good wave functions. 
+We are interested in calculating these states with QMC. First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy of the various wavefunctions, with no jastrow. This corresponds to the variational energy of the COSCI wavefunctions, and we are not adding any correlation via a jastrow at first. If the energies agree with what we calculated in DIRAC, then the converter was successful and we have good wave functions. 
 
 If we look at the 5 states in *Representation 1u*, we see the 5 distinct energies found from the COSCI calculation. 
 
@@ -496,7 +496,7 @@ After running the no-jastrow VMC for each of these, we should find something sim
 
 While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions (**note: these are not production quality settings. We are just checking to see if there are any obvious problems.**). 
 
-Now we are interested in calculating the same wavfunctions in VMC and DMC after optimization. The DMC should improve the relative energies between the states and have better agreement with the experimental splittings compared to the simple COSCI calculations. 
+Now we are interested in calculating the same wavefunctions in VMC and DMC after optimization. The DMC should improve the relative energies between the states and have better agreement with the experimental splittings compared to the simple COSCI calculations. 
 To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include jastrow optimization blocks and VMC/DMC calculations. For each state, we do
 ::
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 0 -prefix qmc_state_0
