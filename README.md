@@ -30,7 +30,9 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
  * Pseudopotentials: [Slides PDF #1](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week6_pseudopotentials/01_intro_ecps/week6_intro_ecps.pdf) [Slides PDF #2](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week6_pseudopotentials/02_ccECP_slides_runs/week6_ccECPs.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=xhjf3Nd--YM)
  * Observables: [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week6_observables/week6_observables.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=THYK9kqNry8)
 ## Week 7 / 16 November : Research Presentations
- * Speakers: [Prof. Claudia Filippi](https://www.utwente.nl/en/tnw/ccp/people/academic-staff/filippi/), [Prof. Can Ataca](https://physics.umbc.edu/people/faculty/ataca/), [Yueqing Chang](https://yueqingchang.github.io/). 
+ * Speakers: [Prof. Claudia Filippi](https://www.utwente.nl/en/tnw/ccp/people/academic-staff/filippi/), [Prof. Can Ataca](https://physics.umbc.edu/people/faculty/ataca/), [Yueqing Chang](https://yueqingchang.github.io/).
+ * [Recorded presentation on YouTube](https://www.youtube.com/watch?v=DtU70-_7-dU)
+ * [Ataca Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week7_research_talks/can_ataca_workshop_talk.pdf), [Chang Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week7_research_talks/yueqing_chang_workshop_talk.pdf) 
  ## Week 8 / 23 November : Spin-orbit Calculations. Workshop wrap-up and next steps
  * Speakers: Cody Melton and Paul Kent
  * Link to slides. Link to YouTube
