@@ -6,14 +6,14 @@ In this tutorial, we give an example of using DIRAC to calculate the
 spin-orbit splittings of the 6s\ :sup:`2`\ 6p\ :sup:`3` occupations of the Bi atom. 
 We can find the experimental splittings from the `NIST Atomic Spectra Database <https://physics.nist.gov/cgi-bin/ASD/energy1.pl?de=0&spectrum=Bi+I&submit=Retrieve+Data&units=1&format=0&output=0&page_size=15&multiplet_ordered=0&average_out=1&conf_out=on&term_out=on&level_out=on&unc_out=1&j_out=on&lande_out=on&perc_out=on&biblio=on&temp=>`_
 
-For the first few states on the NIST page, we notice there are a number of term symbols :sup:`2S+1`\ L\ :sub:`J` for the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. 
+For the first few states on the NIST page, we notice there are several term symbols :sup:`2S+1`\ L\ :sub:`J` for the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. 
 In the absence of spin-orbit coupling, the various J states averaged to give just :sup:`4`\ S, :sup:`2`\ D, and :sup:`2`\ P. In the presence of spin-orbit, the J states are split and we obtain the atomic states below.
 
 .. image:: figs/Bi_states.png
   :align: center
   :width: 60%
   
-**Note:** Unfortunately, Nexus doesn't currently interface to DIRAC so we have to do things the old fashioned way!
+**Note:** Unfortunately, Nexus doesn't currently interface to DIRAC so we must do things the old-fashioned way!
   
 .. contents::
 
@@ -22,11 +22,11 @@ Example 1: Spin-orbit averaged states of Bi with DIRAC
 
 To set up a DIRAC calculation, there are two input files needed, the ``*.inp`` file which specifies the type of calculation to be done, and the ``*.mol`` file which specifies the geometry, basis sets, effective core potentials (ECPs), etc.
 
-For a thorough decription of DIRAC input/output see `DIRAC <http://www.diracprogram.org/doc/release-21/>`_
+For a thorough description of DIRAC input/output see `DIRAC <http://www.diracprogram.org/doc/release-21/>`_
 
 *.mol file
 ----------
-Here we will breakdown the *.mol file step by step. A detailed desrciption of the *.mol file can be found `here <http://www.diracprogram.org/doc/release-21/molecule_and_basis/molecule_using_mol.html>`_   
+Here we will breakdown the *.mol file step by step. A detailed description of the *.mol file can be found `here <http://www.diracprogram.org/doc/release-21/molecule_and_basis/molecule_using_mol.html>`_   
 :: 
   INTGRL 
   Bi        
@@ -82,9 +82,9 @@ In this case, we are keeping things simple and only doing an atom at the origin.
   0.3164
   0.1188
 
-Under each atomic species type, we have to provide a basis set. The ``LARGE EXPLICIT  4    1    1    1    1`` tells us that we are specifying the basis for the large components of the spinors (note that for ECP calculations, we only have the large components. In all-electron calculations, DIRAC can automatically generate a basis set for the small components derived from the basis provided for the large components, so it is often sufficient to proivide only a LARGE basis). The ``EXPLICIT`` simply means that we are explicitly typing a basis. The ``4`` tells us that we will have 4 different angular momentum basis sets ``s,p,d,f`` in this case. The subsequent ``1`` means that we are writing one set of exponents and coefficients for each shell. 
+Under each atomic species type, we must provide a basis set. The ``LARGE EXPLICIT  4    1    1    1    1`` tells us that we are specifying the basis for the large components of the spinors (note that for ECP calculations, we only have the large components. In all-electron calculations, DIRAC can automatically generate a basis set for the small components derived from the basis provided for the large components, so it is often sufficient to provide only a LARGE basis). The ``EXPLICIT`` simply means that we are explicitly typing a basis. The ``4`` tells us that we will have 4 different angular momentum basis sets ``s,p,d,f`` in this case. The subsequent ``1`` means that we are writing one set of exponents and coefficients for each shell. 
 
-For each individual angular momentum basis, the expansion starts as ``f   N  0`` and tells us the number of exponents to read, and the 0 means that we will be using an uncontracted basis. For an uncontracted basis, we do not need the coefficients. These can be provided as additional columns if desired (see the *.mol link above to see an example of input for a conntracted basis or using the internal basis set library provided with DIRAC). 
+For each individual angular momentum basis, the expansion starts as ``f   N  0`` and tells us the number of exponents to read, and the 0 means that we will be using an uncontracted basis. For an uncontracted basis, we do not need the coefficients. These can be provided as additional columns if desired (see the *.mol link above to see an example of input for a contracted basis or using the internal basis set library provided with DIRAC). 
 
 Lastly, for each atomic species we need to provide an ECP specification. A detailed description of the input can be found `here <http://www.diracprogram.org/doc/release-21/molecule_and_basis/molecule_with_ecp.html>`_ 
 ::
@@ -109,10 +109,10 @@ Lastly, for each atomic species we need to provide an ECP specification. A detai
   2  0.959907  -3.373825
   FINISH
  
-Here ``ECP 78 5 0`` indicates that this ECP removes 78 core electrons, and has 5 channels (1 local and 4 nonlocal) and 0 spin-orbit channels. For spin-averaged calculations, we do not include the spin-orbit terms (we will add them in the next example). You provide the local channel first, then each subsequent channel in order of increasing angular momentum (i.e. local, s, p, d, f in this case). For each channel, we specify the number of radial gaussian and then the gaussian parameters (n, a, c) where the radial gaussian is of the form c*r\ :sup:`n-2`\ *exp(-a*r\ :sup:`2`\ ). 
+Here ``ECP 78 5 0`` indicates that this ECP removes 78 core electrons and has 5 channels (1 local and 4 nonlocal) and 0 spin-orbit channels. For spin-averaged calculations, we do not include the spin-orbit terms (we will add them in the next example). You provide the local channel first, then each subsequent channel in order of increasing angular momentum (i.e., local, s, p, d, f in this case). For each channel, we specify the number of radial gaussian and then the gaussian parameters (n, a, c) where the radial gaussian is of the form c*r\ :sup:`n-2`\ *exp(-a*r\ :sup:`2`\ ). 
 Lastly, after specifying all the basis sets and ECPs for the various atoms, we must conclude the file with ``FINISH``.
 
-For this example, I am using a Stuttgart ECP (can be found `here <http://www.tc.uni-koeln.de/PP/clickpse.en.html>`_) and the corresponding basis set (uncontracted). Note that for Stuttgart ECPs, the potentials are divergent. I have modified the local channel myself to *smooth* the potential which helps with the efficiency of the subsesquent QMC. I will not be covering how to smooth a potential without changing its properties. If you need help with obtaining pseudopotentials, please reach out to the QMCPACK developers.
+For this example, I am using a Stuttgart ECP (can be found `here <http://www.tc.uni-koeln.de/PP/clickpse.en.html>`_) and the corresponding basis set (uncontracted). Note that for Stuttgart ECPs, the potentials are divergent. I have modified the local channel myself to *smooth* the potential which helps with the efficiency of the subsequent QMC. I will not be covering how to smooth a potential without changing its properties. If you need help with obtaining pseudopotentials, please reach out to the QMCPACK developers.
 
 *.inp file
 ----------
@@ -145,19 +145,19 @@ The actual calculation is specified by the ``**WAVE FUNCTION`` module
   .EVCCNV
   1.0d-05
   
-We specifiy that we want to do an SCF calulation, which will perform an *average of configurations* SCF calculation
+We specify that we want to do an SCF calculation, which will perform an *average of configurations* SCF calculation
 
 .. image:: figs/aoc.png
   :align: center
   :width: 25%
   
-which will set up all the possible determinants for the open-shell occupations specified (more on this later). The SCF procedure finds the spinors which minimizes this energy. The individiual states can be obtained by the ``.RESOLVE`` keyword, which diagonalizes the states in the determinant basis, which will result in small CI expansions for the various states.
+which will set up all the possible determinants for the open-shell occupations specified (more on this later). The SCF procedure finds the spinors which minimizes this energy. The individual states can be obtained by the ``.RESOLVE`` keyword, which diagonalizes the states in the determinant basis, which will result in small CI expansions for the various states.
 
 .. image:: figs/ci.png
   :align: center
   :width: 15%
   
-In the ``*SCF`` section, we need to actually specify the occupations. As mentioned above, for Bi we have the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. In DIRAC, we have to specify the occupations by the symmetry of the spinors (gerade/even or ungerade/odd). Note that s,d,g, etc are all gerade and p,f,h, etc are all ungerade symmetry. We want to specify the 6s\ :sup:`2` as closed, so we will have 2 electrons closed in the gerade channel and 0 closed in the ungerade channel, hence
+In the ``*SCF`` section, we need to specify the occupations. As mentioned above, for Bi we have the 6s\ :sup:`2`\ 6p\ :sup:`3` occupation. In DIRAC, we must specify the occupations by the symmetry of the spinors (gerade/even or ungerade/odd). Note that s,d,g, etc. are all gerade and p,f,h, etc. are all ungerade symmetry. We want to specify the 6s\ :sup:`2` as closed, so we will have 2 electrons closed in the gerade channel and 0 closed in the ungerade channel, hence
 ::
   .CLOSED
   2 0
@@ -169,7 +169,7 @@ Therefore, we specify
   1
   3/0,6
   
-We only have one active space in this case, however we could increase this and add multiple occupation lines. Additionally, we could do a larger scale COSCI calculation where we correlate the s electrons as well with the following input
+We only have one active space in this case; however, we could increase this and add multiple occupation lines. Additionally, we could do a larger scale COSCI calculation where we correlate the s electrons as well with the following input
 ::
   .CLOSED
   0 0
@@ -179,7 +179,7 @@ We only have one active space in this case, however we could increase this and a
   
 For simplicity, we will work with the first input. 
 
-Note that since we have 6 possible spinors for the p elecrons, and we only occupy with 3 electrons, we will have 6choose3 = 20 possible determinants/COSCI states after calling ``.RESOLVE``
+Note that since we have 6 possible spinors for the p electrons, and we only occupy with 3 electrons, we will have 6choose3 = 20 possible determinants/COSCI states after calling ``.RESOLVE``
 
 Lastly, an important part of the input is the ``**ANALYZE`` module, where we specify some additional printing to the output file. Some of this is **required** for conversion to QMCPACK.
 ::
@@ -201,7 +201,7 @@ Lastly, an important part of the input is the ``**ANALYZE`` module, where we spe
   .PRINT
   1
   
-The ``.PRIVEC`` specifies that we want to print the obtained spinors. **THIS IS REQUIRED FOR CONVERSION TO QMCPACK**, otherwise we cannot read the spinor coefficients. In the ``*PRIVEC``, we indiccate that we want to print the spinors (eigenvectors) in the atomic orbital basis (hence, the ``.AOLAB``). The ``.VECPRI`` tells us to print to the output file all of the spinors for each symmetry (gerade, then ungerade). The ``1..oo`` prints all the spinors in that symmetry channel. If we only want to print the first 10 for example, we could just write ``1..10``. The ``.MULPOP`` command is not required, but it is useful to see the Mulliken population analysis of the spinors. 
+The ``.PRIVEC`` specifies that we want to print the obtained spinors. **THIS IS REQUIRED FOR CONVERSION TO QMCPACK**, otherwise we cannot read the spinor coefficients. In the ``*PRIVEC``, we indicate that we want to print the spinors (eigenvectors) in the atomic orbital basis (hence, the ``.AOLAB``). The ``.VECPRI`` tells us to print to the output file all the spinors for each symmetry (gerade, then ungerade). The ``1..oo`` prints all the spinors in that symmetry channel. If we only want to print the first 10 for example, we could just write ``1..10``. The ``.MULPOP`` command is not required, but it is useful to see the Mulliken population analysis of the spinors. 
 
 Running DIRAC and understanding the output
 ------------------------------------------
@@ -227,7 +227,7 @@ To see the results of the average of configurations calculations, we can look fo
 
 The energy of *E* = -5.21412 Ha, this is the energy obtained from the E\ :sub:`AOC` expression above.
 
-In order to connvert to QMCPACK, we need to make sure the eigenvectors (spinors) were actually printed. 
+In order to convert to QMCPACK, we need to make sure the eigenvectors (spinors) were printed. 
 ::
     **************************************************************************
     ****************************** Vector print ******************************
@@ -256,7 +256,7 @@ In order to connvert to QMCPACK, we need to make sure the eigenvectors (spinors)
        
 The columns correspond to the real and imaginary parts of the up and down components of the total spinor. The qmcpack converter understands how to handle this. 
 
-Next we want to check if the open-shell states are resolved into the various small CI expansions (COSCI calculation)
+Next, we want to check if the open-shell states are resolved into the various small CI expansions (COSCI calculation)
 ::
     *************************************************************************
     ******************** Resolution of open-shell states ********************
@@ -272,9 +272,9 @@ Assuming we find this, we can search for the results.
     2     0.0570123148     -1.693387721973       -5.214120711214 (  10 * )
     3     0.0950205246     -1.655379512127       -5.176112501368 (   6 * )
 
-First thing to note, the individually resolved energies all average to the SCF energy we found above, i.e.  ``(1/20  * (4 * -5.271133 + 10 * -5.214120 + 6 * -5.176112)) = -5.214120 Ha``. Next we can identify the states as the states shown in the first image. From the experimental spetrum, we only have the :sup:`4`\ S\ :sub:`3/2` state which *isn't* j-averaged, so the degeneracy of this state is 4. Note there are both :sup:`2`\ D\ :sub:`3/2` and :sup:`2`\ D\ :sub:`5/2` states which get averaged in the absence of spin-orbit, so there are 4+6=10 total degenerate states. Lastly, the :sup:`2`\ P\ :sub:`3/2` and :sup:`2`\ P\ :sub:`1/2` states, which get averaged in the absence of spin-orbit, so there are 4+2 = 6 total states. Therefore, we have reproduced the ordering of the j-averaged experimental spectrum when we neglect SOC. We also note the splittings of 0.057012 Ha and 0.095020 Ha correspond to 1.55137 eV and 2.585625 eV respetively. Compared to the experimental j-averaged spectrum, we have errors of roughly 0.163 eV and 1.050 eV respectively. 
+First thing to note, the individually resolved energies all average to the SCF energy we found above, i.e.  ``(1/20  * (4 * -5.271133 + 10 * -5.214120 + 6 * -5.176112)) = -5.214120 Ha``. Next, we can identify the states as the states shown in the first image. From the experimental spectrum, we only have the :sup:`4`\ S\ :sub:`3/2` state which *isn't* j-averaged, so the degeneracy of this state is 4. Note there are both :sup:`2`\ D\ :sub:`3/2` and :sup:`2`\ D\ :sub:`5/2` states which get averaged in the absence of spin-orbit, so there are 4+6=10 total degenerate states. Lastly, the :sup:`2`\ P\ :sub:`3/2` and :sup:`2`\ P\ :sub:`1/2` states, which get averaged in the absence of spin-orbit, so there are 4+2 = 6 total states. Therefore, we have reproduced the ordering of the j-averaged experimental spectrum when we neglect SOC. We also note the splittings of 0.057012 Ha and 0.095020 Ha correspond to 1.55137 eV and 2.585625 eV respectively. Compared to the experimental j-averaged spectrum, we have errors of roughly 0.163 eV and 1.050 eV respectively. 
 
-This simple COSCI treatment can be signifiantly improved with QMC for the j-averaged states. However, we will now focus on the SOC calculations and perform QMC calcualtions on the SOC calculations. 
+This simple COSCI treatment can be significantly improved with QMC for the j-averaged states. However, we will now focus on the SOC calculations and perform QMC calculations on the SOC calculations. 
 
 
 Example 2: Spin-Orbit split states of Bi with DIRAC and QMCPACK
@@ -283,7 +283,7 @@ In this example, we now include SOC and will perform the necessary QMC calculati
 
 SCF calculation
 ---------------
-Conviently, the only necessary change to include spin-orbit is to include the actual spin-orbit terms in the ECP. 
+Conveniently, the only necessary change to include spin-orbit is to include the actual spin-orbit terms in the ECP. 
 ::
   ECP 78 5 3
   3
@@ -317,9 +317,9 @@ Conviently, the only necessary change to include spin-orbit is to include the ac
   2  0.959907  -1.686912
   FINISH
 
-In the ``ECP`` line, the last number corresponds to the number of spin-orbit angular momentum channels, starting from l=1 or p. This is because spin-orbit doesn't apply to s states, (note SOC goes as l.s, and for l=0 states the contribution is zero). So in this case, we have 3 SOC channels for p, d, and f. 
+In the ``ECP`` line, the last number corresponds to the number of spin-orbit angular momentum channels, starting from l=1 or p. This is because spin-orbit doesn't apply to s states, (note SOC goes as l.s, and for l=0 states the contribution is zero). In this case, we have 3 SOC channels for p, d, and f. 
 
-Similar to the spin-averaged case, we can look for the energy from the average-of-configurations calculation. 
+Like the spin-averaged case, we can look for the energy from the average-of-configurations calculation. 
 ::
                                    TOTAL ENERGY
                                    ------------
@@ -340,14 +340,14 @@ Notice that the total averaged energy is different than the spin-averaged total 
     4     0.1142162781     -1.665945885253       -5.186731495648 (   2 * )
     5     0.1627542231     -1.617407940163       -5.138193550557 (   4 * )
     
-Note that the total energies of the invidual states average to give the average of configurations energy, e.g. ``1/20*(4*(-5.3009) + 4(*-5.2442) + 6*(-5.2227) + 2*(-5.1867) + 4*(-5.1381)) = -5.22216 Ha``. Also, now the states are in the same order as the experimental spectrum show at the top of this page, namely :sup:`4`\ S\ :sub:`3/2` is the ground state, followed by :sup:`2`\ D\ :sub:`3/2`\ , :sup:`2`\ D\ :sub:`5/2`\ , :sup:`2`\ P\ :sub:`1/2`\ , :sup:`2`\ P\ :sub:`3/2`.
+Note that the total energies of the individual states average to give the average of configurations energy, e.g., ``1/20*(4*(-5.3009) + 4(*-5.2442) + 6*(-5.2227) + 2*(-5.1867) + 4*(-5.1381)) = -5.22216 Ha``. Also, now the states are in the same order as the experimental spectrum show at the top of this page, namely :sup:`4`\ S\ :sub:`3/2` is the ground state, followed by :sup:`2`\ D\ :sub:`3/2`\ , :sup:`2`\ D\ :sub:`5/2`\ , :sup:`2`\ P\ :sub:`1/2`\ , :sup:`2`\ P\ :sub:`3/2`.
 
-At the COSCI level of theory, the energy differences come out to 1.54266, 2.12904, 3.1079, and 4.428761 eV, which corresponds to roughly  -0.1266, -0.2150, -0.4219 and -0.31676 eV respectively. Now, lets see if we can improve the agreement with experiment by using the COSCI wave functions as trial wave functions in QMCPACK
+At the COSCI level of theory, the energy differences come out to 1.54266, 2.12904, 3.1079, and 4.428761 eV, which corresponds to roughly  -0.1266, -0.2150, -0.4219 and -0.31676 eV respectively. Now, let's see if we can improve the agreement with experiment by using the COSCI wave functions as trial wave functions in QMCPACK
 
 Conversion to QMCPCACK using convert4qmc
 ----------------------------------------
 
-Here we are going to discuss converting the DIRAC output into a QMCPACK hdf5 format and xml input files. Note that to run with spin-orbit, the pseudopotential file must include spin-orbit terms. In order to obtain a QMCPACK pesudopotential file with SOC terms, please contact the developers. 
+Here we are going to discuss converting the DIRAC output into a QMCPACK hdf5 format and xml input files. Note that to run with spin-orbit, the pseudopotential file must include spin-orbit terms. In order to obtain a QMCPACK pseudopotential file with SOC terms, please contact the developers. 
 
 To generate the hdf5 and QMCPACK input files, this can be accomplished using the ``convert4qmc`` executable. Running ``convert4qmc`` without any arguments provides the options for the code. 
 ::
@@ -453,7 +453,7 @@ All we need to do is run the converter on the DIRAC output file and it will gene
 
 This will create a wave function for the first state it encounters. Notice DIRAC has CI expansions for all 20 states and the degeneracies described in the previous section. We can select whichever state we want to calculate with the ``-TargetState #`` flag. 
 
-We are interested in calculating these states with QMC. First we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy of the various wavefunctions, with no jastrow. This corresponds to the variational energy of the COSCI wavefunctions, and we are not adding any correlation via a jastrow at first. If the energies agree with what we calculated in DIRAC, then the converter was successful and we have good wave functions. 
+We are interested in calculating these states with QMC. First, we will check that the converter worked correctly, and try to reproduce the COSCI energies in QMCPACK. To do this, we will simply calculate the VMC energy of the various wavefunctions, with no Jastrow. This corresponds to the variational energy of the COSCI wavefunctions, and we are not adding any correlation via a Jastrow at first. If the energies agree with what we calculated in DIRAC, then the converter was successful, and we have good wave functions. 
 
 If we look at the 5 states in *Representation 1u*, we see the 5 distinct energies found from the COSCI calculation. 
 
@@ -483,7 +483,7 @@ The states we are running correspond to the COSCI energies
       3 -5.186731500000e+00 2
       4 -5.138193550000e+00 5
       
-After running the no-jastrow VMC for each of these, we should find something similar to the energies here:
+After running the no-jastrow VMC for each of these, we should find something comparable to the energies here:
 ::
   |-> qmca -q ev state*.s000.scalar.dat
                             LocalEnergy               Variance           ratio 
@@ -494,10 +494,10 @@ After running the no-jastrow VMC for each of these, we should find something sim
   state_4  series 0  -5.139926 +/- 0.002713   0.281456 +/- 0.013977   0.0548 
 
 
-While these are relatively short calculations, we obtain the same energies (within statistical errorbars) to the underlying COCSI calcultions (**note: these are not production quality settings. We are just checking to see if there are any obvious problems.**). 
+While these are relatively short calculations, we obtain the same energies (within statistical error bars) to the underlying COCSI calculations (**note: these are not production quality settings. We are just checking to see if there are any obvious problems.**). 
 
 Now we are interested in calculating the same wavefunctions in VMC and DMC after optimization. The DMC should improve the relative energies between the states and have better agreement with the experimental splittings compared to the simple COSCI calculations. 
-To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include jastrow optimization blocks and VMC/DMC calculations. For each state, we do
+To see how QMC can improve these, we can use ``convert4qmc`` to generate new input files that include Jastrow optimization blocks and VMC/DMC calculations. For each state, we do
 ::
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 0 -prefix qmc_state_0
   |-> mpirun -np N qmcpack-complex qmc_state_0.qmc.in-wfj.xml | tee qmc_state_0.qmc.in-wfj.out
@@ -514,7 +514,7 @@ To see how QMC can improve these, we can use ``convert4qmc`` to generate new inp
   |-> convert4qmc -dirac cosci_dirac.out -TargetState 4 -prefix qmc_state_4
   |-> mpirun -np N qmcpack-complex qmc_state_4.qmc.in-wfj.xml | tee qmc_state_4.qmc.in-wfj.out
  
-The inputs from convert4qmc without the "nojastrow" flag will generate an input file that performs an initial VMC, then an initial set of jastrow optimizations with a small number of samples followed up with more optimization loops with more samples. 
+The inputs from convert4qmc without the "nojastrow" flag will generate an input file that performs an initial VMC, then an initial set of Jastrow optimizations with a small number of samples followed up with more optimization loops with more samples. 
 After the wave function optimizations, it performs another VMC calculation to distribute the walkers according to the trial wave function and finishes with a DMC calculation. 
 To make these calculations a bit faster, I modify by hand the number of samples in the optimization and the total number of optimization loops (**note: these parameters are not production quality, but just sufficient to demonstrate how the optimization/VMC/DMC improves the results from COCSI. To get reliable energetics, please run with production settings**) and will only compare the energies from state 0 (corresponding to one of the 4 :sup:`4`\ S\ :sub:`3/2` degenerate states) and state 4 (corresponding to one of the 4 :sup:`2`\ P\ :sub:`3/2` degenerate states)
 
@@ -554,9 +554,9 @@ After running qmcpack on both states, you can use qmca to get the energies from 
     TotalTime             =          71103.41 +/-             0.00 
     TotalSamples          =          21058710 +/-                0
 
-From this, we can calulate the DMC energy difference between the :sup:`4`\ S\ :sub:`3/2` and :sup:`2`\ P\ :sub:`3/2` state as 3.99 +/- 0.05 eV, whereas the COSCI gave 4.428 eV and experiment is 4.112 eV. 
+From this, we can calculate the DMC energy difference between the :sup:`4`\ S\ :sub:`3/2` and :sup:`2`\ P\ :sub:`3/2` state as 3.99 +/- 0.05 eV, whereas the COSCI gave 4.428 eV and experiment is 4.112 eV. 
 Clearly, our DMC with spin-orbit is closer to experiment than the COSCI results which is expected since DMC is a more accurate method. 
 
-The DMC results are not using production level settings and were kept modest for demonstration purposes, so the results can be improved by using better optimizations, more walkers, etc. However, it is important to also remember that the DMC accuracy is also dependent on the quality of the pseudopotential and the trial wave function. We can construct better trial wave functions with larger CI, orbital optimization, etc which should also improve agreement with experiment. However, the overall quality will be limited by the accuracy of the pseudopotential, and better agreement with experiment may only be obtained by using new correlated ECPs or using a smaller core pseudopotential. 
+The DMC results are not using production level settings and were kept modest for demonstration purposes, so the results can be improved by using better optimizations, more walkers, etc. However, it is important to also remember that the DMC accuracy is also dependent on the quality of the pseudopotential and the trial wave function. We can construct better trial wave functions with larger CI, orbital optimization, etc. which should also improve agreement with experiment. However, the overall quality will be limited by the accuracy of the pseudopotential, and better agreement with experiment may only be obtained by using new correlated ECPs or using a smaller core pseudopotential. 
 
 Nonetheless, these examples have demonstrated how to do some initial spin-orbit calculations with QMCPACK using some standard trial wave functions. These examples can be generalized to molecular systems where the workflow is similar. Please feel free to reach out to the QMCPACK developers if you have any questions.
