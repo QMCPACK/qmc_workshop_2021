@@ -35,5 +35,5 @@ Presentations will be uploaded to YouTube throughout the workshop and linked her
  * [Ataca Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week7_research_talks/can_ataca_workshop_talk.pdf), [Chang Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week7_research_talks/yueqing_chang_workshop_talk.pdf) 
  ## Week 8 / 23 November : Spin-orbit Calculations. Workshop wrap-up and next steps
  * Speakers: Cody Melton and Paul Kent
- * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week8_spin-orbit_qmc/week8_spin-orbit.pdf), [Wrap Up Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week8_wrap_up/week8_wrap_up.pdf). [Recorded presentation on YouTube](https://https://www.youtube.com/watch?v=R8hLgcKBSjM)
+ * [Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week8_spin-orbit_qmc/week8_spin-orbit.pdf), [Wrap Up Slides PDF](https://github.com/QMCPACK/qmc_workshop_2021/blob/master/week8_wrap_up/week8_wrap_up.pdf). [Recorded presentation on YouTube](https://www.youtube.com/watch?v=R8hLgcKBSjM)
 
