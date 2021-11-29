@@ -335,6 +335,9 @@ if [ ! -e DIRAC-21.1-Source.tar.gz ]; then
 fi
 tar xvf DIRAC-21.1-Source.tar.gz
 cd DIRAC-21.1-Source
+#Avoid overflow ***s in wavefunction output
+sed -ibak -e 's/100  FORMAT(3X,I5,2X,A12,2X,4F14.10)/100  FORMAT(3X,I5,2X,A12,2X,4F20.10)/g' src/dirac/dirout.F
+diff src/dirac/dirout.F src/dirac/dirout.Fbak
 ./setup --prefix=$HOME/apps/dirac
 cd build
 make -j 4
