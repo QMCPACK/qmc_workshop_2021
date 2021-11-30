@@ -52,6 +52,14 @@ INSTALL_VESTA=1
 SETUP_DESKTOP=1
 UPDATE_WORKSHOP_FILES=1
 
+if [[ `lscpu` == *"aarch"* ]]; then
+    echo "Running on an ARM system"
+    if [ $INSTALL_VESTA -eq 1 ]; then
+	INSTALL_VESTA=0
+	echo "Disabling installation of x86  binary VESTA"
+    fi
+fi
+
 #
 # Package updates and installation
 #
