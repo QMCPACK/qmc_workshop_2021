@@ -1,6 +1,6 @@
 # How to use the QMC Workshop Image
 
-* Install the latest version of VirtualBox (free), v6.1.26 when this file was updated. https://www.virtualbox.org/ 
+* Install the latest version of VirtualBox (free), v6.1.30 when this file was updated. https://www.virtualbox.org/ 
 * Download the workshop image file using the link provided by us. The file is 5GB in size, so will take several minutes to download even on the fastest networks, and potentially several hours. Be patient and try again at a different time or using a different network if initially unsuccessful.
 * Run VirtualBox and import the image to setup the workshop virtual machine:
  * In VirtualBox, select the menu File->Import Appliance. Import the QMCWorkshopImage.ova that was just downloaded.
