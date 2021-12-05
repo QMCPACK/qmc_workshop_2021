@@ -30,8 +30,8 @@ provided and can be used as inspiration for a direct installation.
 We provide a virtual machine for UTM, an open source virtualization and
 emulation package. Ubuntu Linux for ARM is virtualized and runs at close to full
 speed on the m1. The beta daily release of Ubuntu 22 is used for compatibility
-and performance. UTM its support for m1 are less mature than longer established
-software such as BirtualBox, so if any difficulties are found, do check for more
+and performance. UTM and its support for the m1 are less mature than for longer established
+x86 software such as VirtualBox, so if any difficulties are found, do check for more
 recent software versions.
 
 * Install the latest version of UTM for mac (free, open source) from https://mac.getutm.app . You
