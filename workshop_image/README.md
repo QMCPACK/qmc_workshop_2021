@@ -10,7 +10,7 @@ provided and can be used as inspiration for a direct installation.
 
 * Install the latest version of VirtualBox (free, no cost) from
   https://www.virtualbox.org/  . We used v6.1.30 to make the image. 
-* Download the workshop image file from https://bit/ly/qmcworkshopimage . The
+* Download the workshop image file from https://bit.ly/qmcworkshopimage . The
   file is nearly 6GB in size, so will take several minutes to download even on
   the fastest networks, and potentially several hours. Be patient and try again
   at a different time or using a different network if initially unsuccessful.
